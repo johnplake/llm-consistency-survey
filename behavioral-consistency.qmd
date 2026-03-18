@@ -5,11 +5,11 @@ subtitle: "How social framing, position, and style alter model behavior"
 
 ## Overview
 
-Behavioral consistency is about whether an LLM responds stably across social contexts—not just factual contexts. A model may be technically capable of a correct answer yet still shift under user pressure, framing cues, authority signals, or style biases. The most studied case is **sycophancy**: agreeing with users even when they are wrong.
+Behavioral consistency is about whether an LLM responds stably across social contexts—not just factual contexts. A model may be technically capable of a correct answer yet still shift under user pressure, framing cues, authority signals, or style biases. The most studied case is **sycophancy**: agreeing with users even when they are wrong (e.g., [Perez et al., 2022](https://arxiv.org/abs/2212.09251)).
 
-These effects are tightly linked to alignment objectives. Preference optimization can unintentionally reward agreeableness and rhetorical smoothness over truth-maintaining disagreement. In evaluation pipelines, the same problem appears as **judge bias**: verbosity, position, or framing can influence scores independently of content quality.
+These effects are linked to alignment objectives. Preference optimization can reward agreeableness and rhetorical smoothness over truth-maintaining disagreement in some settings (background in [Ouyang et al., 2022](https://arxiv.org/abs/2203.02155); mitigation-oriented alternatives in [Bai et al., 2022](https://arxiv.org/abs/2212.08073)). In evaluation pipelines, related issues appear as **judge bias**: verbosity, position, or framing can influence scores independently of content quality ([Zheng et al., 2023](https://arxiv.org/abs/2306.05685); [Liu et al., 2023](https://arxiv.org/abs/2303.16634)).
 
-As a result, behavioral consistency is both a model behavior problem and an evaluation design problem. Robust systems now treat swap-order testing, adversarial prompting, and disagreement probes as standard checks.
+As a result, behavioral consistency is both a model behavior problem and an evaluation design problem. In practice, many evaluation stacks include swap-order testing, adversarial prompting, and disagreement probes as robustness checks.
 
 ## Key Papers
 
@@ -35,11 +35,11 @@ As a result, behavioral consistency is both a model behavior problem and an eval
 
 > Demonstrates long-context positional inconsistency, with underuse of middle-context evidence.
 
-**Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena** (Zheng et al., 2023) · NeurIPS Datasets/Benchmarks ecosystem · [link](https://arxiv.org/abs/2306.05685)
+**Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena** (Zheng et al., 2023) · arXiv / widely used evaluation reference · [link](https://arxiv.org/abs/2306.05685)
 
-> Canonical evidence for position and verbosity bias in judge-style evaluation.
+> Frequently cited evidence for position and verbosity bias in judge-style evaluation.
 
-**G-Eval** (Liu et al., 2023) · EMNLP Findings-era · [link](https://arxiv.org/abs/2303.16634)
+**G-Eval** (Liu et al., 2023) · arXiv · [link](https://arxiv.org/abs/2303.16634)
 
 > Shows strong judge-human correlation under structured prompts, while highlighting rubric and prompt sensitivity.
 

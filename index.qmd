@@ -7,7 +7,7 @@ date: last-modified
 
 ## What Is This Survey About?
 
-Large language models (LLMs) exhibit a troubling pattern: ask the same question twice and you may get different answers. Rephrase the question slightly and the answer changes. Push back on a response and the model capitulates. Provide misleading context and the model abandons what it "knows." These are all manifestations of **LLM inconsistency**.
+Large language models (LLMs) exhibit a troubling pattern: ask the same question twice and you may get different answers. Rephrase the question slightly and the answer changes [@lu2022orderedprompts; @sclar2023spurious]. Push back on a response and the model may shift its answer to match user cues [@perez2022modelwritten]. Provide misleading context and the model can abandon prior claims. These are all manifestations of **LLM inconsistency**.
 
 This survey maps the landscape of LLM consistency issues comprehensively — covering academic papers, preprints, blog posts, and practical resources. The goal is to provide both an **overview** and a **navigable map**: a guide for researchers, practitioners, and curious minds trying to understand this fragmented problem space.
 
@@ -21,11 +21,11 @@ This survey covers consistency, reliability, robustness, and self-contradiction 
 
 Inconsistency is not just an academic curiosity. It affects:
 
-- **Scientific reproducibility**: Research using LLMs may not replicate even with the same prompts
-- **Deployed applications**: Chatbots, coding assistants, and decision-support tools give different answers on different runs
-- **Trust calibration**: Users cannot know when to trust a model's output
-- **Evaluation validity**: Benchmarks may measure prompt sensitivity rather than capability
-- **Safety and alignment**: Inconsistent models are harder to audit and align
+- **Scientific reproducibility**: Research using LLMs can be sensitive to prompt phrasing and setup details, making exact replication harder [@lu2022orderedprompts; @liang2022helm]
+- **Deployed applications**: Chatbots and assistants can produce materially different outputs across runs or prompt variants [@zhu2023promptbench; @sclar2023spurious]
+- **Trust calibration**: Users may struggle to calibrate trust when confidence and correctness are weakly coupled [@kadavath2022know; @xiong2023express]
+- **Evaluation validity**: Benchmark scores can partly reflect prompt/template sensitivity rather than underlying capability [@lu2022orderedprompts; @liang2022helm]
+- **Safety and alignment**: Inconsistent behavior complicates auditing and reliability efforts in aligned assistants [@ouyang2022instructgpt; @bai2022constitutional]
 
 ## Taxonomy Overview
 

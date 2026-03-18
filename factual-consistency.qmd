@@ -7,16 +7,16 @@ subtitle: "When fluent text diverges from truth and evidence"
 
 Factual consistency asks a basic but difficult question: when a model makes a claim, is that claim supported by reliable evidence? In modern LLM systems, failures are often *not* obvious nonsense. They are polished, plausible, and confidently delivered statements that may conflict with source documents, world facts, or both. This makes hallucination a reliability problem, not just a generation-quality problem.
 
-A useful distinction in the literature is between **intrinsic hallucination** (contradicting provided context) and **extrinsic hallucination** (introducing unsupported claims). This split matters operationally: intrinsic failures are often diagnosable with source-grounded checks, while extrinsic failures need retrieval, citation, or explicit uncertainty handling.
+A useful distinction in the literature is between **intrinsic hallucination** (contradicting provided context) and **extrinsic hallucination** (introducing unsupported claims), as discussed in survey work such as Ji et al. (2023) · [link](https://arxiv.org/abs/2202.03629). This split matters operationally: intrinsic failures are often diagnosable with source-grounded checks, while extrinsic failures often need retrieval, citation, or explicit uncertainty handling.
 
-The field has moved from coarse overlap metrics toward claim-level and evidence-aware evaluation (e.g., QA-based checks, atomic fact scoring, citation grounding). In practice, the strongest mitigation stacks combine retrieval, verification, and selective abstention rather than relying on one silver bullet.
+The field has moved from coarse overlap metrics toward claim-level and evidence-aware evaluation (e.g., QA-based checks, atomic fact scoring, citation grounding). In practice, robust mitigation stacks often combine retrieval, verification, and selective abstention rather than relying on one silver bullet.
 
 ## Key Papers
 
 ### Faithfulness in Summarization and NLG
 **On Faithfulness and Factuality in Abstractive Summarization** (Maynez et al., 2020) · ACL · [link](https://aclanthology.org/2020.acl-main.173/)
 
-> A foundational paper showing that strong abstractive summarizers can be fluent yet factually inconsistent. It helped separate stylistic quality from factual faithfulness as distinct evaluation targets.
+> An early influential paper showing that strong abstractive summarizers can be fluent yet factually inconsistent. It helped separate stylistic quality from factual faithfulness as distinct evaluation targets.
 
 **Evaluating the Factual Consistency of Abstractive Text Summarization (FactCC)** (Kryściński et al., 2020) · EMNLP · [link](https://aclanthology.org/2020.emnlp-main.750/)
 
@@ -24,7 +24,7 @@ The field has moved from coarse overlap metrics toward claim-level and evidence-
 
 **FEQA: A Question Answering Evaluation Framework for Faithfulness Assessment in Abstractive Summarization** (Durmus, He, Diab, 2020) · ACL · [link](https://aclanthology.org/2020.acl-main.454/)
 
-> Proposed QA-based factuality scoring, moving evaluation from lexical overlap to claim verification. This heavily influenced later factuality metrics.
+> Proposed QA-based factuality scoring, moving evaluation from lexical overlap to claim verification. This informed many later factuality metrics.
 
 ### Truthfulness and Hallucination in LLMs
 **TruthfulQA: Measuring How Models Mimic Human Falsehoods** (Lin, Hilton, Evans, 2022) · ACL · [link](https://aclanthology.org/2022.acl-long.229/)
@@ -42,7 +42,7 @@ The field has moved from coarse overlap metrics toward claim-level and evidence-
 ### Grounding and Mitigation Architectures
 **RAG: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks** (Lewis et al., 2020) · NeurIPS · [link](https://arxiv.org/abs/2005.11401)
 
-> The canonical generate-with-retrieval architecture that anchors responses to external evidence. It remains the backbone of many production anti-hallucination systems.
+> A widely adopted generate-with-retrieval architecture that anchors responses to external evidence. It remains a backbone of many production anti-hallucination systems.
 
 **Chain-of-Verification Reduces Hallucination in Large Language Models** (Dhuliawala et al., 2023) · arXiv · [link](https://arxiv.org/abs/2309.11495)
 
@@ -62,7 +62,7 @@ The field has moved from coarse overlap metrics toward claim-level and evidence-
 
 > Large-scale benchmark for hallucination behavior in QA/dialog settings.
 
-**ALCE: Enabling and Evaluating LLMs with Automatic Citations** (Gao et al., 2023) · venue unconfirmed · [link](https://arxiv.org/abs/2305.14627)
+**ALCE: Enabling and Evaluating LLMs with Automatic Citations** (Gao et al., 2023) · arXiv preprint · [link](https://arxiv.org/abs/2305.14627)
 
 > Pushes factual evaluation toward explicit evidence attribution with citation-aware protocols.
 

@@ -5,11 +5,11 @@ subtitle: "When final answers and reasoning traces diverge"
 
 ## Overview
 
-Reasoning consistency asks whether an LLM’s multi-step reasoning is stable, valid, and faithful—not just whether it occasionally lands on the right final answer. A recurring finding is **process-outcome mismatch**: models can produce correct answers with weak rationales, and persuasive rationales with incorrect conclusions.
+Reasoning consistency asks whether an LLM’s multi-step reasoning is stable, valid, and faithful—not just whether it occasionally lands on the right final answer. A recurring finding is **process-outcome mismatch**: models can produce correct answers with weak rationales, and persuasive rationales with incorrect conclusions (e.g., [Turpin et al., 2023](https://arxiv.org/abs/2305.04388)).
 
-Chain-of-thought prompting dramatically improved benchmark performance, but it also exposed faithfulness problems. Generated rationales are often post-hoc narratives rather than transparent traces of computation. This matters for safety and auditability: if the rationale is unreliable, it cannot be treated as a trustworthy explanation.
+Chain-of-thought prompting improved benchmark performance ([Wei et al., 2022](https://arxiv.org/abs/2201.11903); [Kojima et al., 2022](https://arxiv.org/abs/2205.11916)), but it also exposed faithfulness problems. Generated rationales are often post-hoc narratives rather than transparent traces of computation ([Turpin et al., 2023](https://arxiv.org/abs/2305.04388)). This matters for safety and auditability: if the rationale is unreliable, it cannot be treated as a trustworthy explanation.
 
-The field is moving toward verifier-centric and process-supervised methods (step-level checks, process reward models, search over candidate traces). These methods implicitly treat reasoning reliability as a generate-then-validate problem.
+Much recent work emphasizes verifier-centric and process-supervised methods (step-level checks, process reward models, search over candidate traces), including [Cobbe et al., 2021](https://arxiv.org/abs/2110.14168), [Lightman et al., 2023](https://arxiv.org/abs/2305.20050), and search-style prompting such as [Tree of Thoughts](https://arxiv.org/abs/2305.10601). These methods treat reasoning reliability as a generate-then-validate problem.
 
 ## Key Papers
 
@@ -46,7 +46,7 @@ The field is moving toward verifier-centric and process-supervised methods (step
 
 **ReAct** (Yao et al., 2023) · ICLR · [link](https://arxiv.org/abs/2210.03629)
 
-> Integrates reasoning with tool interaction, improving verifiability and reducing unsupported internal speculation.
+> Integrates reasoning with tool interaction, which can improve traceability and reduce purely implicit reasoning steps on tool-using tasks.
 
 ## Preprints & Recent Work
 
@@ -56,7 +56,7 @@ The field is moving toward verifier-centric and process-supervised methods (step
 
 **Reflexion** (Shinn et al., 2023) · NeurIPS-era preprint · [link](https://arxiv.org/abs/2303.11366)
 
-> Iterative self-improvement with feedback memory; works best with external success signals.
+> Iterative self-improvement with feedback memory, typically paired with external task feedback/signals.
 
 **Large Language Models Cannot Self-Correct Reasoning Yet** (Huang et al., 2023) · arXiv · [link](https://arxiv.org/abs/2310.01798)
 

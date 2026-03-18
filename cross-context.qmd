@@ -7,88 +7,88 @@ subtitle: "Equivalent meaning, different surface form, different answer"
 
 Cross-context consistency measures whether LLM outputs remain stable when semantics are held constant but context form changes: language, template, ordering, punctuation, answer format, or modality. Failures here are especially costly because they make system behavior difficult to predict and replicate.
 
-The literature consistently shows that prompt and template details can produce large swings in performance. Demonstration order, label token choices, and small textual artifacts can alter outcomes independent of underlying problem difficulty. Multilingual settings add another layer: the same factual query can yield different answers and confidence levels across languages.
+A broad body of work shows that prompt and template details can produce large swings in performance (e.g., [Zhao et al., 2021](https://arxiv.org/abs/2102.09690); [Lu et al., 2022](https://aclanthology.org/2022.acl-long.556/); [Sclar et al., 2023](https://arxiv.org/abs/2310.11324)). Demonstration order, label token choices, and small textual artifacts can alter outcomes independent of underlying problem difficulty. Multilingual settings add another layer: equivalent factual queries can yield different answers and confidence levels across languages ([Wang et al., 2023](https://arxiv.org/abs/2310.10378)).
 
-In short, many models remain highly sensitive to surface form. Robust deployment therefore requires perturbation testing as a default QA practice, not a niche robustness exercise.
+In short, many models remain sensitive to surface form. Robust deployment therefore benefits from perturbation testing as a default QA practice rather than a niche robustness exercise.
 
 ## Key Papers
 
 ### Prompt and Demonstration Sensitivity
-**Calibrate Before Use** (Zhao et al., 2021) · ICML · [link](https://arxiv.org/abs/2102.09690)
+**[Calibrate Before Use](https://arxiv.org/abs/2102.09690)** (Zhao et al., 2021) · ICML
 
 > Landmark paper on contextual calibration and few-shot prompt sensitivity.
 
-**Fantastically Ordered Prompts** (Lu et al., 2022) · ACL · [link](https://aclanthology.org/2022.acl-long.556/)
+**[Fantastically Ordered Prompts](https://aclanthology.org/2022.acl-long.556/)** (Lu et al., 2022) · ACL
 
 > Demonstration order alone can strongly affect in-context learning outcomes.
 
-**Rethinking the Role of Demonstrations** (Min et al., 2022) · EMNLP · [link](https://arxiv.org/abs/2202.12837)
+**[Rethinking the Role of Demonstrations](https://arxiv.org/abs/2202.12837)** (Min et al., 2022) · EMNLP
 
 > Shows superficial format cues can matter more than semantic relevance in ICL.
 
-**Quantifying Sensitivity to Spurious Prompt Features** (Sclar et al., 2023) · arXiv · [link](https://arxiv.org/abs/2310.11324)
+**[Quantifying Sensitivity to Spurious Prompt Features](https://arxiv.org/abs/2310.11324)** (Sclar et al., 2023) · arXiv
 
 > Capitalization, punctuation, and label tokens can materially shift model behavior.
 
 ### Cross-Lingual and Multimodal Consistency
-**Cross-Lingual Consistency of Factual Knowledge in Multilingual LMs** (Wang et al., 2023) · arXiv · [link](https://arxiv.org/abs/2310.10378)
+**[Cross-Lingual Consistency of Factual Knowledge in Multilingual LMs](https://arxiv.org/abs/2310.10378)** (Wang et al., 2023) · arXiv
 
 > Direct evidence that factual outputs can diverge by language for equivalent questions.
 
-**Language Models are Multilingual Chain-of-Thought Reasoners** (Shi et al., 2023) · ICLR line · [link](https://arxiv.org/abs/2210.03057)
+**[Language Models are Multilingual Chain-of-Thought Reasoners](https://arxiv.org/abs/2210.03057)** (Shi et al., 2023) · ICLR
 
 > CoT transfer exists but is uneven across language-resource conditions.
 
-**MMBench** (Liu et al., 2023) · arXiv · [link](https://arxiv.org/abs/2307.06281)
+**[MMBench](https://arxiv.org/abs/2307.06281)** (Liu et al., 2023) · arXiv
 
 > Multimodal benchmark exposing prompt/format brittleness in VLM evaluation.
 
 ## Preprints & Recent Work
 
-**PromptBench** (Zhu et al., 2023) · NeurIPS Datasets/Benchmarks track · [link](https://arxiv.org/abs/2306.04528)
+**[PromptBench](https://arxiv.org/abs/2306.04528)** (Zhu et al., 2023) · NeurIPS Datasets/Benchmarks track
 
 > Standardized stress testing for adversarial and perturbed prompts.
 
-**Look at the Labels** (Sahay et al., 2024) · arXiv · [link](https://arxiv.org/abs/2402.09309)
+**[Look at the Labels](https://arxiv.org/abs/2402.09309)** (Sahay et al., 2024) · arXiv
 
 > Classifier-free metric for prompt sensitivity and output instability.
 
-**MMMU** (Fu et al., 2023) · arXiv · [link](https://arxiv.org/abs/2311.16502)
+**[MMMU](https://arxiv.org/abs/2311.16502)** (Fu et al., 2023) · arXiv
 
 > Broad multimodal reasoning benchmark useful for cross-format consistency studies.
 
 ## Blog Posts & Practitioner Resources
 
-- **Hugging Face evaluation/robustness guides** (HF, ongoing) — <https://huggingface.co/blog>
+- **[Hugging Face evaluation/robustness guides](https://huggingface.co/blog)** (HF, ongoing)
   Practical tutorials on prompt robustness and multilingual evaluation.
 
-- **OpenAI Cookbook** (OpenAI, ongoing) — <https://cookbook.openai.com/>
+- **[OpenAI Cookbook](https://cookbook.openai.com/)** (OpenAI, ongoing)
   Prompt/format testing patterns and reproducibility practices.
 
-- **CRFM/HELM docs** (Stanford CRFM, ongoing) — <https://crfm.stanford.edu/helm/latest/>
+- **[CRFM/HELM docs](https://crfm.stanford.edu/helm/latest/)** (Stanford CRFM, ongoing)
   Multi-scenario framework that encourages robust cross-context reporting.
 
 ## Benchmarks & Datasets
 
 | Name | Year | Description | Link |
 |------|------|-------------|------|
-| PromptBench | 2023 | Adversarial and perturbed prompt robustness | <https://arxiv.org/abs/2306.04528> |
-| CheckList | 2020 | Invariance and directional expectation tests | <https://aclanthology.org/2020.acl-main.442/> |
-| MGSM | 2023 | Multilingual grade-school math consistency | <https://arxiv.org/abs/2210.03057> |
-| XCOPA | 2020 | Cross-lingual causal commonsense | <https://aclanthology.org/2020.findings-emnlp.240/> |
-| Belebele | 2023 | Massively multilingual reading comprehension | <https://arxiv.org/abs/2308.16884> |
-| MMBench | 2023 | Multimodal prompt/format robustness | <https://arxiv.org/abs/2307.06281> |
-| MMMU | 2023 | Multi-discipline multimodal reasoning | <https://arxiv.org/abs/2311.16502> |
+| [PromptBench](https://arxiv.org/abs/2306.04528) | 2023 | Adversarial and perturbed prompt robustness | <https://arxiv.org/abs/2306.04528> |
+| [CheckList](https://aclanthology.org/2020.acl-main.442/) | 2020 | Invariance and directional expectation tests | <https://aclanthology.org/2020.acl-main.442/> |
+| [MGSM](https://arxiv.org/abs/2210.03057) | 2023 | Multilingual grade-school math consistency | <https://arxiv.org/abs/2210.03057> |
+| [XCOPA](https://aclanthology.org/2020.findings-emnlp.240/) | 2020 | Cross-lingual causal commonsense | <https://aclanthology.org/2020.findings-emnlp.240/> |
+| [Belebele](https://arxiv.org/abs/2308.16884) | 2023 | Massively multilingual reading comprehension | <https://arxiv.org/abs/2308.16884> |
+| [MMBench](https://arxiv.org/abs/2307.06281) | 2023 | Multimodal prompt/format robustness | <https://arxiv.org/abs/2307.06281> |
+| [MMMU](https://arxiv.org/abs/2311.16502) | 2023 | Multi-discipline multimodal reasoning | <https://arxiv.org/abs/2311.16502> |
 
 ## GitHub Repos
 
-- **microsoft/promptbench** — <https://github.com/microsoft/promptbench>
+- **[microsoft/promptbench](https://github.com/microsoft/promptbench)**
   Core benchmark implementation for prompt perturbation testing.
 
-- **EleutherAI/lm-evaluation-harness** — <https://github.com/EleutherAI/lm-evaluation-harness>
+- **[EleutherAI/lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness)**
   Reproducible multi-task framework for prompt-format comparisons.
 
-- **openai/evals** — <https://github.com/openai/evals>
+- **[openai/evals](https://github.com/openai/evals)**
   Custom format-variant eval authoring.
 
 ## Key Takeaways

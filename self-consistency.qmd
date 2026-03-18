@@ -7,7 +7,7 @@ subtitle: "Whether models agree with themselves across prompts and samples"
 
 Self-consistency concerns whether an LLM returns compatible answers to semantically equivalent questions, paraphrases, or repeated runs. In deployed systems this appears as answer drift: same user intent, different outputs. The issue is partly stochastic (sampling), partly representational (unstable latent beliefs), and partly prompt-induced (format sensitivity).
 
-An important distinction in this literature: **self-consistency as a failure mode** versus **self-consistency as a decoding strategy**. The Wang et al. method (majority vote over chains) improves outcomes, but it does not imply that the base model is internally coherent. It works precisely because the underlying model is inconsistent enough that sampling can uncover better trajectories.
+An important distinction in this literature: **self-consistency as a failure mode** versus **self-consistency as a decoding strategy**. The [Wang et al. self-consistency method](https://arxiv.org/abs/2203.11171) (majority vote over chains) improves outcomes, but it does not imply that the base model is internally coherent. A more cautious interpretation is that performance gains come from sampling diverse reasoning paths and selecting the most common one.
 
 Self-consistency failures also connect directly to factual reliability and hallucination risk: output disagreement is often a useful uncertainty signal when internals are unavailable.
 
@@ -33,7 +33,7 @@ Self-consistency failures also connect directly to factual reliability and hallu
 
 **TruthfulQA** (Lin et al., 2022) · ACL · [link](https://aclanthology.org/2022.acl-long.229/)
 
-> Though a truthfulness benchmark, it is widely used to show model answers can shift under elicitation style.
+> Primarily a truthfulness benchmark; in practice, researchers often pair it with prompt variants to probe answer stability under different elicitation styles.
 
 ## Preprints & Recent Work
 

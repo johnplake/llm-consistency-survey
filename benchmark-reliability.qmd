@@ -5,11 +5,11 @@ subtitle: "When evaluation artifacts distort capability claims"
 
 ## Overview
 
-Benchmark reliability is the meta-consistency problem: can we trust our measurements of model capability? Leaderboard scores are often treated as objective progress, but in LLM evaluation they are highly sensitive to prompt templates, contamination, grading method, and benchmark saturation.
+Benchmark reliability is the meta-consistency problem: can we trust our measurements of model capability? Leaderboard scores are often treated as objective progress, but in LLM evaluation they can be highly sensitive to prompt templates, contamination, grading method, and benchmark saturation.
 
-Three recurring threats dominate this area. First, **data contamination** inflates apparent performance when benchmark-like content appears in training corpora. Second, **format and prompt sensitivity** can change absolute scores—and sometimes rankings—without model changes. Third, **LLM-as-judge biases** (position, verbosity, style preference) can inject systematic artifacts into automatic evaluation.
+Three recurring threats are repeatedly documented in this area. First, **data contamination** can inflate apparent performance when benchmark-like content appears in training corpora. Second, **format and prompt sensitivity** can change absolute scores—and sometimes rankings—without model changes. Third, **LLM-as-judge biases** (position, verbosity, style preference) can inject systematic artifacts into automatic evaluation.
 
-As a result, reliable assessment increasingly uses portfolio evaluation: static benchmarks + dynamic human preference + execution-grounded tasks, with strict metadata and reproducibility controls.
+As a result, reliable assessment increasingly uses portfolio evaluation: static benchmarks + dynamic human preference + execution-grounded tasks, with stronger metadata and reproducibility controls.
 
 ## Key Papers
 
@@ -40,11 +40,11 @@ As a result, reliable assessment increasingly uses portfolio evaluation: static 
 > Demonstration order can dramatically alter outcomes, stressing reproducibility concerns.
 
 ### LLM-as-Judge Artifacts
-**Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena** (Zheng et al., 2023) · NeurIPS Datasets/Benchmarks ecosystem · [link](https://arxiv.org/abs/2306.05685)
+**Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena** (Zheng et al., 2023) · arXiv (LMSYS) · [link](https://arxiv.org/abs/2306.05685)
 
 > Foundational modern judge framework plus explicit bias caveats.
 
-**G-Eval** (Liu et al., 2023) · EMNLP line · [link](https://arxiv.org/abs/2303.16634)
+**G-Eval** (Liu et al., 2023) · arXiv · [link](https://arxiv.org/abs/2303.16634)
 
 > Strong correlation to human judgments in some settings, but sensitive to rubric/prompt design.
 

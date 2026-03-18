@@ -9,7 +9,7 @@ Calibration asks whether model confidence tracks empirical correctness. In a cal
 
 The challenge is amplified in generation: token-level probabilities do not map cleanly to semantic correctness. This has driven work on semantic uncertainty, verbalized confidence elicitation, and selective prediction methods (including abstention). From an operational standpoint, calibration quality determines when a system should answer, hedge, cite, or decline.
 
-Calibration is also downstream-sensitive: instruction tuning and preference optimization can improve usefulness while distorting confidence behavior. Teams therefore need post-alignment calibration audits, not just pretraining-era metrics.
+Calibration is also downstream-sensitive: instruction tuning and preference optimization can improve usefulness while changing confidence behavior (e.g., [InstructGPT](https://arxiv.org/abs/2203.02155), [Constitutional AI](https://arxiv.org/abs/2212.08073), [DPO](https://arxiv.org/abs/2305.18290)). Teams therefore need post-alignment calibration audits, not just pretraining-era metrics.
 
 ## Key Papers
 
@@ -38,7 +38,7 @@ Calibration is also downstream-sensitive: instruction tuning and preference opti
 ### Semantic Uncertainty and Risk Control
 **Semantic Uncertainty** (Kuhn, Gal, Farquhar, 2023) · Nature/ArXiv line · [link](https://arxiv.org/abs/2302.09664)
 
-> Introduces semantic entropy over meaning-equivalent generations, often superior to token entropy for factual risk estimation.
+> Introduces semantic entropy over meaning-equivalent generations, which can outperform token entropy for factual risk estimation in several settings.
 
 **Conformal Language Modeling** (Angelopoulos et al., 2023) · arXiv · [link](https://arxiv.org/abs/2306.10193)
 

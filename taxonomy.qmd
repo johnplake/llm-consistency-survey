@@ -15,7 +15,7 @@ This survey decomposes consistency into seven major categories, which we explain
 
 **Core question**: When an LLM makes a factual claim, is it accurate — and is it reliably accurate across different framings?
 
-Hallucination (generating plausible-sounding but false content) is the most-studied form of inconsistency. It has several subtypes:
+Hallucination (generating plausible-sounding but false content) is among the most-studied forms of inconsistency in current LLM/NLG work [@ji2023hallucination; @lin2022truthfulqa]. It has several subtypes:
 
 - **Intrinsic hallucination**: The model contradicts the source/context it was given
 - **Extrinsic hallucination**: The model generates claims that cannot be verified against any source
@@ -39,7 +39,7 @@ This is perhaps the purest form of inconsistency:
 - **Cross-session inconsistency**: The same prompt gives different answers across runs
 - **Belief inconsistency**: The model holds "beliefs" that contradict each other when elicited in different ways
 
-**Key insight**: Self-inconsistency reveals that LLMs do not have stable internal representations of facts or beliefs — they are pattern-matching systems whose outputs depend heavily on local context.
+**Key insight**: Self-inconsistency suggests that LLM outputs can vary substantially with local context and elicitation strategy, rather than reflecting fully stable, globally coherent "beliefs" [@wang2023selfconsistency; @zhang2019paws; @ribeiro2020checklist].
 
 → [Self-Consistency & Contradiction](self-consistency.qmd)
 
@@ -57,7 +57,7 @@ Reasoning consistency differs from factual consistency because the failure mode 
 - **Commonsense reasoning**: Are common-sense inferences stable?
 - **Process-outcome mismatch**: Model gives correct answer with wrong reasoning, or wrong answer with correct reasoning
 
-**Key insight**: LLMs can produce correct answers for wrong reasons (and vice versa), making their reasoning unreliable as an explanation even when the conclusion is correct.
+**Key insight**: LLMs can produce correct answers for wrong reasons (and vice versa), making free-form reasoning traces an imperfect proxy for underlying decision processes [@turpin2023unfaithful; @lightman2023verify].
 
 → [Reasoning Consistency](reasoning-consistency.qmd)
 
@@ -76,7 +76,7 @@ This category covers how the model's outputs are shaped by social and contextual
 - **Verbosity bias**: Preferring longer or more "elaborate-sounding" responses in evaluation
 - **Social desirability bias**: Giving answers the user seems to want to hear
 
-**Key insight**: LLMs are trained to maximize human approval, which can directly undermine consistency — the model learns to agree rather than to be correct.
+**Key insight**: Preference tuning can reward agreement/helpfulness signals that sometimes trade off against factual steadfastness, so social context may shift answers even when ground truth is unchanged [@ouyang2022instructgpt; @perez2022modelwritten].
 
 → [Behavioral Consistency & Sycophancy](behavioral-consistency.qmd)
 
@@ -94,7 +94,7 @@ Calibration is about the match between what a model says it believes and how rel
 - **Selective hedging**: Hedging on easy questions, confident on hard ones
 - **Epistemic vs. aleatoric uncertainty**: Failure to distinguish "I don't know" from "this is uncertain"
 
-**Key insight**: A perfectly accurate model that never expresses uncertainty is still inconsistent in a meaningful sense — it misleads users about when to trust it.
+**Key insight**: Even strong average accuracy is insufficient if confidence signals are miscalibrated; users need uncertainty estimates that track empirical correctness [@guo2017calibration; @desai2020transformer-calibration; @kadavath2022know].
 
 → [Calibration & Uncertainty](calibration.qmd)
 
@@ -110,7 +110,7 @@ Calibration is about the match between what a model says it believes and how rel
 - **Cross-modal consistency**: Does a vision-language model give consistent answers from text vs. image descriptions?
 - **System prompt sensitivity**: Behavior changes based on system prompt framing
 
-**Key insight**: If semantically equivalent inputs produce different outputs, the model is not operating on meaning — it is operating on surface form.
+**Key insight**: If semantically equivalent inputs produce different outputs, behavior is at least partly driven by surface cues rather than invariant semantic representations [@lu2022orderedprompts; @sclar2023spurious; @liu2023lostmiddle].
 
 → [Cross-Context Sensitivity](cross-context.qmd)
 
@@ -128,7 +128,7 @@ This is a meta-level consistency issue:
 - **Evaluation inconsistency**: Different evaluators (human or LLM) disagree substantially
 - **Metric inconsistency**: Different metrics give contradictory rankings of models
 
-**Key insight**: Many "solved" benchmarks may reflect memorization or prompt optimization rather than genuine capability. Inconsistent evaluation means we don't know what models can actually do.
+**Key insight**: Some benchmark gains can reflect prompt sensitivity, contamination risk, or evaluator effects rather than clean capability improvements, so conclusions should be interpreted with care [@liang2022helm; @kiela2021dynabench; @zheng2023mtbench].
 
 → [Benchmark Reliability](benchmark-reliability.qmd)
 
@@ -160,11 +160,11 @@ The **generator-validator gap** captures a pattern that spans multiple categorie
 
 This concept links:
 
-- **Reasoning consistency**: best-of-N sampling + verifier reranking can outperform direct generation on multi-step tasks.
-- **Self-consistency**: majority voting over sampled chains works because selection is often easier than generation.
-- **Calibration**: disagreement among candidates can serve as a practical uncertainty signal, improving abstention and risk control.
+- **Reasoning consistency**: best-of-*N* sampling + verifier reranking can outperform direct generation on multi-step tasks [@cobbe2021gsm8k; @lightman2023verify].
+- **Self-consistency**: majority voting over sampled chains often improves reasoning accuracy [@wang2023selfconsistency].
+- **Calibration**: disagreement among candidates can serve as a practical uncertainty signal, improving abstention and risk control [@manakul2023selfcheckgpt; @kuhn2023semantic].
 
-In other words, many successful reliability methods convert one hard problem (single-pass generation) into two easier ones (candidate generation + discriminative validation). This is why verifier models, process reward models, and structured checking loops have become central in modern LLM reliability pipelines.
+In other words, many successful reliability methods convert one hard problem (single-pass generation) into two easier ones (candidate generation + discriminative validation). This is why verifier models, process-supervision methods, and structured checking loops have become central in modern LLM reliability pipelines [@lightman2023verify; @wang2023mathshepherd; @dhuliawala2023cove].
 
 → [Generator-Validator Gap](generator-validator-gap.qmd)
 

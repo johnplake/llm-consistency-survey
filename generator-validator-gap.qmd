@@ -5,72 +5,72 @@ subtitle: "Why models often judge better than they generate"
 
 ## Overview
 
-The **generator-validator gap** is the empirical pattern that LLMs can often evaluate candidate answers more reliably than they can produce the best answer from scratch. In practice, this appears when a model fails at one-shot generation but succeeds when selecting among candidates, verifying steps, or reranking outputs.
+The **generator-validator gap** is the empirical pattern that LLMs can often evaluate candidate answers more reliably than they can produce the best answer from scratch. In practice, this appears when a model fails at one-shot generation but succeeds when selecting among candidates, verifying steps, or reranking outputs (e.g., [Cobbe et al., 2021](https://arxiv.org/abs/2110.14168); [Lightman et al., 2023](https://arxiv.org/abs/2305.20050)).
 
-This concept helps unify several successful techniques: best-of-N sampling, self-consistency voting, verifier reranking, and process reward models. All of them transform a hard single-pass generation task into two stages: (1) generate many imperfect candidates, then (2) apply a comparatively easier discriminative selection process.
+This concept helps unify several successful techniques: best-of-N sampling, self-consistency voting, verifier reranking, and process reward models. Many of these methods transform a hard single-pass generation task into two stages: (1) generate many imperfect candidates, then (2) apply a comparatively easier discriminative selection process.
 
-The gap also explains why intrinsic self-correction is fragile. If the same model is both generator and validator without new evidence, errors can self-reinforce. Reliable improvements usually require stronger or externalized validation signals (step labels, tools, environment feedback, or specialized verifier models).
+The gap also helps explain why intrinsic self-correction is often fragile. If the same model is both generator and validator without new evidence, errors can self-reinforce. Strong gains typically come from stronger or externalized validation signals (step labels, tools, environment feedback, or specialized verifier models) rather than unconstrained self-critique alone ([Huang et al., 2023](https://arxiv.org/abs/2310.01798); [Shinn et al., 2023](https://arxiv.org/abs/2303.11366)).
 
 ## Key Papers
 
 ### Core Gap and Verification Methods
-**Training Verifiers to Solve Math Word Problems** (Cobbe et al., 2021) · arXiv/OpenAI · [link](https://arxiv.org/abs/2110.14168)
+**[Training Verifiers to Solve Math Word Problems](https://arxiv.org/abs/2110.14168)** (Cobbe et al., 2021) · arXiv/OpenAI
 
 > Landmark generate-then-verify pipeline: a trained verifier reranks candidate solutions and yields large gains over direct generation.
 
-**Let’s Verify Step by Step** (Lightman et al., 2023) · arXiv/OpenAI · [link](https://arxiv.org/abs/2305.20050)
+**[Let’s Verify Step by Step](https://arxiv.org/abs/2305.20050)** (Lightman et al., 2023) · arXiv/OpenAI
 
 > Step-level process supervision improves candidate selection and downstream reasoning reliability.
 
-**Large Language Models are Better Reasoners with Self-Verification** (Weng et al., 2022) · arXiv · [link](https://arxiv.org/abs/2212.09561)
+**[Large Language Models are Better Reasoners with Self-Verification](https://arxiv.org/abs/2212.09561)** (Weng et al., 2022) · arXiv
 
 > Demonstrates gains from explicit verification prompts over generated solutions.
 
 ### Sampling and Voting as Implicit Validators
-**Self-Consistency Improves Chain of Thought Reasoning** (Wang et al., 2023) · ICLR · [link](https://arxiv.org/abs/2203.11171)
+**[Self-Consistency Improves Chain of Thought Reasoning](https://arxiv.org/abs/2203.11171)** (Wang et al., 2023) · ICLR
 
 > Majority vote over sampled chains is effectively a lightweight validator layer.
 
-**STaR: Bootstrapping Reasoning With Reasoning** (Zelikman et al., 2022) · arXiv · [link](https://arxiv.org/abs/2203.14465)
+**[STaR: Bootstrapping Reasoning With Reasoning](https://arxiv.org/abs/2203.14465)** (Zelikman et al., 2022) · arXiv
 
 > Iterative rationale filtering demonstrates training-time use of evaluator-like signals.
 
 ### Limits of Intrinsic Self-Correction
-**Large Language Models Cannot Self-Correct Reasoning Yet** (Huang et al., 2023) · arXiv · [link](https://arxiv.org/abs/2310.01798)
+**[Large Language Models Cannot Self-Correct Reasoning Yet](https://arxiv.org/abs/2310.01798)** (Huang et al., 2023) · arXiv
 
 > Strong evidence that intrinsic self-correction often fails without external feedback.
 
-**Self-Refine** (Madaan et al., 2023) · arXiv · [link](https://arxiv.org/abs/2303.17651)
+**[Self-Refine](https://arxiv.org/abs/2303.17651)** (Madaan et al., 2023) · arXiv
 
 > Shows self-feedback can help in some settings, but gains are task- and prompt-dependent.
 
-**Reflexion** (Shinn et al., 2023) · arXiv · [link](https://arxiv.org/abs/2303.11366)
+**[Reflexion](https://arxiv.org/abs/2303.11366)** (Shinn et al., 2023) · arXiv
 
 > Improvement is strongest with environment-grounded outcomes, supporting an extrinsic-feedback view.
 
 ## Preprints & Recent Work
 
-**Math-Shepherd** (Wang et al., 2023) · arXiv · [link](https://arxiv.org/abs/2312.08935)
+**[Math-Shepherd](https://arxiv.org/abs/2312.08935)** (Wang et al., 2023) · arXiv
 
 > Stepwise verification/reinforcement pipeline with reduced annotation burden.
 
-**DeepSeekMath** (DeepSeek-AI et al., 2024) · arXiv · [link](https://arxiv.org/abs/2402.03300)
+**[DeepSeekMath](https://arxiv.org/abs/2402.03300)** (DeepSeek-AI et al., 2024) · arXiv
 
 > Open-model evidence for verifier/reward-guided reasoning improvements.
 
-**Benchmarking Foundation Models with LM-as-an-Examiner** (Fu et al., 2023) · arXiv · [link](https://arxiv.org/abs/2306.04181)
+**[Benchmarking Foundation Models with LM-as-an-Examiner](https://arxiv.org/abs/2306.04181)** (Fu et al., 2023) · arXiv
 
 > Examines language-model judges as scalable evaluators, with calibration caveats.
 
 ## Blog Posts & Practitioner Resources
 
-- **Let’s verify step by step** (OpenAI, 2023) — <https://openai.com/research/lets-verify-step-by-step>
+- **[Let’s verify step by step](https://openai.com/research/lets-verify-step-by-step)** (OpenAI, 2023)
   Practical framing of process supervision and why verification helps.
 
-- **Constitutional AI post** (Anthropic, 2022) — <https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback>
+- **[Constitutional AI post](https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback)** (Anthropic, 2022)
   Structured critique/revision as an externally constrained correction loop.
 
-- **FastChat / MT-Bench docs** (LMSYS, ongoing) — <https://github.com/lm-sys/FastChat>
+- **[FastChat / MT-Bench docs](https://github.com/lm-sys/FastChat)** (LMSYS, ongoing)
   Operational judge infrastructure for pairwise evaluation settings.
 
 ## Benchmarks & Datasets
@@ -86,16 +86,16 @@ The gap also explains why intrinsic self-correction is fragile. If the same mode
 
 ## GitHub Repos
 
-- **openai/prm800k** — <https://github.com/openai/prm800k>
+- **[openai/prm800k](https://github.com/openai/prm800k)**
   Process supervision resources for step-level validation.
 
-- **openai/evals** — <https://github.com/openai/evals>
+- **[openai/evals](https://github.com/openai/evals)**
   Build judge/validator pipelines and regression checks.
 
-- **lm-sys/FastChat** — <https://github.com/lm-sys/FastChat>
+- **[lm-sys/FastChat](https://github.com/lm-sys/FastChat)**
   Judge and pairwise comparison infrastructure.
 
-- **deepseek-ai/DeepSeek-Math** — <https://github.com/deepseek-ai/DeepSeek-Math>
+- **[deepseek-ai/DeepSeek-Math](https://github.com/deepseek-ai/DeepSeek-Math)**
   Open reasoning stack with verifier-adjacent practices.
 
 ## Key Takeaways
@@ -104,7 +104,7 @@ The gap also explains why intrinsic self-correction is fragile. If the same mode
 ## Key Insights
 - Generate-then-verify is often more reliable than one-shot generation.
 - Intrinsic self-correction is limited; externalized feedback is usually required for robust gains.
-- Process-level validators (PRMs) generally outperform final-answer-only scoring for reasoning quality control.
+- Process-level validators often outperform final-answer-only scoring for reasoning quality control.
 :::
 
 ## See Also
