@@ -25,6 +25,14 @@ This pattern helps unify best-of-\(N\) sampling, self-consistency voting, proces
 
 > Voting across sampled chains acts as an implicit validator and consistently outperforms greedy one-shot reasoning.
 
+**[Benchmarking and Improving Generator-Validator Consistency of Language Models](https://arxiv.org/abs/2310.01846)** (Xiang Lisa Li et al., 2023) · arXiv/Stanford
+
+> Directly benchmarks generator-validator inconsistency and proposes consistency-aware improvements; one of the most on-point papers for this page's core construct.
+
+**[RankAlign: A Ranking View of the Generator-Validator Gap in Large Language Models](https://arxiv.org/abs/2504.11381)** (Rodriguez et al., 2025) · arXiv
+
+> Formalizes the gap through a ranking lens and analyzes when LLMs are stronger as validators/rerankers than as one-shot generators.
+
 ### Verifier/process-supervision methods (math and beyond)
 
 **[Let’s Verify Step by Step](https://arxiv.org/abs/2305.20050)** (Lightman et al., 2023) · arXiv/OpenAI
@@ -56,6 +64,12 @@ This pattern helps unify best-of-\(N\) sampling, self-consistency voting, proces
 **[Reflexion](https://arxiv.org/abs/2303.11366)** (Shinn et al., 2023) · arXiv
 
 > Improvements are strongest with grounded/environmental feedback, consistent with an extrinsic-feedback interpretation.
+
+### Task demands and apparent asymmetries
+
+**[Auxiliary task demands mask the capabilities of smaller language models](https://arxiv.org/abs/2404.02418)** (Jennifer Hu & Michael C. Frank, 2024) · arXiv/Stanford
+
+> Shows that evaluation design can understate latent capabilities by imposing extra task demands; useful for interpreting some observed generation-vs-validation asymmetries as partly task-interface artifacts, not purely model-internal deficits.
 
 ### Inference-time scaling via sampling/reranking/search
 
