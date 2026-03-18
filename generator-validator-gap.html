@@ -331,6 +331,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#direct-evidence-for-generation-vs-validation-asymmetry" id="toc-direct-evidence-for-generation-vs-validation-asymmetry" class="nav-link" data-scroll-target="#direct-evidence-for-generation-vs-validation-asymmetry">Direct evidence for generation vs validation asymmetry</a></li>
   <li><a href="#verifierprocess-supervision-methods-math-and-beyond" id="toc-verifierprocess-supervision-methods-math-and-beyond" class="nav-link" data-scroll-target="#verifierprocess-supervision-methods-math-and-beyond">Verifier/process-supervision methods (math and beyond)</a></li>
   <li><a href="#self-correction-limits-and-boundaries" id="toc-self-correction-limits-and-boundaries" class="nav-link" data-scroll-target="#self-correction-limits-and-boundaries">Self-correction limits and boundaries</a></li>
+  <li><a href="#task-demands-and-apparent-asymmetries" id="toc-task-demands-and-apparent-asymmetries" class="nav-link" data-scroll-target="#task-demands-and-apparent-asymmetries">Task demands and apparent asymmetries</a></li>
   <li><a href="#inference-time-scaling-via-samplingrerankingsearch" id="toc-inference-time-scaling-via-samplingrerankingsearch" class="nav-link" data-scroll-target="#inference-time-scaling-via-samplingrerankingsearch">Inference-time scaling via sampling/reranking/search</a></li>
   <li><a href="#llm-as-judge-as-validator-proxy" id="toc-llm-as-judge-as-validator-proxy" class="nav-link" data-scroll-target="#llm-as-judge-as-validator-proxy">LLM-as-judge as validator proxy</a></li>
   <li><a href="#historical-roots-pre-llm" id="toc-historical-roots-pre-llm" class="nav-link" data-scroll-target="#historical-roots-pre-llm">Historical roots (pre-LLM)</a></li>
@@ -388,6 +389,14 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <p>Voting across sampled chains acts as an implicit validator and consistently outperforms greedy one-shot reasoning.</p>
 </blockquote>
+<p><strong><a href="https://arxiv.org/abs/2310.01846">Benchmarking and Improving Generator-Validator Consistency of Language Models</a></strong> (Xiang Lisa Li et al., 2023) · arXiv/Stanford</p>
+<blockquote class="blockquote">
+<p>Directly benchmarks generator-validator inconsistency and proposes consistency-aware improvements; one of the most on-point papers for this page’s core construct.</p>
+</blockquote>
+<p><strong><a href="https://arxiv.org/abs/2504.11381">RankAlign: A Ranking View of the Generator-Validator Gap in Large Language Models</a></strong> (Rodriguez et al., 2025) · arXiv</p>
+<blockquote class="blockquote">
+<p>Formalizes the gap through a ranking lens and analyzes when LLMs are stronger as validators/rerankers than as one-shot generators.</p>
+</blockquote>
 </section>
 <section id="verifierprocess-supervision-methods-math-and-beyond" class="level3">
 <h3 class="anchored" data-anchor-id="verifierprocess-supervision-methods-math-and-beyond">Verifier/process-supervision methods (math and beyond)</h3>
@@ -421,6 +430,13 @@ ul.task-list li input[type="checkbox"] {
 <p><strong><a href="https://arxiv.org/abs/2303.11366">Reflexion</a></strong> (Shinn et al., 2023) · arXiv</p>
 <blockquote class="blockquote">
 <p>Improvements are strongest with grounded/environmental feedback, consistent with an extrinsic-feedback interpretation.</p>
+</blockquote>
+</section>
+<section id="task-demands-and-apparent-asymmetries" class="level3">
+<h3 class="anchored" data-anchor-id="task-demands-and-apparent-asymmetries">Task demands and apparent asymmetries</h3>
+<p><strong><a href="https://arxiv.org/abs/2404.02418">Auxiliary task demands mask the capabilities of smaller language models</a></strong> (Jennifer Hu &amp; Michael C. Frank, 2024) · arXiv/Stanford</p>
+<blockquote class="blockquote">
+<p>Shows that evaluation design can understate latent capabilities by imposing extra task demands; useful for interpreting some observed generation-vs-validation asymmetries as partly task-interface artifacts, not purely model-internal deficits.</p>
 </blockquote>
 </section>
 <section id="inference-time-scaling-via-samplingrerankingsearch" class="level3">
