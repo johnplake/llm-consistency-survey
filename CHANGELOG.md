@@ -2,6 +2,28 @@
 
 All notable changes to this project are documented in this file.
 
+## [2026-03-18] Generator-validator completeness pass
+
+### Added
+- Expanded `generator-validator-gap.qmd` with substantial missing literature across:
+  - direct generation-vs-validation asymmetry evidence
+  - self-correction boundary studies
+  - verifier/process-supervision work (including process-vs-outcome feedback)
+  - inference-time scaling via ranking/search/reranking
+  - LLM-as-judge reliability as validator proxy
+  - pre-LLM historical roots relevant to verify-after-generate framing
+- Added a new **Coverage note** subsection in `generator-validator-gap.qmd` summarizing what this pass added.
+- Added high-priority BibTeX entries to `references.bib` for newly introduced works, including:
+  - Uesato et al. (2022)
+  - Zelikman et al. (2022)
+  - Krishna et al. (2023)
+  - Jiang et al. (2023)
+  - McCallum & Nigam (1998)
+
+### Changed
+- Tightened several claims in `generator-validator-gap.qmd` to remain evidence-backed and avoid overclaiming.
+- Synced `research/07-generator-validator-gap.md` with a short completeness-pass note.
+
 ## [2026-03-18] Audit pass: consistency, sourcing, and link integrity
 
 ### Added

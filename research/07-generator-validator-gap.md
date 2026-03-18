@@ -364,6 +364,17 @@ Conceptually, this links modern LLM behavior to older ML/NLP distinctions betwee
 
 ---
 
+## Completeness-pass sync note (2026-03-18)
+
+Updated `generator-validator-gap.qmd` for broader coverage across aliases and adjacent literatures. Newly emphasized additions in the page:
+
+- Uesato et al. (2022) on process- vs outcome-based feedback.
+- Dhuliawala et al. (2023) Chain-of-Verification.
+- RankGen (Krishna et al., 2023) and LLM-Blender (Jiang et al., 2023) for reranking/selection beyond math.
+- Expanded inference-time scaling framing with Tree-of-Thoughts and ReAct.
+- Added pre-LLM root: McCallum & Nigam (1998) event models for text classification.
+- Added concise coverage-note subsection documenting this pass.
+
 ## Additional Verified References (for survey completeness)
 
 - PaLM: Scaling Language Modeling with Pathways (Chowdhery et al., 2022) — https://arxiv.org/abs/2204.02311  
