@@ -1,37 +1,122 @@
 ---
 title: "Benchmark Reliability"
-subtitle: "When our evaluations mislead us"
+subtitle: "When evaluation artifacts distort capability claims"
 ---
-
-::: {.callout-note}
-## Section Status
-This section is being populated by literature research. Content will be updated.
-:::
 
 ## Overview
 
-*[Research in progress]*
+Benchmark reliability is the meta-consistency problem: can we trust our measurements of model capability? Leaderboard scores are often treated as objective progress, but in LLM evaluation they are highly sensitive to prompt templates, contamination, grading method, and benchmark saturation.
+
+Three recurring threats dominate this area. First, **data contamination** inflates apparent performance when benchmark-like content appears in training corpora. Second, **format and prompt sensitivity** can change absolute scores—and sometimes rankings—without model changes. Third, **LLM-as-judge biases** (position, verbosity, style preference) can inject systematic artifacts into automatic evaluation.
+
+As a result, reliable assessment increasingly uses portfolio evaluation: static benchmarks + dynamic human preference + execution-grounded tasks, with strict metadata and reproducibility controls.
 
 ## Key Papers
 
-*[To be populated]*
+### Contamination and Memorization Risks
+**Language Models are Few-Shot Learners** (Brown et al., 2020) · NeurIPS · [link](https://arxiv.org/abs/2005.14165)
 
-## Preprints & Emerging Work
+> Early large-scale model paper that explicitly discusses contamination checks and overlap concerns.
 
-*[To be populated]*
+**Documenting Large Webtext Corpora: C4 Case Study** (Dodge et al., 2021) · EMNLP · [link](https://aclanthology.org/2021.emnlp-main.98/)
+
+> Highlights provenance/filtering limitations in web corpora that complicate clean train-test separation.
+
+**Deduplicating Training Data Makes Language Models Better** (Lee et al., 2022) · ACL · [link](https://aclanthology.org/2022.acl-long.577/)
+
+> Shows deduplication improves quality and reduces memorization-like artifacts.
+
+### Prompt and Protocol Instability
+**HELM** (Liang et al., 2022) · arXiv / CRFM · [link](https://arxiv.org/abs/2211.09110)
+
+> Landmark multi-metric framework emphasizing standardized scenarios and reporting beyond single scores.
+
+**BIG-bench** (Srivastava et al., 2022) · TMLR · [link](https://arxiv.org/abs/2206.04615)
+
+> Demonstrates broad capability coverage and substantial task-level variance.
+
+**Fantastically Ordered Prompts** (Lu et al., 2022) · ACL · [link](https://aclanthology.org/2022.acl-long.556/)
+
+> Demonstration order can dramatically alter outcomes, stressing reproducibility concerns.
+
+### LLM-as-Judge Artifacts
+**Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena** (Zheng et al., 2023) · NeurIPS Datasets/Benchmarks ecosystem · [link](https://arxiv.org/abs/2306.05685)
+
+> Foundational modern judge framework plus explicit bias caveats.
+
+**G-Eval** (Liu et al., 2023) · EMNLP line · [link](https://arxiv.org/abs/2303.16634)
+
+> Strong correlation to human judgments in some settings, but sensitive to rubric/prompt design.
+
+**Large Language Models are not Fair Evaluators** (Wang et al., 2023) · arXiv · [link](https://arxiv.org/abs/2305.17926)
+
+> Documents systematic non-content biases in judge outputs.
+
+## Preprints & Recent Work
+
+**MMLU-Pro** (Wang et al., 2024) · arXiv · [link](https://arxiv.org/abs/2406.01574)
+
+> Harder benchmark designed to address saturation and reliability issues in MMLU-like testing.
+
+**GPQA** (Rein et al., 2023) · arXiv · [link](https://arxiv.org/abs/2311.12022)
+
+> Graduate-level benchmark intended to restore discriminative power where older tests saturate.
+
+**SWE-bench** (Jimenez et al., 2024) · ICLR · [link](https://arxiv.org/abs/2310.06770)
+
+> Execution-grounded software tasks reduce reliance on purely textual grading artifacts.
 
 ## Blog Posts & Practitioner Resources
 
-*[To be populated]*
+- **The Leaderboard Illusion** (Kapoor & Narayanan, 2024) — <https://www.aisnakeoil.com/p/the-leaderboard-illusion>
+  Widely cited critique of benchmark over-interpretation and ranking instability.
 
-## Datasets & Benchmarks
+- **Open LLM Leaderboard docs** (Hugging Face, ongoing) — <https://huggingface.co/docs/leaderboards/open_llm_leaderboard/about>
+  Important caveats on versioning, benchmark composition, and comparability.
 
-*[To be populated]*
+- **LMSYS methodology posts** (LMSYS, ongoing) — <https://lmsys.org/blog/>
+  Practical reflections on pairwise ranking strengths and limitations.
+
+## Benchmarks & Datasets
+
+| Name | Year | Description | Link |
+|------|------|-------------|------|
+| HELM | 2022 | Multi-metric, scenario-based evaluation framework | <https://crfm.stanford.edu/helm/latest/> |
+| MMLU | 2020 | Broad MCQ benchmark; now partly saturated | <https://arxiv.org/abs/2009.03300> |
+| MMLU-Pro | 2024 | Harder MMLU-style benchmark | <https://arxiv.org/abs/2406.01574> |
+| TruthfulQA | 2022 | Truthfulness benchmark with format sensitivity relevance | <https://arxiv.org/abs/2109.07958> |
+| HumanEval | 2021 | Code generation via unit tests | <https://arxiv.org/abs/2107.03374> |
+| MBPP | 2021 | Python programming benchmark | <https://arxiv.org/abs/2108.07732> |
+| GPQA | 2023 | Google-proof graduate-level QA | <https://arxiv.org/abs/2311.12022> |
+| SWE-bench | 2024 | Real-world GitHub issue resolution benchmark | <https://arxiv.org/abs/2310.06770> |
+| Chatbot Arena | 2023– | Live human pairwise model ranking | <https://lmarena.ai/> |
+
+## GitHub Repos
+
+- **EleutherAI/lm-evaluation-harness** — <https://github.com/EleutherAI/lm-evaluation-harness>
+  De facto standard open benchmarking harness.
+
+- **stanford-crfm/helm** — <https://github.com/stanford-crfm/helm>
+  Holistic benchmark protocols and implementation.
+
+- **lm-sys/FastChat** — <https://github.com/lm-sys/FastChat>
+  MT-Bench and Arena ecosystem tooling.
+
+- **openai/evals** — <https://github.com/openai/evals>
+  Custom eval authoring for regression and policy checks.
 
 ## Key Takeaways
 
-*[To be populated]*
+::: {.callout-tip}
+## Key Insights
+- Benchmark scores are highly protocol-dependent; reproducibility metadata is not optional.
+- LLM-as-judge is useful at scale but must include swap-ordering, rubric controls, and bias audits.
+- Reliable capability assessment increasingly requires dynamic and execution-grounded tasks.
+:::
 
----
+## See Also
 
-← [Taxonomy](taxonomy.qmd) | [Resources](resources.qmd) →
+- [Cross-Context & Format Sensitivity](cross-context.qmd)
+- [Behavioral Consistency & Sycophancy](behavioral-consistency.qmd)
+- [Resources & Tools](resources.qmd)
+- [Generator-Validator Gap](generator-validator-gap.qmd)

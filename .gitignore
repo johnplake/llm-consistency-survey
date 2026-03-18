@@ -3,3 +3,6 @@ _site/
 *.html
 *.aux
 *.log
+
+/.quarto/
+**/*.quarto_ipynb

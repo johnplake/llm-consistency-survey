@@ -1,37 +1,120 @@
 ---
 title: "Factual Consistency & Hallucination"
-subtitle: "When LLMs make things up — and when they don't know they're making things up"
+subtitle: "When fluent text diverges from truth and evidence"
 ---
-
-::: {.callout-note}
-## Section Status
-This section is being populated by literature research. Content will be updated.
-:::
 
 ## Overview
 
-*[Research in progress — will be populated with papers, preprints, blog posts, and resources on hallucination, factual consistency, and knowledge reliability in LLMs.]*
+Factual consistency asks a basic but difficult question: when a model makes a claim, is that claim supported by reliable evidence? In modern LLM systems, failures are often *not* obvious nonsense. They are polished, plausible, and confidently delivered statements that may conflict with source documents, world facts, or both. This makes hallucination a reliability problem, not just a generation-quality problem.
+
+A useful distinction in the literature is between **intrinsic hallucination** (contradicting provided context) and **extrinsic hallucination** (introducing unsupported claims). This split matters operationally: intrinsic failures are often diagnosable with source-grounded checks, while extrinsic failures need retrieval, citation, or explicit uncertainty handling.
+
+The field has moved from coarse overlap metrics toward claim-level and evidence-aware evaluation (e.g., QA-based checks, atomic fact scoring, citation grounding). In practice, the strongest mitigation stacks combine retrieval, verification, and selective abstention rather than relying on one silver bullet.
 
 ## Key Papers
 
-*[To be populated]*
+### Faithfulness in Summarization and NLG
+**On Faithfulness and Factuality in Abstractive Summarization** (Maynez et al., 2020) · ACL · [link](https://aclanthology.org/2020.acl-main.173/)
 
-## Preprints & Emerging Work
+> A foundational paper showing that strong abstractive summarizers can be fluent yet factually inconsistent. It helped separate stylistic quality from factual faithfulness as distinct evaluation targets.
 
-*[To be populated]*
+**Evaluating the Factual Consistency of Abstractive Text Summarization (FactCC)** (Kryściński et al., 2020) · EMNLP · [link](https://aclanthology.org/2020.emnlp-main.750/)
+
+> Introduced one of the earliest scalable factual inconsistency detectors trained from synthetic perturbations. FactCC became a practical baseline for source-grounded consistency checks.
+
+**FEQA: A Question Answering Evaluation Framework for Faithfulness Assessment in Abstractive Summarization** (Durmus, He, Diab, 2020) · ACL · [link](https://aclanthology.org/2020.acl-main.454/)
+
+> Proposed QA-based factuality scoring, moving evaluation from lexical overlap to claim verification. This heavily influenced later factuality metrics.
+
+### Truthfulness and Hallucination in LLMs
+**TruthfulQA: Measuring How Models Mimic Human Falsehoods** (Lin, Hilton, Evans, 2022) · ACL · [link](https://aclanthology.org/2022.acl-long.229/)
+
+> Established a benchmark where plausible misconceptions are common. A key finding is that scale alone does not guarantee truthfulness.
+
+**SelfCheckGPT** (Manakul, Liusie, Gales, 2023) · EMNLP Findings · [link](https://arxiv.org/abs/2303.08896)
+
+> Uses disagreement across sampled outputs as a black-box hallucination signal. Particularly useful when token probabilities or internals are inaccessible.
+
+**FActScore** (Min et al., 2023) · EMNLP · [link](https://arxiv.org/abs/2305.14251)
+
+> Decomposes generations into atomic facts and scores evidence support. Strong for long-form outputs where aggregate metrics miss local hallucinations.
+
+### Grounding and Mitigation Architectures
+**RAG: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks** (Lewis et al., 2020) · NeurIPS · [link](https://arxiv.org/abs/2005.11401)
+
+> The canonical generate-with-retrieval architecture that anchors responses to external evidence. It remains the backbone of many production anti-hallucination systems.
+
+**Chain-of-Verification Reduces Hallucination in Large Language Models** (Dhuliawala et al., 2023) · arXiv · [link](https://arxiv.org/abs/2309.11495)
+
+> Shows that structured decomposition and verification passes reduce unsupported claims in long-form generation.
+
+## Preprints & Recent Work
+
+**A Survey of Hallucination in Natural Language Generation** (Ji et al., 2023) · ACM CSUR · [link](https://arxiv.org/abs/2202.03629)
+
+> A widely cited taxonomy of hallucination types, causes, and interventions across tasks.
+
+**A Survey on Hallucination in Large Language Models** (Huang et al., 2023) · arXiv · [link](https://arxiv.org/abs/2311.05232)
+
+> LLM-era reframing of hallucination detection and mitigation with emphasis on instruction-tuned systems.
+
+**HaluEval** (Li et al., 2023) · EMNLP Findings / arXiv · [link](https://arxiv.org/abs/2305.11747)
+
+> Large-scale benchmark for hallucination behavior in QA/dialog settings.
+
+**ALCE: Enabling and Evaluating LLMs with Automatic Citations** (Gao et al., 2023) · venue unconfirmed · [link](https://arxiv.org/abs/2305.14627)
+
+> Pushes factual evaluation toward explicit evidence attribution with citation-aware protocols.
 
 ## Blog Posts & Practitioner Resources
 
-*[To be populated]*
+- **Hallucination in Natural Language Generation** (Lilian Weng, 2024) — <https://lilianweng.github.io/posts/2024-07-07-hallucination/>
+  A clear technical synthesis of causes, detection, and mitigation patterns.
 
-## Datasets & Benchmarks
+- **LLM Evaluation Guidebook** (Evidently AI, 2023–2024) — <https://www.evidentlyai.com/llm-guide/llm-evaluation>
+  Practical guidance for groundedness and factuality monitoring in deployed systems.
 
-*[To be populated]*
+- **RAGAS Documentation** (Exploding Gradients, ongoing) — <https://docs.ragas.io/>
+  Production-friendly faithfulness/relevance metrics for RAG pipelines.
+
+## Benchmarks & Datasets
+
+| Name | Year | Description | Link |
+|------|------|-------------|------|
+| TruthfulQA | 2022 | Truthfulness under misconception-rich prompts | <https://aclanthology.org/2022.acl-long.229/> |
+| FRANK | 2021 | Factual errors in summarization outputs | <https://aclanthology.org/2021.naacl-main.383/> |
+| TRUE | 2021 | Unified factual consistency benchmark | <https://aclanthology.org/2021.naacl-main.287/> |
+| FactCC data/protocol | 2020 | Synthetic inconsistency examples for summarization | <https://aclanthology.org/2020.emnlp-main.750/> |
+| FActScore | 2023 | Atomic fact precision for long-form text | <https://arxiv.org/abs/2305.14251> |
+| HaluEval | 2023 | Hallucination benchmark across tasks | <https://arxiv.org/abs/2305.11747> |
+| ALCE | 2023 | Citation-grounded answer evaluation | <https://arxiv.org/abs/2305.14627> |
+
+## GitHub Repos
+
+- **SelfCheckGPT** — <https://github.com/potsawee/selfcheckgpt>
+  Reference implementation for black-box hallucination detection.
+
+- **FActScore** — <https://github.com/shmsw25/FActScore>
+  Atomic fact extraction and scoring toolkit.
+
+- **RAGAS** — <https://github.com/explodinggradients/ragas>
+  RAG evaluation package for faithfulness, relevance, and context quality.
+
+- **TruthfulQA** — <https://github.com/sylinrl/TruthfulQA>
+  Benchmark resources for model truthfulness testing.
 
 ## Key Takeaways
 
-*[To be populated]*
+::: {.callout-tip}
+## Key Insights
+- Hallucination is heterogeneous: intrinsic and extrinsic failures require different diagnostics.
+- Retrieval helps, but robust factuality usually needs retrieval **plus** verification **plus** uncertainty-aware abstention.
+- Claim-level evaluation (e.g., FActScore-style) provides better debugging signals than one-shot aggregate scores.
+:::
 
----
+## See Also
 
-← [Taxonomy](taxonomy.qmd) | Next: [Self-Consistency & Contradiction](self-consistency.qmd) →
+- [Self-Consistency & Contradiction](self-consistency.qmd)
+- [Calibration & Uncertainty](calibration.qmd)
+- [Generator-Validator Gap](generator-validator-gap.qmd)
+- [Benchmark Reliability](benchmark-reliability.qmd)

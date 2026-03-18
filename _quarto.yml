@@ -1,6 +1,18 @@
 project:
   type: website
   output-dir: _site
+  render:
+    - index.qmd
+    - taxonomy.qmd
+    - factual-consistency.qmd
+    - self-consistency.qmd
+    - reasoning-consistency.qmd
+    - behavioral-consistency.qmd
+    - calibration.qmd
+    - cross-context.qmd
+    - benchmark-reliability.qmd
+    - generator-validator-gap.qmd
+    - resources.qmd
 
 website:
   title: "LLM Consistency: A Literature Survey"
@@ -27,6 +39,8 @@ website:
             text: Cross-Context & Format Sensitivity
           - href: benchmark-reliability.qmd
             text: Benchmark Reliability
+          - href: generator-validator-gap.qmd
+            text: Generator-Validator Gap
       - href: resources.qmd
         text: Resources & Tools
   page-footer:

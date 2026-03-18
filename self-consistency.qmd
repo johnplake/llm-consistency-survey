@@ -1,37 +1,99 @@
 ---
 title: "Self-Consistency & Contradiction"
-subtitle: "When LLMs disagree with themselves"
+subtitle: "Whether models agree with themselves across prompts and samples"
 ---
-
-::: {.callout-note}
-## Section Status
-This section is being populated by literature research. Content will be updated.
-:::
 
 ## Overview
 
-*[Research in progress]*
+Self-consistency concerns whether an LLM returns compatible answers to semantically equivalent questions, paraphrases, or repeated runs. In deployed systems this appears as answer drift: same user intent, different outputs. The issue is partly stochastic (sampling), partly representational (unstable latent beliefs), and partly prompt-induced (format sensitivity).
+
+An important distinction in this literature: **self-consistency as a failure mode** versus **self-consistency as a decoding strategy**. The Wang et al. method (majority vote over chains) improves outcomes, but it does not imply that the base model is internally coherent. It works precisely because the underlying model is inconsistent enough that sampling can uncover better trajectories.
+
+Self-consistency failures also connect directly to factual reliability and hallucination risk: output disagreement is often a useful uncertainty signal when internals are unavailable.
 
 ## Key Papers
 
-*[To be populated]*
+### Consistency as Method vs. Consistency as Property
+**Self-Consistency Improves Chain of Thought Reasoning in Language Models** (Wang et al., 2023) · ICLR · [link](https://arxiv.org/abs/2203.11171)
 
-## Preprints & Emerging Work
+> Introduced majority-vote decoding over multiple reasoning paths. Strong practical gains, but best interpreted as a mitigation for instability rather than proof of stable internal beliefs.
 
-*[To be populated]*
+**SelfCheckGPT** (Manakul et al., 2023) · EMNLP Findings · [link](https://arxiv.org/abs/2303.08896)
+
+> Treats cross-sample disagreement as a hallucination signal. A practical bridge between self-consistency diagnostics and factuality monitoring.
+
+### Contradiction and Invariance Stress Tests
+**CheckList** (Ribeiro et al., 2020) · ACL · [link](https://aclanthology.org/2020.acl-main.442/)
+
+> Established behavioral invariance tests (e.g., paraphrase perturbations), now foundational for consistency audits.
+
+**PAWS** (Zhang, Baldridge, He, 2019) · NAACL · [link](https://aclanthology.org/N19-1382/)
+
+> Demonstrated robustness failures under high-overlap paraphrase-like variants, exposing brittle semantic judgments.
+
+**TruthfulQA** (Lin et al., 2022) · ACL · [link](https://aclanthology.org/2022.acl-long.229/)
+
+> Though a truthfulness benchmark, it is widely used to show model answers can shift under elicitation style.
+
+## Preprints & Recent Work
+
+**PromptBench** (Zhu et al., 2023) · NeurIPS Datasets/Benchmarks track · [link](https://arxiv.org/abs/2306.04528)
+
+> Systematic perturbation suite for prompt robustness and consistency scoring.
+
+**Language Models (Mostly) Know What They Know** (Kadavath et al., 2022) · arXiv · [link](https://arxiv.org/abs/2207.05221)
+
+> Connects confidence estimation to reliability; useful for interpreting when unstable answers should trigger abstention.
+
+**HaluEval** (Li et al., 2023) · EMNLP Findings / arXiv · [link](https://arxiv.org/abs/2305.11747)
+
+> Includes contradiction-like failures against evidence and world facts across tasks.
 
 ## Blog Posts & Practitioner Resources
 
-*[To be populated]*
+- **Prompting Guide: Consistency Techniques** (DAIR.AI, ongoing) — <https://www.promptingguide.ai/techniques/consistency>
+  Catalog of practical templates for self-consistency sampling and voting.
 
-## Datasets & Benchmarks
+- **OpenAI Prompt Engineering Guide** (OpenAI, ongoing) — <https://platform.openai.com/docs/guides/prompt-engineering>
+  Production heuristics for reducing answer variance.
 
-*[To be populated]*
+- **Anthropic research notes on confidence/consistency** (Anthropic, ongoing) — <https://www.anthropic.com/news>
+  Applied discussions of confidence and reliability behavior.
+
+## Benchmarks & Datasets
+
+| Name | Year | Description | Link |
+|------|------|-------------|------|
+| TruthfulQA | 2022 | Truthfulness under misconception pressure | <https://arxiv.org/abs/2109.07958> |
+| ANLI | 2020 | Adversarial entailment/contradiction NLI | <https://arxiv.org/abs/1910.14599> |
+| HANS | 2019 | NLI heuristic stress test | <https://aclanthology.org/P19-1334/> |
+| WinoGrande | 2020 | Robust coreference benchmark | <https://arxiv.org/abs/1907.10641> |
+| Winogender | 2018 | Demographic-swapped consistency diagnostics | <https://aclanthology.org/N18-2003/> |
+| PromptBench | 2023 | Prompt perturbation robustness benchmark | <https://arxiv.org/abs/2306.04528> |
+
+## GitHub Repos
+
+- **chain-of-thought-hub** — <https://github.com/FranxYao/chain-of-thought-hub>
+  Reproducible prompts and evaluation scripts for consistency-sensitive reasoning tasks.
+
+- **BIG-Bench-Hard** — <https://github.com/suzgunmirac/BIG-Bench-Hard>
+  Hard reasoning tasks often used in variance/consistency studies.
+
+- **lm-evaluation-harness** — <https://github.com/EleutherAI/lm-evaluation-harness>
+  Standardized benchmarking framework for multi-prompt comparisons.
 
 ## Key Takeaways
 
-*[To be populated]*
+::: {.callout-tip}
+## Key Insights
+- Cross-sample disagreement is one of the most useful black-box uncertainty signals in practice.
+- “Self-consistency decoding” improves outcomes but does not mean models are intrinsically self-consistent.
+- Robust evaluation must include paraphrase and prompt perturbation tests, not single-template scores.
+:::
 
----
+## See Also
 
-← [Taxonomy](taxonomy.qmd) | [Resources](resources.qmd) →
+- [Reasoning Consistency](reasoning-consistency.qmd)
+- [Factual Consistency & Hallucination](factual-consistency.qmd)
+- [Calibration & Uncertainty](calibration.qmd)
+- [Generator-Validator Gap](generator-validator-gap.qmd)

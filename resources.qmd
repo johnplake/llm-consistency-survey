@@ -1,29 +1,128 @@
 ---
 title: "Resources & Tools"
-subtitle: "Benchmarks, datasets, code, and curated links"
+subtitle: "Surveys, benchmarks, frameworks, and practitioner infrastructure"
 ---
 
-::: {.callout-note}
-## Section Status
-This section is being populated by literature research.
-:::
+## Overview
+
+This page is a curated hub for navigating the LLM consistency literature and tooling ecosystem. The core challenge is fragmentation: relevant work is spread across hallucination papers, robust NLP methods, calibration studies, benchmark design, and applied eval engineering. This hub consolidates those strands into one actionable map.
+
+A practical pattern emerges from both research and production: no single metric or benchmark is sufficient. Teams that get reliable results combine static task suites, perturbation tests, human preference data, and task-grounded execution checks—then version the entire pipeline.
+
+Use this page as a “build sheet” for your evaluation stack: start with broad references, pick benchmark families by risk profile, and adopt tooling that supports reproducible reruns and regression testing.
+
+## Key Papers
+
+### Foundational Survey & Taxonomy References
+**A Survey of Large Language Models** (Zhao et al., 2023) · arXiv · [link](https://arxiv.org/abs/2303.18223)
+
+> Broad technical overview of LLM foundations and evaluation context.
+
+**A Survey of Hallucination in Natural Language Generation** (Ji et al., 2023) · ACM CSUR · [link](https://arxiv.org/abs/2202.03629)
+
+> Canonical hallucination taxonomy and mitigation map.
+
+**On the Evaluation of Large Language Models** (Chang et al., 2024) · arXiv · [link](https://arxiv.org/abs/2307.03109)
+
+> Comprehensive treatment of evaluation pitfalls and protocol design.
+
+**HELM: Holistic Evaluation of Language Models** (Liang et al., 2022) · arXiv/CRFM · [link](https://arxiv.org/abs/2211.09110)
+
+> Landmark framework for multi-metric, scenario-specific model assessment.
+
+### Trustworthy Evaluation Frameworks
+**TrustLLM** (Huang et al., 2024) · arXiv · [link](https://arxiv.org/abs/2401.05561)
+
+> Framework and benchmark for trust dimensions spanning truthfulness, robustness, safety, and fairness.
+
+**Dynabench** (Kiela et al., 2021) · NAACL · [link](https://aclanthology.org/2021.naacl-main.324/)
+
+> Dynamic benchmark philosophy to reduce static-test overfitting.
+
+## Preprints & Recent Work
+
+**MMLU-Pro** (Wang et al., 2024) · arXiv · [link](https://arxiv.org/abs/2406.01574)
+
+> Harder successor benchmark motivated by saturation concerns.
+
+**SWE-bench** (Jimenez et al., 2024) · ICLR · [link](https://arxiv.org/abs/2310.06770)
+
+> Real-world software issue resolution benchmark, useful for grounded capability testing.
+
+**MT-Bench + Arena analysis** (Zheng et al., 2023+) · [link](https://arxiv.org/abs/2306.05685)
+
+> Evolving methodology for pairwise quality comparison and judge calibration.
+
+## Blog Posts & Practitioner Resources
+
+- **The Leaderboard Illusion** (AI Snake Oil, 2024) — <https://www.aisnakeoil.com/p/the-leaderboard-illusion>
+  Essential read on Goodhart pressure and ranking instability.
+
+- **HELM launch and methodology posts** (CRFM) — <https://crfm.stanford.edu/2022/11/17/helm.html>
+  Why single-number reporting fails for real-world reliability.
+
+- **LMSYS Blog** (Arena/MT-Bench updates) — <https://lmsys.org/blog/>
+  Ongoing practical insights into pairwise eval and judge artifacts.
+
+- **Open LLM Leaderboard docs** (Hugging Face) — <https://huggingface.co/docs/leaderboards/open_llm_leaderboard/about>
+  Versioning notes, caveats, and interpretation guidance.
+
+- **Anthropic/OpenAI safety & system-card resources** — <https://www.anthropic.com/news>, <https://openai.com/safety>
+  Model evaluation transparency and deployment risk framing.
 
 ## Benchmarks & Datasets
 
-*[To be populated]*
+| Name | Year | Description | Link |
+|------|------|-------------|------|
+| TruthfulQA | 2022 | Truthfulness under misconception pressure | <https://arxiv.org/abs/2109.07958> |
+| MMLU | 2020 | Broad MCQ capability benchmark | <https://arxiv.org/abs/2009.03300> |
+| MMLU-Pro | 2024 | Harder and less saturated MMLU variant | <https://arxiv.org/abs/2406.01574> |
+| GSM8K | 2021 | Grade-school math reasoning | <https://arxiv.org/abs/2110.14168> |
+| HumanEval | 2021 | Code generation with tests | <https://arxiv.org/abs/2107.03374> |
+| SWE-bench | 2024 | Real-world software issue benchmark | <https://arxiv.org/abs/2310.06770> |
+| FActScore | 2023 | Atomic factual precision metric/benchmark | <https://arxiv.org/abs/2305.14251> |
+| HaluEval | 2023 | Hallucination benchmark for LLMs | <https://arxiv.org/abs/2305.11747> |
+| MT-Bench | 2023 | Multi-turn quality benchmark | <https://arxiv.org/abs/2306.05685> |
+| Chatbot Arena | 2023– | Live pairwise human preference ranking | <https://lmarena.ai/> |
 
-## Code & GitHub Repos
+## GitHub Repos
 
-*[To be populated]*
+- **EleutherAI/lm-evaluation-harness** — <https://github.com/EleutherAI/lm-evaluation-harness>
+  Standard runner for many public benchmark suites.
 
-## Blog Posts & Essays
+- **openai/evals** — <https://github.com/openai/evals>
+  Extensible framework for custom regression and policy checks.
 
-*[To be populated]*
+- **stanford-crfm/helm** — <https://github.com/stanford-crfm/helm>
+  Holistic evaluation scenarios and metrics.
 
-## Talks & Lectures
+- **google/BIG-bench** — <https://github.com/google/BIG-bench>
+  Broad capability stress suite.
 
-*[To be populated]*
+- **microsoft/promptbench** — <https://github.com/microsoft/promptbench>
+  Prompt perturbation robustness framework.
 
-## Further Reading
+- **huggingface/lighteval** — <https://github.com/huggingface/lighteval>
+  Modular open-model evaluation pipeline.
 
-*[To be populated]*
+- **explodinggradients/ragas** — <https://github.com/explodinggradients/ragas>
+  RAG-focused factuality and relevance evaluation.
+
+- **truera/trulens** — <https://github.com/truera/trulens>
+  LLM app observability with groundedness checks.
+
+## Key Takeaways
+
+::: {.callout-tip}
+## Key Insights
+- Build evaluation as a **stack**, not a single benchmark: static tests + perturbations + human preference + grounded execution.
+- Track versions of prompts, datasets, judges, and decoding settings; otherwise comparisons are weak.
+- Treat benchmark results as evidence, not truth—especially when scores are near saturation.
+:::
+
+## See Also
+
+- [Taxonomy](taxonomy.qmd)
+- [Benchmark Reliability](benchmark-reliability.qmd)
+- [Factual Consistency & Hallucination](factual-consistency.qmd)
+- [Generator-Validator Gap](generator-validator-gap.qmd)

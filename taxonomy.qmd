@@ -154,6 +154,20 @@ Factual Consistency ←→ Self-Consistency
 - **Cross-context sensitivity** amplifies all other consistency failures across prompt variations
 - **Benchmark reliability** is the measurement problem that sits above all others
 
+## Generator-Validator Gap (Cross-Cutting Concept)
+
+The **generator-validator gap** captures a pattern that spans multiple categories: models are often better at *judging* candidate answers than *producing* the best answer in one shot.
+
+This concept links:
+
+- **Reasoning consistency**: best-of-N sampling + verifier reranking can outperform direct generation on multi-step tasks.
+- **Self-consistency**: majority voting over sampled chains works because selection is often easier than generation.
+- **Calibration**: disagreement among candidates can serve as a practical uncertainty signal, improving abstention and risk control.
+
+In other words, many successful reliability methods convert one hard problem (single-pass generation) into two easier ones (candidate generation + discriminative validation). This is why verifier models, process reward models, and structured checking loops have become central in modern LLM reliability pipelines.
+
+→ [Generator-Validator Gap](generator-validator-gap.qmd)
+
 ## Boundaries and Scope
 
 **Included**: Self-consistency, paraphrase robustness, factual reliability, sycophancy, calibration, cross-lingual consistency, reasoning faithfulness, evaluation robustness

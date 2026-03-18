@@ -1,37 +1,112 @@
 ---
 title: "Reasoning Consistency"
-subtitle: "When LLMs reason incorrectly or unfaithfully"
+subtitle: "When final answers and reasoning traces diverge"
 ---
-
-::: {.callout-note}
-## Section Status
-This section is being populated by literature research. Content will be updated.
-:::
 
 ## Overview
 
-*[Research in progress]*
+Reasoning consistency asks whether an LLM’s multi-step reasoning is stable, valid, and faithful—not just whether it occasionally lands on the right final answer. A recurring finding is **process-outcome mismatch**: models can produce correct answers with weak rationales, and persuasive rationales with incorrect conclusions.
+
+Chain-of-thought prompting dramatically improved benchmark performance, but it also exposed faithfulness problems. Generated rationales are often post-hoc narratives rather than transparent traces of computation. This matters for safety and auditability: if the rationale is unreliable, it cannot be treated as a trustworthy explanation.
+
+The field is moving toward verifier-centric and process-supervised methods (step-level checks, process reward models, search over candidate traces). These methods implicitly treat reasoning reliability as a generate-then-validate problem.
 
 ## Key Papers
 
-*[To be populated]*
+### Chain-of-Thought and Its Limits
+**Chain-of-Thought Prompting Elicits Reasoning in Large Language Models** (Wei et al., 2022) · NeurIPS · [link](https://arxiv.org/abs/2201.11903)
 
-## Preprints & Emerging Work
+> Foundational CoT paper showing large gains on reasoning tasks via intermediate steps.
 
-*[To be populated]*
+**Large Language Models are Zero-Shot Reasoners** (Kojima et al., 2022) · NeurIPS · [link](https://arxiv.org/abs/2205.11916)
+
+> Demonstrated “Let’s think step by step” prompting as a robust zero-shot booster.
+
+**Language Models Don’t Always Say What They Think** (Turpin et al., 2023) · arXiv · [link](https://arxiv.org/abs/2305.04388)
+
+> Strong evidence that many CoT explanations are unfaithful to actual decision mechanisms.
+
+### Process Supervision and Verification
+**Training Verifiers to Solve Math Word Problems** (Cobbe et al., 2021) · arXiv · [link](https://arxiv.org/abs/2110.14168)
+
+> Separated generation and verification, showing verifier reranking can outperform raw generation.
+
+**Let’s Verify Step by Step** (Lightman et al., 2023) · arXiv · [link](https://arxiv.org/abs/2305.20050)
+
+> Process supervision with step-level labels improved reasoning reliability relative to outcome-only supervision.
+
+**Faithful Chain-of-Thought Reasoning** (Lyu et al., 2023) · arXiv · [link](https://arxiv.org/abs/2301.13379)
+
+> Explores approaches to align generated rationales with executable/verifiable intermediate steps.
+
+### Search and Deliberation
+**Tree of Thoughts** (Yao et al., 2023) · NeurIPS · [link](https://arxiv.org/abs/2305.10601)
+
+> Uses branching search over candidate thoughts to reduce one-shot reasoning errors.
+
+**ReAct** (Yao et al., 2023) · ICLR · [link](https://arxiv.org/abs/2210.03629)
+
+> Integrates reasoning with tool interaction, improving verifiability and reducing unsupported internal speculation.
+
+## Preprints & Recent Work
+
+**Math-Shepherd** (Wang et al., 2023) · arXiv · [link](https://arxiv.org/abs/2312.08935)
+
+> Step-by-step verification pipeline without full human annotation overhead.
+
+**Reflexion** (Shinn et al., 2023) · NeurIPS-era preprint · [link](https://arxiv.org/abs/2303.11366)
+
+> Iterative self-improvement with feedback memory; works best with external success signals.
+
+**Large Language Models Cannot Self-Correct Reasoning Yet** (Huang et al., 2023) · arXiv · [link](https://arxiv.org/abs/2310.01798)
+
+> Shows intrinsic self-correction is often unreliable without externalized feedback.
 
 ## Blog Posts & Practitioner Resources
 
-*[To be populated]*
+- **Let’s verify step by step** (OpenAI, 2023) — <https://openai.com/research/lets-verify-step-by-step>
+  Accessible explanation of process supervision and step-level verification.
 
-## Datasets & Benchmarks
+- **Prompting Guide: CoT, Self-Consistency, ToT** (DAIR.AI) — <https://www.promptingguide.ai/>
+  Practical patterns for improving reasoning stability.
 
-*[To be populated]*
+- **OpenAI Evals docs** (OpenAI, ongoing) — <https://github.com/openai/evals>
+  Framework for custom reasoning checks and judge-based evaluation loops.
+
+## Benchmarks & Datasets
+
+| Name | Year | Description | Link |
+|------|------|-------------|------|
+| GSM8K | 2021 | Grade-school math reasoning benchmark | <https://arxiv.org/abs/2110.14168> |
+| MATH | 2021 | Competition-level multi-step math reasoning | <https://arxiv.org/abs/2103.03874> |
+| SVAMP | 2021 | Perturbation-based math robustness benchmark | <https://arxiv.org/abs/2109.07197> |
+| AQuA-RAT | 2019 | Arithmetic QA with rationales | <https://arxiv.org/abs/1903.00161> |
+| BIG-Bench Hard | 2023 | Hard reasoning subset exposing fragility | <https://github.com/suzgunmirac/BIG-Bench-Hard> |
+| PRM800K | 2023 | Step-level process supervision dataset | <https://github.com/openai/prm800k> |
+
+## GitHub Repos
+
+- **openai/prm800k** — <https://github.com/openai/prm800k>
+  Data/tooling for process reward modeling.
+
+- **openai/evals** — <https://github.com/openai/evals>
+  Eval suite for reasoning-focused assessments.
+
+- **chain-of-thought-hub** — <https://github.com/FranxYao/chain-of-thought-hub>
+  Prompt and benchmark recipes for reasoning experiments.
 
 ## Key Takeaways
 
-*[To be populated]*
+::: {.callout-tip}
+## Key Insights
+- Final-answer accuracy can mask unstable or unfaithful reasoning traces.
+- Process supervision and verifier-guided reranking are currently among the strongest reliability upgrades.
+- Intrinsic self-correction is brittle; external feedback loops are far more dependable.
+:::
 
----
+## See Also
 
-← [Taxonomy](taxonomy.qmd) | [Resources](resources.qmd) →
+- [Self-Consistency & Contradiction](self-consistency.qmd)
+- [Generator-Validator Gap](generator-validator-gap.qmd)
+- [Calibration & Uncertainty](calibration.qmd)
+- [Benchmark Reliability](benchmark-reliability.qmd)
