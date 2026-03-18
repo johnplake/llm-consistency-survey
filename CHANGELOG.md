@@ -82,6 +82,9 @@ All notable changes to this project are documented in this file.
 - Added a child relevance note to each included paper in Zotero.
 - Added a standalone collection note to each GV collection (question, criteria, search terms).
 - Removed one marginal item from inference-time collection (`Constitutional AI`) as not directly inference-time-compute focused.
+- Added a detailed Q1 dossier: `research/gv-q1-detailed-dossier.md`.
+- Reformatted Zotero notes for readability (newline/minimal style) across note types.
+- Updated survey LaTeX/PDF with a revision note pointing to detailed dossiers.
 
 ## [2026-03-18] Compilation pass: full site population
 

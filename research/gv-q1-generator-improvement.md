@@ -1,5 +1,7 @@
 # GV Q1 — Improving Generator Quality Using Validator/Judge Signals
 
+> Preface (2026-03-18): Detailed per-paper read notes are now in **`gv-q1-detailed-dossier.md`** (same folder), and were also added as child notes in Zotero under each item with heading **[DETAILED-READ-NOTE Q1]**.
+
 Target collection: **LLM-inconsistency / GV-Generator-improvement-using-validator** (group library)
 
 Selection criterion used here: papers where a validator/judge/reward/ranker signal is used to *improve generation* (training and/or decoding), beyond plain SFT alone.
