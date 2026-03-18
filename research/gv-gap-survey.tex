@@ -1,0 +1,168 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\title{Generator--Validator Gap in LLMs: A Concise Survey and Reading Roadmap}
+\author{John P. Lake}
+\date{2026-03-18}
+
+\begin{document}
+\maketitle
+
+\section{Scope and Method}
+This report synthesizes papers curated into ten Zotero subcollections under \texttt{LLM-inconsistency}. For each topic, papers were retained only if they directly answered the collection question. Marginally related items were removed.
+
+\section{1) Improving the Generator Using the Validator}
+\textbf{Core contribution of this line:} use verifier/judge/ranker signal to improve generation quality beyond plain supervised finetuning (SFT), either via training objectives or inference-time reranking.
+
+\textbf{Key papers and relevance.}
+\begin{itemize}
+  \item \textit{Training Verifiers to Solve Math Word Problems} (Cobbe et al., 2021): foundational verifier-reranking evidence.
+  \item \textit{Let’s Verify Step by Step} (Lightman et al., 2023): process-level validator supervision with substantial gains on math reasoning.
+  \item \textit{DPO} (Rafailov et al., 2023), \textit{RRHF} (Yuan et al., 2023), \textit{ReST} (Gulcehre et al., 2023): converting ranking/preference signal into generator improvements.
+  \item \textit{LLM-Blender} (Jiang et al., 2023): pairwise ranking + fusion for better outputs.
+\end{itemize}
+
+\textbf{Reading roadmap.} Cobbe $\rightarrow$ Lightman $\rightarrow$ Uesato (process vs outcome) $\rightarrow$ DPO/RRHF $\rightarrow$ LLM-Blender.
+
+\textbf{Open questions.} When does validator-driven tuning beat stronger SFT data curation? How to prevent reward hacking against a fixed validator?
+
+\section{2) Applications of Closing the Gap}
+\textbf{Core contribution of this line:} practical systems where generator--validator consistency improves utility and reliability.
+
+\textbf{Key applications with concrete evidence.}
+\begin{itemize}
+  \item \textbf{LLM-as-judge:} MT-Bench/Arena (Zheng et al., 2023), G-Eval (Liu et al., 2023), PandaLM/Prometheus.
+  \item \textbf{Revision and factuality:} RARR, SelfCheckGPT, Chain-of-Verification.
+  \item \textbf{Ranking and output selection:} RankGen, LLM-Blender.
+  \item \textbf{Alignment/reward pipelines:} DPO, Constitutional AI.
+\end{itemize}
+
+\textbf{Reading roadmap.} MT-Bench $\rightarrow$ G-Eval/Prometheus $\rightarrow$ SelfCheckGPT/RARR $\rightarrow$ RankGen/Blender.
+
+\textbf{Open questions.} Which applications require strict consistency vs calibrated uncertainty? How much human oversight remains necessary at deployment?
+
+\section{3) Mechanism: Why Disagreement Happens}
+\textbf{Core contribution of this line:} mismatch between latent knowledge, readout, and prompting interface can produce generation--validation disagreement.
+
+\textbf{Key papers and relevance.}
+\begin{itemize}
+  \item \textit{Language Models (Mostly) Know What They Know} (Kadavath et al., 2022): latent-knowledge vs expression gap.
+  \item \textit{Discovering Latent Knowledge Without Supervision} (Burns et al., 2022): latent truth signals can exist despite poor surface answers.
+  \item \textit{Unfaithful Explanations in CoT} (Turpin et al., 2023): generated rationales may not track true computation.
+  \item \textit{DoLa}, \textit{Tuned Lens}, \textit{Representation Engineering}: evidence that layer-level readout choices matter.
+\end{itemize}
+
+\textbf{Reading roadmap.} Kadavath/Burns $\rightarrow$ Turpin $\rightarrow$ Tuned Lens/DoLa $\rightarrow$ RankAlign.
+
+\textbf{Open questions.} Do alignment methods increase shared generator--validator mechanisms, or only output-level agreement?
+
+\section{4) Directionality: Generator$\rightarrow$Validator vs Validator$\rightarrow$Generator}
+\textbf{Core contribution of this line:} direction choice should depend on data regime and validator quality.
+
+\textbf{Empirical pattern.}
+\begin{itemize}
+  \item Validator-first is strong when decomposable checks and process labels are available (Cobbe, Lightman, Uesato).
+  \item Generator-first is often used in preference-alignment regimes (RLHF/RLAIF/DPO/RRHF), then validator quality is improved iteratively.
+\end{itemize}
+
+\textbf{Reading roadmap.} Cobbe/Lightman/Uesato $\rightarrow$ RLHF/RLAIF/DPO/RRHF $\rightarrow$ Self-rewarding models.
+
+\textbf{Open questions.} Can alternating co-training avoid evaluator gaming and collapse? Which diagnostics should gate direction switches?
+
+\section{5) Generalization Across Tasks/Domains/Scales}
+\textbf{Core contribution of this line:} test whether gains transfer beyond one benchmark.
+
+\textbf{Key observations.}
+\begin{itemize}
+  \item RankAlign and Li et al. report cross-task effects but with remaining domain gaps.
+  \item Verifier/process methods generalize best within reasoning-heavy domains, less reliably across distant tasks.
+  \item Reranking/fusion methods transfer partially but depend on candidate diversity and score calibration.
+\end{itemize}
+
+\textbf{Reading roadmap.} RankAlign $\rightarrow$ Li et al. $\rightarrow$ verifier/process papers $\rightarrow$ ranker-fusion papers.
+
+\textbf{Open questions.} What are robust OOD stress tests for consistency transfer?
+
+\section{6) Evaluation Design: Artifact vs True Inconsistency}
+\textbf{Core contribution of this line:} measured inconsistency can be inflated by evaluation protocol choices.
+
+\textbf{Key papers and relevance.}
+\begin{itemize}
+  \item \textit{PromptBench} and \textit{Fantastically Ordered Prompts}: prompt-ordering and formatting effects.
+  \item \textit{Lost in the Middle}: context position effects.
+  \item \textit{POSIX}: prompt sensitivity index for controlled robustness measurement.
+  \item Evaluator-bias papers (G-Eval, fairness/position-bias studies): protocol-induced judge instability.
+\end{itemize}
+
+\textbf{Reading roadmap.} PromptBench/POSIX $\rightarrow$ Lost in the Middle $\rightarrow$ judge-bias studies.
+
+\textbf{Open questions.} Standardized artifact-adjusted metrics for GV gap remain underdeveloped.
+
+\section{7) Training Targets: Pairwise Ranking vs Process Supervision}
+\textbf{Core contribution of this line:} pairwise preference objectives are useful but often insufficient for hard reasoning without process traces.
+
+\textbf{Key evidence.}
+\begin{itemize}
+  \item Pairwise/preference: RLHF, RLAIF, DPO, RRHF.
+  \item Process/outcome split: Uesato et al.
+  \item Process-supervised verifiers: Let’s Verify Step by Step, Math-Shepherd.
+\end{itemize}
+
+\textbf{Reading roadmap.} RLHF $\rightarrow$ DPO/RRHF $\rightarrow$ Uesato $\rightarrow$ Lightman/Math-Shepherd.
+
+\textbf{Open questions.} Cost-effective process labels; hybrid objectives that preserve diversity without sacrificing correctness.
+
+\section{8) Inference-Time Compute}
+\textbf{Core contribution of this line:} substantial gap reduction can be achieved without retraining via sampling, voting, reranking, and search.
+
+\textbf{Key papers and relevance.}
+\begin{itemize}
+  \item \textit{Self-Consistency} (Wang et al., 2022): majority over sampled traces.
+  \item \textit{Tree of Thoughts}, \textit{LATS}: explicit search/planning at inference time.
+  \item Verifier reranking (Cobbe, Lightman) and iterative critique (Self-Refine, Reflexion).
+\end{itemize}
+
+\textbf{Reading roadmap.} Self-Consistency $\rightarrow$ verifier reranking $\rightarrow$ ToT/LATS $\rightarrow$ iterative critique.
+
+\textbf{Open questions.} Compute--quality frontiers, diminishing returns, and robustness under distribution shift.
+
+\section{9) Judge Reliability and Calibration}
+\textbf{Core contribution of this line:} validators are useful but fragile; reliability is conditional.
+
+\textbf{Key papers and relevance.}
+\begin{itemize}
+  \item MT-Bench/Arena, G-Eval, PandaLM, JudgeLM, Prometheus: judge capability baselines.
+  \item Fairness/position-bias and calibration works (Judging the Judges, Split and Merge, CalibraEval, Juries): identify systematic judge failure modes.
+\end{itemize}
+
+\textbf{Reading roadmap.} MT-Bench/G-Eval $\rightarrow$ JudgeLM/Prometheus $\rightarrow$ bias/calibration papers.
+
+\textbf{Open questions.} Robust calibration standards for judges and trigger conditions for human escalation.
+
+\section{10) Origin of the Gap and Post-Training Effects}
+\textbf{Core contribution of this line:} gap appears to arise from a combination of pretraining objective/readout mismatch and post-training objective shifts.
+
+\textbf{Key evidence.}
+\begin{itemize}
+  \item Knowledge/calibration line: Kadavath papers, semantic uncertainty, TruthfulQA.
+  \item Post-training effects: InstructGPT, Constitutional AI, DPO alter response style and confidence behavior.
+  \item RankAlign/Li et al. directly quantify and reduce generator--validator discrepancy.
+\end{itemize}
+
+\textbf{Reading roadmap.} Kadavath/TruthfulQA $\rightarrow$ InstructGPT/Constitutional/DPO $\rightarrow$ Li et al./RankAlign.
+
+\textbf{Open questions.} How much of the residual gap is representational vs purely decoding/protocol-induced?
+
+\section{Cross-Topic Unresolved Questions}
+\begin{itemize}
+  \item Unified benchmark suite that separates true inconsistency from protocol artifact.
+  \item Principled objective for jointly training generator and validator without collapse or gaming.
+  \item Mechanistic overlap metrics to test whether alignment changes internal computation or only outputs.
+  \item Reliable, calibrated, adversarially robust validator standards for deployment.
+\end{itemize}
+
+\section*{Appendix: Collection Audit}
+All ten collections were audited for relevance. Child relevance notes were added to included papers, and a standalone collection note (question, criteria, search terms) was added to each Zotero collection.
+
+\end{document}

@@ -55,6 +55,34 @@ All notable changes to this project are documented in this file.
 - Some sections use URL-first citations rather than strict BibTeX citekeys; this was preserved for readability and continuity.
 - Remaining bibliography harmonization opportunities are documented in the per-section audit reports.
 
+## [2026-03-18] Zotero relevance audit + GV question collections + PDF survey
+
+### Added
+- Created and populated 10 focused Zotero subcollections under `LLM-inconsistency`:
+  - GV-Generator-improvement-using-validator
+  - GV-Applications
+  - GV-Mechanism
+  - GV-Directionality
+  - GV-Generalization
+  - GV-Evaluation-design-artifact-vs-inconsistency
+  - GV-Training-targets
+  - GV-Inference-time-compute
+  - GV-Judge-reliability
+  - GV-Origin-and-posttraining
+- Added per-question research writeups:
+  - `research/gv-q1-generator-improvement.md` ... `research/gv-q10-origin-posttraining.md`
+- Added concise survey manuscript and compiled PDF:
+  - `research/gv-gap-survey.tex`
+  - `research/gv-gap-survey.pdf`
+- Added audit summary:
+  - `research/gv-collection-audit-summary.md`
+
+### Changed
+- Performed relevance pass across all papers in the 10 GV collections.
+- Added a child relevance note to each included paper in Zotero.
+- Added a standalone collection note to each GV collection (question, criteria, search terms).
+- Removed one marginal item from inference-time collection (`Constitutional AI`) as not directly inference-time-compute focused.
+
 ## [2026-03-18] Compilation pass: full site population
 
 ### Added
