@@ -4,224 +4,315 @@
     "href": "resources.html",
     "title": "Resources & Tools",
     "section": "",
-    "text": "NoteSection Status\n\n\n\nThis section is being populated by literature research."
+    "text": "This page is a curated hub for navigating the LLM consistency literature and tooling ecosystem. The core challenge is fragmentation: relevant work is spread across hallucination papers, robust NLP methods, calibration studies, benchmark design, and applied eval engineering. This hub consolidates those strands into one actionable map.\nA practical pattern emerges from both research and production: no single metric or benchmark is sufficient. Teams that get reliable results combine static task suites, perturbation tests, human preference data, and task-grounded execution checks—then version the entire pipeline.\nUse this page as a “build sheet” for your evaluation stack: start with broad references, pick benchmark families by risk profile, and adopt tooling that supports reproducible reruns and regression testing."
+  },
+  {
+    "objectID": "resources.html#overview",
+    "href": "resources.html#overview",
+    "title": "Resources & Tools",
+    "section": "",
+    "text": "This page is a curated hub for navigating the LLM consistency literature and tooling ecosystem. The core challenge is fragmentation: relevant work is spread across hallucination papers, robust NLP methods, calibration studies, benchmark design, and applied eval engineering. This hub consolidates those strands into one actionable map.\nA practical pattern emerges from both research and production: no single metric or benchmark is sufficient. Teams that get reliable results combine static task suites, perturbation tests, human preference data, and task-grounded execution checks—then version the entire pipeline.\nUse this page as a “build sheet” for your evaluation stack: start with broad references, pick benchmark families by risk profile, and adopt tooling that supports reproducible reruns and regression testing."
+  },
+  {
+    "objectID": "resources.html#key-papers",
+    "href": "resources.html#key-papers",
+    "title": "Resources & Tools",
+    "section": "Key Papers",
+    "text": "Key Papers\n\nFoundational Survey & Taxonomy References\nA Survey of Large Language Models (Zhao et al., 2023) · arXiv · link\n\nBroad technical overview of LLM foundations and evaluation context.\n\nA Survey of Hallucination in Natural Language Generation (Ji et al., 2023) · ACM CSUR · link\n\nCanonical hallucination taxonomy and mitigation map.\n\nOn the Evaluation of Large Language Models (Chang et al., 2024) · arXiv · link\n\nComprehensive treatment of evaluation pitfalls and protocol design.\n\nHELM: Holistic Evaluation of Language Models (Liang et al., 2022) · arXiv/CRFM · link\n\nLandmark framework for multi-metric, scenario-specific model assessment.\n\n\n\nTrustworthy Evaluation Frameworks\nTrustLLM (Huang et al., 2024) · arXiv · link\n\nFramework and benchmark for trust dimensions spanning truthfulness, robustness, safety, and fairness.\n\nDynabench (Kiela et al., 2021) · NAACL · link\n\nDynamic benchmark philosophy to reduce static-test overfitting."
+  },
+  {
+    "objectID": "resources.html#preprints-recent-work",
+    "href": "resources.html#preprints-recent-work",
+    "title": "Resources & Tools",
+    "section": "Preprints & Recent Work",
+    "text": "Preprints & Recent Work\nMMLU-Pro (Wang et al., 2024) · arXiv · link\n\nHarder successor benchmark motivated by saturation concerns.\n\nSWE-bench (Jimenez et al., 2024) · ICLR · link\n\nReal-world software issue resolution benchmark, useful for grounded capability testing.\n\nMT-Bench + Arena analysis (Zheng et al., 2023+) · link\n\nEvolving methodology for pairwise quality comparison and judge calibration."
+  },
+  {
+    "objectID": "resources.html#blog-posts-practitioner-resources",
+    "href": "resources.html#blog-posts-practitioner-resources",
+    "title": "Resources & Tools",
+    "section": "Blog Posts & Practitioner Resources",
+    "text": "Blog Posts & Practitioner Resources\n\nThe Leaderboard Illusion (AI Snake Oil, 2024) — https://www.aisnakeoil.com/p/the-leaderboard-illusion Essential read on Goodhart pressure and ranking instability.\nHELM launch and methodology posts (CRFM) — https://crfm.stanford.edu/2022/11/17/helm.html Why single-number reporting fails for real-world reliability.\nLMSYS Blog (Arena/MT-Bench updates) — https://lmsys.org/blog/ Ongoing practical insights into pairwise eval and judge artifacts.\nOpen LLM Leaderboard docs (Hugging Face) — https://huggingface.co/docs/leaderboards/open_llm_leaderboard/about Versioning notes, caveats, and interpretation guidance.\nAnthropic/OpenAI safety & system-card resources — https://www.anthropic.com/news, https://openai.com/safety Model evaluation transparency and deployment risk framing."
   },
   {
     "objectID": "resources.html#benchmarks-datasets",
     "href": "resources.html#benchmarks-datasets",
     "title": "Resources & Tools",
     "section": "Benchmarks & Datasets",
-    "text": "Benchmarks & Datasets\n[To be populated]"
+    "text": "Benchmarks & Datasets\n\n\n\nName\nYear\nDescription\nLink\n\n\n\n\nTruthfulQA\n2022\nTruthfulness under misconception pressure\nhttps://arxiv.org/abs/2109.07958\n\n\nMMLU\n2020\nBroad MCQ capability benchmark\nhttps://arxiv.org/abs/2009.03300\n\n\nMMLU-Pro\n2024\nHarder and less saturated MMLU variant\nhttps://arxiv.org/abs/2406.01574\n\n\nGSM8K\n2021\nGrade-school math reasoning\nhttps://arxiv.org/abs/2110.14168\n\n\nHumanEval\n2021\nCode generation with tests\nhttps://arxiv.org/abs/2107.03374\n\n\nSWE-bench\n2024\nReal-world software issue benchmark\nhttps://arxiv.org/abs/2310.06770\n\n\nFActScore\n2023\nAtomic factual precision metric/benchmark\nhttps://arxiv.org/abs/2305.14251\n\n\nHaluEval\n2023\nHallucination benchmark for LLMs\nhttps://arxiv.org/abs/2305.11747\n\n\nMT-Bench\n2023\nMulti-turn quality benchmark\nhttps://arxiv.org/abs/2306.05685\n\n\nChatbot Arena\n2023–\nLive pairwise human preference ranking\nhttps://lmarena.ai/"
   },
   {
-    "objectID": "resources.html#code-github-repos",
-    "href": "resources.html#code-github-repos",
+    "objectID": "resources.html#github-repos",
+    "href": "resources.html#github-repos",
     "title": "Resources & Tools",
-    "section": "Code & GitHub Repos",
-    "text": "Code & GitHub Repos\n[To be populated]"
+    "section": "GitHub Repos",
+    "text": "GitHub Repos\n\nEleutherAI/lm-evaluation-harness — https://github.com/EleutherAI/lm-evaluation-harness Standard runner for many public benchmark suites.\nopenai/evals — https://github.com/openai/evals Extensible framework for custom regression and policy checks.\nstanford-crfm/helm — https://github.com/stanford-crfm/helm Holistic evaluation scenarios and metrics.\ngoogle/BIG-bench — https://github.com/google/BIG-bench Broad capability stress suite.\nmicrosoft/promptbench — https://github.com/microsoft/promptbench Prompt perturbation robustness framework.\nhuggingface/lighteval — https://github.com/huggingface/lighteval Modular open-model evaluation pipeline.\nexplodinggradients/ragas — https://github.com/explodinggradients/ragas RAG-focused factuality and relevance evaluation.\ntruera/trulens — https://github.com/truera/trulens LLM app observability with groundedness checks."
   },
   {
-    "objectID": "resources.html#blog-posts-essays",
-    "href": "resources.html#blog-posts-essays",
+    "objectID": "resources.html#key-takeaways",
+    "href": "resources.html#key-takeaways",
     "title": "Resources & Tools",
-    "section": "Blog Posts & Essays",
-    "text": "Blog Posts & Essays\n[To be populated]"
-  },
-  {
-    "objectID": "resources.html#talks-lectures",
-    "href": "resources.html#talks-lectures",
-    "title": "Resources & Tools",
-    "section": "Talks & Lectures",
-    "text": "Talks & Lectures\n[To be populated]"
-  },
-  {
-    "objectID": "resources.html#further-reading",
-    "href": "resources.html#further-reading",
-    "title": "Resources & Tools",
-    "section": "Further Reading",
-    "text": "Further Reading\n[To be populated]"
-  },
-  {
-    "objectID": "cross-context.html",
-    "href": "cross-context.html",
-    "title": "Cross-Context Sensitivity",
-    "section": "",
-    "text": "NoteSection Status\n\n\n\nThis section is being populated by literature research. Content will be updated."
-  },
-  {
-    "objectID": "cross-context.html#overview",
-    "href": "cross-context.html#overview",
-    "title": "Cross-Context Sensitivity",
-    "section": "Overview",
-    "text": "Overview\n[Research in progress]"
-  },
-  {
-    "objectID": "cross-context.html#key-papers",
-    "href": "cross-context.html#key-papers",
-    "title": "Cross-Context Sensitivity",
-    "section": "Key Papers",
-    "text": "Key Papers\n[To be populated]"
-  },
-  {
-    "objectID": "cross-context.html#preprints-emerging-work",
-    "href": "cross-context.html#preprints-emerging-work",
-    "title": "Cross-Context Sensitivity",
-    "section": "Preprints & Emerging Work",
-    "text": "Preprints & Emerging Work\n[To be populated]"
-  },
-  {
-    "objectID": "cross-context.html#blog-posts-practitioner-resources",
-    "href": "cross-context.html#blog-posts-practitioner-resources",
-    "title": "Cross-Context Sensitivity",
-    "section": "Blog Posts & Practitioner Resources",
-    "text": "Blog Posts & Practitioner Resources\n[To be populated]"
-  },
-  {
-    "objectID": "cross-context.html#datasets-benchmarks",
-    "href": "cross-context.html#datasets-benchmarks",
-    "title": "Cross-Context Sensitivity",
-    "section": "Datasets & Benchmarks",
-    "text": "Datasets & Benchmarks\n[To be populated]"
-  },
-  {
-    "objectID": "cross-context.html#key-takeaways",
-    "href": "cross-context.html#key-takeaways",
-    "title": "Cross-Context Sensitivity",
     "section": "Key Takeaways",
-    "text": "Key Takeaways\n[To be populated]\n\n← Taxonomy | Resources →"
+    "text": "Key Takeaways\n\n\n\n\n\n\nTipKey Insights\n\n\n\n\nBuild evaluation as a stack, not a single benchmark: static tests + perturbations + human preference + grounded execution.\nTrack versions of prompts, datasets, judges, and decoding settings; otherwise comparisons are weak.\nTreat benchmark results as evidence, not truth—especially when scores are near saturation."
   },
   {
-    "objectID": "behavioral-consistency.html",
-    "href": "behavioral-consistency.html",
-    "title": "Behavioral Consistency & Sycophancy",
+    "objectID": "resources.html#see-also",
+    "href": "resources.html#see-also",
+    "title": "Resources & Tools",
+    "section": "See Also",
+    "text": "See Also\n\nTaxonomy\nBenchmark Reliability\nFactual Consistency & Hallucination\nGenerator-Validator Gap"
+  },
+  {
+    "objectID": "benchmark-reliability.html",
+    "href": "benchmark-reliability.html",
+    "title": "Benchmark Reliability",
     "section": "",
-    "text": "NoteSection Status\n\n\n\nThis section is being populated by literature research. Content will be updated."
+    "text": "Benchmark reliability is the meta-consistency problem: can we trust our measurements of model capability? Leaderboard scores are often treated as objective progress, but in LLM evaluation they are highly sensitive to prompt templates, contamination, grading method, and benchmark saturation.\nThree recurring threats dominate this area. First, data contamination inflates apparent performance when benchmark-like content appears in training corpora. Second, format and prompt sensitivity can change absolute scores—and sometimes rankings—without model changes. Third, LLM-as-judge biases (position, verbosity, style preference) can inject systematic artifacts into automatic evaluation.\nAs a result, reliable assessment increasingly uses portfolio evaluation: static benchmarks + dynamic human preference + execution-grounded tasks, with strict metadata and reproducibility controls."
   },
   {
-    "objectID": "behavioral-consistency.html#overview",
-    "href": "behavioral-consistency.html#overview",
-    "title": "Behavioral Consistency & Sycophancy",
-    "section": "Overview",
-    "text": "Overview\n[Research in progress]"
+    "objectID": "benchmark-reliability.html#overview",
+    "href": "benchmark-reliability.html#overview",
+    "title": "Benchmark Reliability",
+    "section": "",
+    "text": "Benchmark reliability is the meta-consistency problem: can we trust our measurements of model capability? Leaderboard scores are often treated as objective progress, but in LLM evaluation they are highly sensitive to prompt templates, contamination, grading method, and benchmark saturation.\nThree recurring threats dominate this area. First, data contamination inflates apparent performance when benchmark-like content appears in training corpora. Second, format and prompt sensitivity can change absolute scores—and sometimes rankings—without model changes. Third, LLM-as-judge biases (position, verbosity, style preference) can inject systematic artifacts into automatic evaluation.\nAs a result, reliable assessment increasingly uses portfolio evaluation: static benchmarks + dynamic human preference + execution-grounded tasks, with strict metadata and reproducibility controls."
   },
   {
-    "objectID": "behavioral-consistency.html#key-papers",
-    "href": "behavioral-consistency.html#key-papers",
-    "title": "Behavioral Consistency & Sycophancy",
+    "objectID": "benchmark-reliability.html#key-papers",
+    "href": "benchmark-reliability.html#key-papers",
+    "title": "Benchmark Reliability",
     "section": "Key Papers",
-    "text": "Key Papers\n[To be populated]"
+    "text": "Key Papers\n\nContamination and Memorization Risks\nLanguage Models are Few-Shot Learners (Brown et al., 2020) · NeurIPS · link\n\nEarly large-scale model paper that explicitly discusses contamination checks and overlap concerns.\n\nDocumenting Large Webtext Corpora: C4 Case Study (Dodge et al., 2021) · EMNLP · link\n\nHighlights provenance/filtering limitations in web corpora that complicate clean train-test separation.\n\nDeduplicating Training Data Makes Language Models Better (Lee et al., 2022) · ACL · link\n\nShows deduplication improves quality and reduces memorization-like artifacts.\n\n\n\nPrompt and Protocol Instability\nHELM (Liang et al., 2022) · arXiv / CRFM · link\n\nLandmark multi-metric framework emphasizing standardized scenarios and reporting beyond single scores.\n\nBIG-bench (Srivastava et al., 2022) · TMLR · link\n\nDemonstrates broad capability coverage and substantial task-level variance.\n\nFantastically Ordered Prompts (Lu et al., 2022) · ACL · link\n\nDemonstration order can dramatically alter outcomes, stressing reproducibility concerns.\n\n\n\nLLM-as-Judge Artifacts\nJudging LLM-as-a-Judge with MT-Bench and Chatbot Arena (Zheng et al., 2023) · NeurIPS Datasets/Benchmarks ecosystem · link\n\nFoundational modern judge framework plus explicit bias caveats.\n\nG-Eval (Liu et al., 2023) · EMNLP line · link\n\nStrong correlation to human judgments in some settings, but sensitive to rubric/prompt design.\n\nLarge Language Models are not Fair Evaluators (Wang et al., 2023) · arXiv · link\n\nDocuments systematic non-content biases in judge outputs."
   },
   {
-    "objectID": "behavioral-consistency.html#preprints-emerging-work",
-    "href": "behavioral-consistency.html#preprints-emerging-work",
-    "title": "Behavioral Consistency & Sycophancy",
-    "section": "Preprints & Emerging Work",
-    "text": "Preprints & Emerging Work\n[To be populated]"
+    "objectID": "benchmark-reliability.html#preprints-recent-work",
+    "href": "benchmark-reliability.html#preprints-recent-work",
+    "title": "Benchmark Reliability",
+    "section": "Preprints & Recent Work",
+    "text": "Preprints & Recent Work\nMMLU-Pro (Wang et al., 2024) · arXiv · link\n\nHarder benchmark designed to address saturation and reliability issues in MMLU-like testing.\n\nGPQA (Rein et al., 2023) · arXiv · link\n\nGraduate-level benchmark intended to restore discriminative power where older tests saturate.\n\nSWE-bench (Jimenez et al., 2024) · ICLR · link\n\nExecution-grounded software tasks reduce reliance on purely textual grading artifacts."
   },
   {
-    "objectID": "behavioral-consistency.html#blog-posts-practitioner-resources",
-    "href": "behavioral-consistency.html#blog-posts-practitioner-resources",
-    "title": "Behavioral Consistency & Sycophancy",
+    "objectID": "benchmark-reliability.html#blog-posts-practitioner-resources",
+    "href": "benchmark-reliability.html#blog-posts-practitioner-resources",
+    "title": "Benchmark Reliability",
     "section": "Blog Posts & Practitioner Resources",
-    "text": "Blog Posts & Practitioner Resources\n[To be populated]"
+    "text": "Blog Posts & Practitioner Resources\n\nThe Leaderboard Illusion (Kapoor & Narayanan, 2024) — https://www.aisnakeoil.com/p/the-leaderboard-illusion Widely cited critique of benchmark over-interpretation and ranking instability.\nOpen LLM Leaderboard docs (Hugging Face, ongoing) — https://huggingface.co/docs/leaderboards/open_llm_leaderboard/about Important caveats on versioning, benchmark composition, and comparability.\nLMSYS methodology posts (LMSYS, ongoing) — https://lmsys.org/blog/ Practical reflections on pairwise ranking strengths and limitations."
   },
   {
-    "objectID": "behavioral-consistency.html#datasets-benchmarks",
-    "href": "behavioral-consistency.html#datasets-benchmarks",
-    "title": "Behavioral Consistency & Sycophancy",
-    "section": "Datasets & Benchmarks",
-    "text": "Datasets & Benchmarks\n[To be populated]"
+    "objectID": "benchmark-reliability.html#benchmarks-datasets",
+    "href": "benchmark-reliability.html#benchmarks-datasets",
+    "title": "Benchmark Reliability",
+    "section": "Benchmarks & Datasets",
+    "text": "Benchmarks & Datasets\n\n\n\nName\nYear\nDescription\nLink\n\n\n\n\nHELM\n2022\nMulti-metric, scenario-based evaluation framework\nhttps://crfm.stanford.edu/helm/latest/\n\n\nMMLU\n2020\nBroad MCQ benchmark; now partly saturated\nhttps://arxiv.org/abs/2009.03300\n\n\nMMLU-Pro\n2024\nHarder MMLU-style benchmark\nhttps://arxiv.org/abs/2406.01574\n\n\nTruthfulQA\n2022\nTruthfulness benchmark with format sensitivity relevance\nhttps://arxiv.org/abs/2109.07958\n\n\nHumanEval\n2021\nCode generation via unit tests\nhttps://arxiv.org/abs/2107.03374\n\n\nMBPP\n2021\nPython programming benchmark\nhttps://arxiv.org/abs/2108.07732\n\n\nGPQA\n2023\nGoogle-proof graduate-level QA\nhttps://arxiv.org/abs/2311.12022\n\n\nSWE-bench\n2024\nReal-world GitHub issue resolution benchmark\nhttps://arxiv.org/abs/2310.06770\n\n\nChatbot Arena\n2023–\nLive human pairwise model ranking\nhttps://lmarena.ai/"
   },
   {
-    "objectID": "behavioral-consistency.html#key-takeaways",
-    "href": "behavioral-consistency.html#key-takeaways",
-    "title": "Behavioral Consistency & Sycophancy",
+    "objectID": "benchmark-reliability.html#github-repos",
+    "href": "benchmark-reliability.html#github-repos",
+    "title": "Benchmark Reliability",
+    "section": "GitHub Repos",
+    "text": "GitHub Repos\n\nEleutherAI/lm-evaluation-harness — https://github.com/EleutherAI/lm-evaluation-harness De facto standard open benchmarking harness.\nstanford-crfm/helm — https://github.com/stanford-crfm/helm Holistic benchmark protocols and implementation.\nlm-sys/FastChat — https://github.com/lm-sys/FastChat MT-Bench and Arena ecosystem tooling.\nopenai/evals — https://github.com/openai/evals Custom eval authoring for regression and policy checks."
+  },
+  {
+    "objectID": "benchmark-reliability.html#key-takeaways",
+    "href": "benchmark-reliability.html#key-takeaways",
+    "title": "Benchmark Reliability",
     "section": "Key Takeaways",
-    "text": "Key Takeaways\n[To be populated]\n\n← Taxonomy | Resources →"
+    "text": "Key Takeaways\n\n\n\n\n\n\nTipKey Insights\n\n\n\n\nBenchmark scores are highly protocol-dependent; reproducibility metadata is not optional.\nLLM-as-judge is useful at scale but must include swap-ordering, rubric controls, and bias audits.\nReliable capability assessment increasingly requires dynamic and execution-grounded tasks."
   },
   {
-    "objectID": "self-consistency.html",
-    "href": "self-consistency.html",
-    "title": "Self-Consistency & Contradiction",
+    "objectID": "benchmark-reliability.html#see-also",
+    "href": "benchmark-reliability.html#see-also",
+    "title": "Benchmark Reliability",
+    "section": "See Also",
+    "text": "See Also\n\nCross-Context & Format Sensitivity\nBehavioral Consistency & Sycophancy\nResources & Tools\nGenerator-Validator Gap"
+  },
+  {
+    "objectID": "calibration.html",
+    "href": "calibration.html",
+    "title": "Calibration & Uncertainty",
     "section": "",
-    "text": "NoteSection Status\n\n\n\nThis section is being populated by literature research. Content will be updated."
+    "text": "Calibration asks whether model confidence tracks empirical correctness. In a calibrated system, statements made with 80% confidence should be correct about 80% of the time. LLMs often fail this in practice—especially on long-tail questions, ambiguous prompts, and hallucination-prone tasks.\nThe challenge is amplified in generation: token-level probabilities do not map cleanly to semantic correctness. This has driven work on semantic uncertainty, verbalized confidence elicitation, and selective prediction methods (including abstention). From an operational standpoint, calibration quality determines when a system should answer, hedge, cite, or decline.\nCalibration is also downstream-sensitive: instruction tuning and preference optimization can improve usefulness while distorting confidence behavior. Teams therefore need post-alignment calibration audits, not just pretraining-era metrics."
   },
   {
-    "objectID": "self-consistency.html#overview",
-    "href": "self-consistency.html#overview",
-    "title": "Self-Consistency & Contradiction",
-    "section": "Overview",
-    "text": "Overview\n[Research in progress]"
+    "objectID": "calibration.html#overview",
+    "href": "calibration.html#overview",
+    "title": "Calibration & Uncertainty",
+    "section": "",
+    "text": "Calibration asks whether model confidence tracks empirical correctness. In a calibrated system, statements made with 80% confidence should be correct about 80% of the time. LLMs often fail this in practice—especially on long-tail questions, ambiguous prompts, and hallucination-prone tasks.\nThe challenge is amplified in generation: token-level probabilities do not map cleanly to semantic correctness. This has driven work on semantic uncertainty, verbalized confidence elicitation, and selective prediction methods (including abstention). From an operational standpoint, calibration quality determines when a system should answer, hedge, cite, or decline.\nCalibration is also downstream-sensitive: instruction tuning and preference optimization can improve usefulness while distorting confidence behavior. Teams therefore need post-alignment calibration audits, not just pretraining-era metrics."
   },
   {
-    "objectID": "self-consistency.html#key-papers",
-    "href": "self-consistency.html#key-papers",
-    "title": "Self-Consistency & Contradiction",
+    "objectID": "calibration.html#key-papers",
+    "href": "calibration.html#key-papers",
+    "title": "Calibration & Uncertainty",
     "section": "Key Papers",
-    "text": "Key Papers\n[To be populated]"
+    "text": "Key Papers\n\nFoundational Calibration Methods\nOn Calibration of Modern Neural Networks (Guo et al., 2017) · ICML · link\n\nEstablished modern ECE/temperature-scaling practice still used in NLP and LLM calibration workflows.\n\nCalibration of Pre-trained Transformers (Desai, Durrett, 2020) · EMNLP · link\n\nShowed transformer classifiers are frequently miscalibrated and benchmarked post-hoc correction methods.\n\n\n\nLLM Confidence and Verbalized Uncertainty\nLanguage Models (Mostly) Know What They Know (Kadavath et al., 2022) · arXiv · link\n\nInfluential evidence that confidence can be informative but remains imperfect and often over-optimistic.\n\nTeaching Models to Express Their Uncertainty in Words (Kadavath et al., 2022) · arXiv · link\n\nExplores training/prompting schemes for better-aligned verbal confidence estimates.\n\nCan LLMs Express Their Uncertainty? (Xiong et al., 2023) · arXiv · link\n\nShows elicitation protocol strongly affects confidence quality, with persistent overconfidence.\n\n\n\nSemantic Uncertainty and Risk Control\nSemantic Uncertainty (Kuhn, Gal, Farquhar, 2023) · Nature/ArXiv line · link\n\nIntroduces semantic entropy over meaning-equivalent generations, often superior to token entropy for factual risk estimation.\n\nConformal Language Modeling (Angelopoulos et al., 2023) · arXiv · link\n\nBrings distribution-free risk guarantees into language settings, important for selective prediction and abstention."
   },
   {
-    "objectID": "self-consistency.html#preprints-emerging-work",
-    "href": "self-consistency.html#preprints-emerging-work",
-    "title": "Self-Consistency & Contradiction",
-    "section": "Preprints & Emerging Work",
-    "text": "Preprints & Emerging Work\n[To be populated]"
+    "objectID": "calibration.html#preprints-recent-work",
+    "href": "calibration.html#preprints-recent-work",
+    "title": "Calibration & Uncertainty",
+    "section": "Preprints & Recent Work",
+    "text": "Preprints & Recent Work\nOverconfidence is Key (Kumar et al., 2024) · arXiv · link\n\nEvaluates verbalized uncertainty across LLM/VLM systems, showing systematic overconfidence.\n\nLook at the Labels (Sahay et al., 2024) · arXiv · link\n\nPrompt-sensitivity metric useful for uncertainty-aware robustness analysis.\n\nTrusting Your Evidence (Lan et al., 2023) · arXiv · link\n\nContext-aware decoding aligns generation decisions with evidence quality."
   },
   {
-    "objectID": "self-consistency.html#blog-posts-practitioner-resources",
-    "href": "self-consistency.html#blog-posts-practitioner-resources",
-    "title": "Self-Consistency & Contradiction",
+    "objectID": "calibration.html#blog-posts-practitioner-resources",
+    "href": "calibration.html#blog-posts-practitioner-resources",
+    "title": "Calibration & Uncertainty",
     "section": "Blog Posts & Practitioner Resources",
-    "text": "Blog Posts & Practitioner Resources\n[To be populated]"
+    "text": "Blog Posts & Practitioner Resources\n\nLanguage Models (Mostly) Know What They Know (research post) (Anthropic, 2022) — https://www.anthropic.com/research/language-models-mostly-know-what-they-know High-signal summary of confidence calibration findings.\nEvidently AI calibration guides (Evidently, ongoing) — https://www.evidentlyai.com/ Applied monitoring workflows for confidence drift and ECE-style checks.\nOpenAI Cookbook (OpenAI, ongoing) — https://cookbook.openai.com/ Practical recipes for reliability prompting, multi-sample checks, and abstention behavior."
   },
   {
-    "objectID": "self-consistency.html#datasets-benchmarks",
-    "href": "self-consistency.html#datasets-benchmarks",
-    "title": "Self-Consistency & Contradiction",
-    "section": "Datasets & Benchmarks",
-    "text": "Datasets & Benchmarks\n[To be populated]"
+    "objectID": "calibration.html#benchmarks-datasets",
+    "href": "calibration.html#benchmarks-datasets",
+    "title": "Calibration & Uncertainty",
+    "section": "Benchmarks & Datasets",
+    "text": "Benchmarks & Datasets\n\n\n\nName\nYear\nDescription\nLink\n\n\n\n\nTruthfulQA\n2022\nTruthfulness benchmark used in confidence studies\nhttps://arxiv.org/abs/2109.07958\n\n\nMMLU\n2020\nBroad QA benchmark for calibration curves\nhttps://arxiv.org/abs/2009.03300\n\n\nBIG-Bench / BBH\n2022–2023\nRobustness-sensitive task suites\nhttps://arxiv.org/abs/2206.04615\n\n\nPromptBench\n2023\nPrompt perturbation uncertainty stress tests\nhttps://arxiv.org/abs/2306.04528\n\n\nSelfCheckGPT setup\n2023\nUncertainty-via-disagreement protocol\nhttps://arxiv.org/abs/2303.08896"
   },
   {
-    "objectID": "self-consistency.html#key-takeaways",
-    "href": "self-consistency.html#key-takeaways",
-    "title": "Self-Consistency & Contradiction",
+    "objectID": "calibration.html#github-repos",
+    "href": "calibration.html#github-repos",
+    "title": "Calibration & Uncertainty",
+    "section": "GitHub Repos",
+    "text": "GitHub Repos\n\nLM-Polygraph — https://github.com/IINemo/lm-polygraph Uncertainty estimation and hallucination detection toolkit.\nsemantic_uncertainty — https://github.com/lorenzkuhn/semantic_uncertainty Reference code for semantic entropy methods.\nOpenAI Evals — https://github.com/openai/evals Useful for confidence-linked pass/fail and abstention evaluations."
+  },
+  {
+    "objectID": "calibration.html#key-takeaways",
+    "href": "calibration.html#key-takeaways",
+    "title": "Calibration & Uncertainty",
     "section": "Key Takeaways",
-    "text": "Key Takeaways\n[To be populated]\n\n← Taxonomy | Resources →"
+    "text": "Key Takeaways\n\n\n\n\n\n\nTipKey Insights\n\n\n\n\nOverconfidence remains a central LLM failure mode, especially on hallucination-prone prompts.\nSemantic-level uncertainty signals are often more useful than raw token probabilities.\nReliable products need calibrated abstention behavior, not just better top-1 answer quality."
   },
   {
-    "objectID": "taxonomy.html",
-    "href": "taxonomy.html",
-    "title": "Taxonomy of LLM Consistency Issues",
+    "objectID": "calibration.html#see-also",
+    "href": "calibration.html#see-also",
+    "title": "Calibration & Uncertainty",
+    "section": "See Also",
+    "text": "See Also\n\nFactual Consistency & Hallucination\nCross-Context & Format Sensitivity\nBehavioral Consistency & Sycophancy\nGenerator-Validator Gap"
+  },
+  {
+    "objectID": "reasoning-consistency.html",
+    "href": "reasoning-consistency.html",
+    "title": "Reasoning Consistency",
     "section": "",
-    "text": "The term “consistency” in the context of LLMs is used loosely across the literature. We use it broadly to mean: a model is consistent if it gives the same (or compatible) answer to the same (or equivalent) question across different contexts, phrasings, sessions, or modalities.\nThis survey decomposes consistency into seven major categories, which we explain and justify below."
+    "text": "Reasoning consistency asks whether an LLM’s multi-step reasoning is stable, valid, and faithful—not just whether it occasionally lands on the right final answer. A recurring finding is process-outcome mismatch: models can produce correct answers with weak rationales, and persuasive rationales with incorrect conclusions.\nChain-of-thought prompting dramatically improved benchmark performance, but it also exposed faithfulness problems. Generated rationales are often post-hoc narratives rather than transparent traces of computation. This matters for safety and auditability: if the rationale is unreliable, it cannot be treated as a trustworthy explanation.\nThe field is moving toward verifier-centric and process-supervised methods (step-level checks, process reward models, search over candidate traces). These methods implicitly treat reasoning reliability as a generate-then-validate problem."
   },
   {
-    "objectID": "taxonomy.html#overview",
-    "href": "taxonomy.html#overview",
-    "title": "Taxonomy of LLM Consistency Issues",
+    "objectID": "reasoning-consistency.html#overview",
+    "href": "reasoning-consistency.html#overview",
+    "title": "Reasoning Consistency",
     "section": "",
-    "text": "The term “consistency” in the context of LLMs is used loosely across the literature. We use it broadly to mean: a model is consistent if it gives the same (or compatible) answer to the same (or equivalent) question across different contexts, phrasings, sessions, or modalities.\nThis survey decomposes consistency into seven major categories, which we explain and justify below."
+    "text": "Reasoning consistency asks whether an LLM’s multi-step reasoning is stable, valid, and faithful—not just whether it occasionally lands on the right final answer. A recurring finding is process-outcome mismatch: models can produce correct answers with weak rationales, and persuasive rationales with incorrect conclusions.\nChain-of-thought prompting dramatically improved benchmark performance, but it also exposed faithfulness problems. Generated rationales are often post-hoc narratives rather than transparent traces of computation. This matters for safety and auditability: if the rationale is unreliable, it cannot be treated as a trustworthy explanation.\nThe field is moving toward verifier-centric and process-supervised methods (step-level checks, process reward models, search over candidate traces). These methods implicitly treat reasoning reliability as a generate-then-validate problem."
   },
   {
-    "objectID": "taxonomy.html#the-seven-categories",
-    "href": "taxonomy.html#the-seven-categories",
-    "title": "Taxonomy of LLM Consistency Issues",
-    "section": "The Seven Categories",
-    "text": "The Seven Categories\n\n1. Factual Consistency & Hallucination\nCore question: When an LLM makes a factual claim, is it accurate — and is it reliably accurate across different framings?\nHallucination (generating plausible-sounding but false content) is the most-studied form of inconsistency. It has several subtypes:\n\nIntrinsic hallucination: The model contradicts the source/context it was given\nExtrinsic hallucination: The model generates claims that cannot be verified against any source\nParametric vs. contextual inconsistency: The model’s training knowledge conflicts with in-context information\nTemporal inconsistency: Knowledge cutoff effects cause outdated claims\n\nKey insight: Hallucination is not just about accuracy — it’s about reliability. A model that hallucinates 20% of the time on a topic is inconsistent even if 80% of its answers are correct.\n→ Factual Consistency & Hallucination\n\n\n\n2. Self-Consistency & Contradiction\nCore question: Does the model produce compatible answers when asked the same or logically related questions in different ways?\nThis is perhaps the purest form of inconsistency:\n\nParaphrase inconsistency: Different phrasings of the same question yield different answers\nLogical inconsistency: The model asserts P and later asserts not-P in the same session or across sessions\nCross-session inconsistency: The same prompt gives different answers across runs\nBelief inconsistency: The model holds “beliefs” that contradict each other when elicited in different ways\n\nKey insight: Self-inconsistency reveals that LLMs do not have stable internal representations of facts or beliefs — they are pattern-matching systems whose outputs depend heavily on local context.\n→ Self-Consistency & Contradiction\n\n\n\n3. Reasoning Consistency\nCore question: Is the model’s multi-step reasoning process internally coherent and reliably correct?\nReasoning consistency differs from factual consistency because the failure mode is in the process rather than just the conclusion:\n\nChain-of-thought faithfulness: Does the stated reasoning actually lead to the conclusion?\nMathematical/arithmetic reliability: Do the same calculations always give the same result?\nLogical validity: Does the model respect logical entailments?\nCommonsense reasoning: Are common-sense inferences stable?\nProcess-outcome mismatch: Model gives correct answer with wrong reasoning, or wrong answer with correct reasoning\n\nKey insight: LLMs can produce correct answers for wrong reasons (and vice versa), making their reasoning unreliable as an explanation even when the conclusion is correct.\n→ Reasoning Consistency\n\n\n\n4. Behavioral Consistency & Sycophancy\nCore question: Does the model behave consistently across different social contexts, pressures, and framings?\nThis category covers how the model’s outputs are shaped by social and contextual cues:\n\nSycophancy: Changing answers when the user expresses disagreement or preference\nAuthority bias: Deferring to apparent expertise or status\nPosition/ordering bias: Preferring answers that appear first or last\nFraming effects: Different formulations of the same question yield different normative/factual answers\nVerbosity bias: Preferring longer or more “elaborate-sounding” responses in evaluation\nSocial desirability bias: Giving answers the user seems to want to hear\n\nKey insight: LLMs are trained to maximize human approval, which can directly undermine consistency — the model learns to agree rather than to be correct.\n→ Behavioral Consistency & Sycophancy\n\n\n\n5. Calibration & Uncertainty\nCore question: Is the model’s expressed confidence aligned with its actual accuracy?\nCalibration is about the match between what a model says it believes and how reliable those beliefs are:\n\nOverconfidence: High expressed confidence even when wrong\nUnderconfidence: Excessive hedging on correct claims\nVerbalized vs. numerical uncertainty: Mismatches between “I think” vs. actual probability\nSelective hedging: Hedging on easy questions, confident on hard ones\nEpistemic vs. aleatoric uncertainty: Failure to distinguish “I don’t know” from “this is uncertain”\n\nKey insight: A perfectly accurate model that never expresses uncertainty is still inconsistent in a meaningful sense — it misleads users about when to trust it.\n→ Calibration & Uncertainty\n\n\n\n6. Cross-Context Sensitivity\nCore question: Is the model’s behavior consistent across languages, modalities, templates, and surface-level formatting?\n\nCross-lingual inconsistency: Different languages yield different answers to equivalent questions\nTemplate/format sensitivity: Different prompt templates change answers despite identical semantics\nTokenization artifacts: Superficial changes (capitalization, spacing) affect outputs\nCross-modal consistency: Does a vision-language model give consistent answers from text vs. image descriptions?\nSystem prompt sensitivity: Behavior changes based on system prompt framing\n\nKey insight: If semantically equivalent inputs produce different outputs, the model is not operating on meaning — it is operating on surface form.\n→ Cross-Context Sensitivity\n\n\n\n7. Benchmark Reliability\nCore question: Do our evaluations reliably measure the capabilities they claim to measure?\nThis is a meta-level consistency issue:\n\nData contamination: Benchmark items in training data inflate apparent performance\nPrompt sensitivity in benchmarks: Small changes to evaluation prompts change rankings\nMultiple-choice biases: Option order, labeling, and format affect scores\nEvaluation inconsistency: Different evaluators (human or LLM) disagree substantially\nMetric inconsistency: Different metrics give contradictory rankings of models\n\nKey insight: Many “solved” benchmarks may reflect memorization or prompt optimization rather than genuine capability. Inconsistent evaluation means we don’t know what models can actually do.\n→ Benchmark Reliability"
+    "objectID": "reasoning-consistency.html#key-papers",
+    "href": "reasoning-consistency.html#key-papers",
+    "title": "Reasoning Consistency",
+    "section": "Key Papers",
+    "text": "Key Papers\n\nChain-of-Thought and Its Limits\nChain-of-Thought Prompting Elicits Reasoning in Large Language Models (Wei et al., 2022) · NeurIPS · link\n\nFoundational CoT paper showing large gains on reasoning tasks via intermediate steps.\n\nLarge Language Models are Zero-Shot Reasoners (Kojima et al., 2022) · NeurIPS · link\n\nDemonstrated “Let’s think step by step” prompting as a robust zero-shot booster.\n\nLanguage Models Don’t Always Say What They Think (Turpin et al., 2023) · arXiv · link\n\nStrong evidence that many CoT explanations are unfaithful to actual decision mechanisms.\n\n\n\nProcess Supervision and Verification\nTraining Verifiers to Solve Math Word Problems (Cobbe et al., 2021) · arXiv · link\n\nSeparated generation and verification, showing verifier reranking can outperform raw generation.\n\nLet’s Verify Step by Step (Lightman et al., 2023) · arXiv · link\n\nProcess supervision with step-level labels improved reasoning reliability relative to outcome-only supervision.\n\nFaithful Chain-of-Thought Reasoning (Lyu et al., 2023) · arXiv · link\n\nExplores approaches to align generated rationales with executable/verifiable intermediate steps.\n\n\n\nSearch and Deliberation\nTree of Thoughts (Yao et al., 2023) · NeurIPS · link\n\nUses branching search over candidate thoughts to reduce one-shot reasoning errors.\n\nReAct (Yao et al., 2023) · ICLR · link\n\nIntegrates reasoning with tool interaction, improving verifiability and reducing unsupported internal speculation."
   },
   {
-    "objectID": "taxonomy.html#how-the-categories-relate",
-    "href": "taxonomy.html#how-the-categories-relate",
-    "title": "Taxonomy of LLM Consistency Issues",
-    "section": "How the Categories Relate",
-    "text": "How the Categories Relate\nThe seven categories are not independent. Here are key relationships:\nFactual Consistency ←→ Self-Consistency\n        ↓                    ↓\n   Calibration        Reasoning Consistency\n        ↓                    ↓\n  Cross-Context ←→ Behavioral Consistency\n              ↘        ↙\n          Benchmark Reliability\n              (measures all of the above)\n\nSycophancy is a behavioral consistency failure that often manifests as factual inconsistency\nCalibration failure can be seen as a self-consistency failure (stated confidence ≠ actual reliability)\n\nCross-context sensitivity amplifies all other consistency failures across prompt variations\nBenchmark reliability is the measurement problem that sits above all others"
+    "objectID": "reasoning-consistency.html#preprints-recent-work",
+    "href": "reasoning-consistency.html#preprints-recent-work",
+    "title": "Reasoning Consistency",
+    "section": "Preprints & Recent Work",
+    "text": "Preprints & Recent Work\nMath-Shepherd (Wang et al., 2023) · arXiv · link\n\nStep-by-step verification pipeline without full human annotation overhead.\n\nReflexion (Shinn et al., 2023) · NeurIPS-era preprint · link\n\nIterative self-improvement with feedback memory; works best with external success signals.\n\nLarge Language Models Cannot Self-Correct Reasoning Yet (Huang et al., 2023) · arXiv · link\n\nShows intrinsic self-correction is often unreliable without externalized feedback."
   },
   {
-    "objectID": "taxonomy.html#boundaries-and-scope",
-    "href": "taxonomy.html#boundaries-and-scope",
-    "title": "Taxonomy of LLM Consistency Issues",
-    "section": "Boundaries and Scope",
-    "text": "Boundaries and Scope\nIncluded: Self-consistency, paraphrase robustness, factual reliability, sycophancy, calibration, cross-lingual consistency, reasoning faithfulness, evaluation robustness\nAdjacent but not the primary focus: Adversarial robustness (attacks designed to break models), privacy/memorization, general alignment and safety (except where it specifically bears on consistency)\nIntentionally excluded: Pure accuracy/knowledge (a model can be consistently wrong — that’s not a consistency issue per se), style and fluency variation (unless it correlates with factual changes)"
+    "objectID": "reasoning-consistency.html#blog-posts-practitioner-resources",
+    "href": "reasoning-consistency.html#blog-posts-practitioner-resources",
+    "title": "Reasoning Consistency",
+    "section": "Blog Posts & Practitioner Resources",
+    "text": "Blog Posts & Practitioner Resources\n\nLet’s verify step by step (OpenAI, 2023) — https://openai.com/research/lets-verify-step-by-step Accessible explanation of process supervision and step-level verification.\nPrompting Guide: CoT, Self-Consistency, ToT (DAIR.AI) — https://www.promptingguide.ai/ Practical patterns for improving reasoning stability.\nOpenAI Evals docs (OpenAI, ongoing) — https://github.com/openai/evals Framework for custom reasoning checks and judge-based evaluation loops."
+  },
+  {
+    "objectID": "reasoning-consistency.html#benchmarks-datasets",
+    "href": "reasoning-consistency.html#benchmarks-datasets",
+    "title": "Reasoning Consistency",
+    "section": "Benchmarks & Datasets",
+    "text": "Benchmarks & Datasets\n\n\n\nName\nYear\nDescription\nLink\n\n\n\n\nGSM8K\n2021\nGrade-school math reasoning benchmark\nhttps://arxiv.org/abs/2110.14168\n\n\nMATH\n2021\nCompetition-level multi-step math reasoning\nhttps://arxiv.org/abs/2103.03874\n\n\nSVAMP\n2021\nPerturbation-based math robustness benchmark\nhttps://arxiv.org/abs/2109.07197\n\n\nAQuA-RAT\n2019\nArithmetic QA with rationales\nhttps://arxiv.org/abs/1903.00161\n\n\nBIG-Bench Hard\n2023\nHard reasoning subset exposing fragility\nhttps://github.com/suzgunmirac/BIG-Bench-Hard\n\n\nPRM800K\n2023\nStep-level process supervision dataset\nhttps://github.com/openai/prm800k"
+  },
+  {
+    "objectID": "reasoning-consistency.html#github-repos",
+    "href": "reasoning-consistency.html#github-repos",
+    "title": "Reasoning Consistency",
+    "section": "GitHub Repos",
+    "text": "GitHub Repos\n\nopenai/prm800k — https://github.com/openai/prm800k Data/tooling for process reward modeling.\nopenai/evals — https://github.com/openai/evals Eval suite for reasoning-focused assessments.\nchain-of-thought-hub — https://github.com/FranxYao/chain-of-thought-hub Prompt and benchmark recipes for reasoning experiments."
+  },
+  {
+    "objectID": "reasoning-consistency.html#key-takeaways",
+    "href": "reasoning-consistency.html#key-takeaways",
+    "title": "Reasoning Consistency",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\n\n\n\n\n\nTipKey Insights\n\n\n\n\nFinal-answer accuracy can mask unstable or unfaithful reasoning traces.\nProcess supervision and verifier-guided reranking are currently among the strongest reliability upgrades.\nIntrinsic self-correction is brittle; external feedback loops are far more dependable."
+  },
+  {
+    "objectID": "reasoning-consistency.html#see-also",
+    "href": "reasoning-consistency.html#see-also",
+    "title": "Reasoning Consistency",
+    "section": "See Also",
+    "text": "See Also\n\nSelf-Consistency & Contradiction\nGenerator-Validator Gap\nCalibration & Uncertainty\nBenchmark Reliability"
+  },
+  {
+    "objectID": "factual-consistency.html",
+    "href": "factual-consistency.html",
+    "title": "Factual Consistency & Hallucination",
+    "section": "",
+    "text": "Factual consistency asks a basic but difficult question: when a model makes a claim, is that claim supported by reliable evidence? In modern LLM systems, failures are often not obvious nonsense. They are polished, plausible, and confidently delivered statements that may conflict with source documents, world facts, or both. This makes hallucination a reliability problem, not just a generation-quality problem.\nA useful distinction in the literature is between intrinsic hallucination (contradicting provided context) and extrinsic hallucination (introducing unsupported claims). This split matters operationally: intrinsic failures are often diagnosable with source-grounded checks, while extrinsic failures need retrieval, citation, or explicit uncertainty handling.\nThe field has moved from coarse overlap metrics toward claim-level and evidence-aware evaluation (e.g., QA-based checks, atomic fact scoring, citation grounding). In practice, the strongest mitigation stacks combine retrieval, verification, and selective abstention rather than relying on one silver bullet."
+  },
+  {
+    "objectID": "factual-consistency.html#overview",
+    "href": "factual-consistency.html#overview",
+    "title": "Factual Consistency & Hallucination",
+    "section": "",
+    "text": "Factual consistency asks a basic but difficult question: when a model makes a claim, is that claim supported by reliable evidence? In modern LLM systems, failures are often not obvious nonsense. They are polished, plausible, and confidently delivered statements that may conflict with source documents, world facts, or both. This makes hallucination a reliability problem, not just a generation-quality problem.\nA useful distinction in the literature is between intrinsic hallucination (contradicting provided context) and extrinsic hallucination (introducing unsupported claims). This split matters operationally: intrinsic failures are often diagnosable with source-grounded checks, while extrinsic failures need retrieval, citation, or explicit uncertainty handling.\nThe field has moved from coarse overlap metrics toward claim-level and evidence-aware evaluation (e.g., QA-based checks, atomic fact scoring, citation grounding). In practice, the strongest mitigation stacks combine retrieval, verification, and selective abstention rather than relying on one silver bullet."
+  },
+  {
+    "objectID": "factual-consistency.html#key-papers",
+    "href": "factual-consistency.html#key-papers",
+    "title": "Factual Consistency & Hallucination",
+    "section": "Key Papers",
+    "text": "Key Papers\n\nFaithfulness in Summarization and NLG\nOn Faithfulness and Factuality in Abstractive Summarization (Maynez et al., 2020) · ACL · link\n\nA foundational paper showing that strong abstractive summarizers can be fluent yet factually inconsistent. It helped separate stylistic quality from factual faithfulness as distinct evaluation targets.\n\nEvaluating the Factual Consistency of Abstractive Text Summarization (FactCC) (Kryściński et al., 2020) · EMNLP · link\n\nIntroduced one of the earliest scalable factual inconsistency detectors trained from synthetic perturbations. FactCC became a practical baseline for source-grounded consistency checks.\n\nFEQA: A Question Answering Evaluation Framework for Faithfulness Assessment in Abstractive Summarization (Durmus, He, Diab, 2020) · ACL · link\n\nProposed QA-based factuality scoring, moving evaluation from lexical overlap to claim verification. This heavily influenced later factuality metrics.\n\n\n\nTruthfulness and Hallucination in LLMs\nTruthfulQA: Measuring How Models Mimic Human Falsehoods (Lin, Hilton, Evans, 2022) · ACL · link\n\nEstablished a benchmark where plausible misconceptions are common. A key finding is that scale alone does not guarantee truthfulness.\n\nSelfCheckGPT (Manakul, Liusie, Gales, 2023) · EMNLP Findings · link\n\nUses disagreement across sampled outputs as a black-box hallucination signal. Particularly useful when token probabilities or internals are inaccessible.\n\nFActScore (Min et al., 2023) · EMNLP · link\n\nDecomposes generations into atomic facts and scores evidence support. Strong for long-form outputs where aggregate metrics miss local hallucinations.\n\n\n\nGrounding and Mitigation Architectures\nRAG: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (Lewis et al., 2020) · NeurIPS · link\n\nThe canonical generate-with-retrieval architecture that anchors responses to external evidence. It remains the backbone of many production anti-hallucination systems.\n\nChain-of-Verification Reduces Hallucination in Large Language Models (Dhuliawala et al., 2023) · arXiv · link\n\nShows that structured decomposition and verification passes reduce unsupported claims in long-form generation."
+  },
+  {
+    "objectID": "factual-consistency.html#preprints-recent-work",
+    "href": "factual-consistency.html#preprints-recent-work",
+    "title": "Factual Consistency & Hallucination",
+    "section": "Preprints & Recent Work",
+    "text": "Preprints & Recent Work\nA Survey of Hallucination in Natural Language Generation (Ji et al., 2023) · ACM CSUR · link\n\nA widely cited taxonomy of hallucination types, causes, and interventions across tasks.\n\nA Survey on Hallucination in Large Language Models (Huang et al., 2023) · arXiv · link\n\nLLM-era reframing of hallucination detection and mitigation with emphasis on instruction-tuned systems.\n\nHaluEval (Li et al., 2023) · EMNLP Findings / arXiv · link\n\nLarge-scale benchmark for hallucination behavior in QA/dialog settings.\n\nALCE: Enabling and Evaluating LLMs with Automatic Citations (Gao et al., 2023) · venue unconfirmed · link\n\nPushes factual evaluation toward explicit evidence attribution with citation-aware protocols."
+  },
+  {
+    "objectID": "factual-consistency.html#blog-posts-practitioner-resources",
+    "href": "factual-consistency.html#blog-posts-practitioner-resources",
+    "title": "Factual Consistency & Hallucination",
+    "section": "Blog Posts & Practitioner Resources",
+    "text": "Blog Posts & Practitioner Resources\n\nHallucination in Natural Language Generation (Lilian Weng, 2024) — https://lilianweng.github.io/posts/2024-07-07-hallucination/ A clear technical synthesis of causes, detection, and mitigation patterns.\nLLM Evaluation Guidebook (Evidently AI, 2023–2024) — https://www.evidentlyai.com/llm-guide/llm-evaluation Practical guidance for groundedness and factuality monitoring in deployed systems.\nRAGAS Documentation (Exploding Gradients, ongoing) — https://docs.ragas.io/ Production-friendly faithfulness/relevance metrics for RAG pipelines."
+  },
+  {
+    "objectID": "factual-consistency.html#benchmarks-datasets",
+    "href": "factual-consistency.html#benchmarks-datasets",
+    "title": "Factual Consistency & Hallucination",
+    "section": "Benchmarks & Datasets",
+    "text": "Benchmarks & Datasets\n\n\n\nName\nYear\nDescription\nLink\n\n\n\n\nTruthfulQA\n2022\nTruthfulness under misconception-rich prompts\nhttps://aclanthology.org/2022.acl-long.229/\n\n\nFRANK\n2021\nFactual errors in summarization outputs\nhttps://aclanthology.org/2021.naacl-main.383/\n\n\nTRUE\n2021\nUnified factual consistency benchmark\nhttps://aclanthology.org/2021.naacl-main.287/\n\n\nFactCC data/protocol\n2020\nSynthetic inconsistency examples for summarization\nhttps://aclanthology.org/2020.emnlp-main.750/\n\n\nFActScore\n2023\nAtomic fact precision for long-form text\nhttps://arxiv.org/abs/2305.14251\n\n\nHaluEval\n2023\nHallucination benchmark across tasks\nhttps://arxiv.org/abs/2305.11747\n\n\nALCE\n2023\nCitation-grounded answer evaluation\nhttps://arxiv.org/abs/2305.14627"
+  },
+  {
+    "objectID": "factual-consistency.html#github-repos",
+    "href": "factual-consistency.html#github-repos",
+    "title": "Factual Consistency & Hallucination",
+    "section": "GitHub Repos",
+    "text": "GitHub Repos\n\nSelfCheckGPT — https://github.com/potsawee/selfcheckgpt Reference implementation for black-box hallucination detection.\nFActScore — https://github.com/shmsw25/FActScore Atomic fact extraction and scoring toolkit.\nRAGAS — https://github.com/explodinggradients/ragas RAG evaluation package for faithfulness, relevance, and context quality.\nTruthfulQA — https://github.com/sylinrl/TruthfulQA Benchmark resources for model truthfulness testing."
+  },
+  {
+    "objectID": "factual-consistency.html#key-takeaways",
+    "href": "factual-consistency.html#key-takeaways",
+    "title": "Factual Consistency & Hallucination",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\n\n\n\n\n\nTipKey Insights\n\n\n\n\nHallucination is heterogeneous: intrinsic and extrinsic failures require different diagnostics.\nRetrieval helps, but robust factuality usually needs retrieval plus verification plus uncertainty-aware abstention.\nClaim-level evaluation (e.g., FActScore-style) provides better debugging signals than one-shot aggregate scores."
+  },
+  {
+    "objectID": "factual-consistency.html#see-also",
+    "href": "factual-consistency.html#see-also",
+    "title": "Factual Consistency & Hallucination",
+    "section": "See Also",
+    "text": "See Also\n\nSelf-Consistency & Contradiction\nCalibration & Uncertainty\nGenerator-Validator Gap\nBenchmark Reliability"
   },
   {
     "objectID": "index.html",
@@ -273,199 +364,297 @@
     "text": "About This Survey\nCompiled in March 2026. The literature is rapidly evolving; this survey focuses on establishing a durable taxonomy while citing representative and influential works.\nView on GitHub"
   },
   {
-    "objectID": "factual-consistency.html",
-    "href": "factual-consistency.html",
-    "title": "Factual Consistency & Hallucination",
+    "objectID": "taxonomy.html",
+    "href": "taxonomy.html",
+    "title": "Taxonomy of LLM Consistency Issues",
     "section": "",
-    "text": "NoteSection Status\n\n\n\nThis section is being populated by literature research. Content will be updated."
+    "text": "The term “consistency” in the context of LLMs is used loosely across the literature. We use it broadly to mean: a model is consistent if it gives the same (or compatible) answer to the same (or equivalent) question across different contexts, phrasings, sessions, or modalities.\nThis survey decomposes consistency into seven major categories, which we explain and justify below."
   },
   {
-    "objectID": "factual-consistency.html#overview",
-    "href": "factual-consistency.html#overview",
-    "title": "Factual Consistency & Hallucination",
-    "section": "Overview",
-    "text": "Overview\n[Research in progress — will be populated with papers, preprints, blog posts, and resources on hallucination, factual consistency, and knowledge reliability in LLMs.]"
-  },
-  {
-    "objectID": "factual-consistency.html#key-papers",
-    "href": "factual-consistency.html#key-papers",
-    "title": "Factual Consistency & Hallucination",
-    "section": "Key Papers",
-    "text": "Key Papers\n[To be populated]"
-  },
-  {
-    "objectID": "factual-consistency.html#preprints-emerging-work",
-    "href": "factual-consistency.html#preprints-emerging-work",
-    "title": "Factual Consistency & Hallucination",
-    "section": "Preprints & Emerging Work",
-    "text": "Preprints & Emerging Work\n[To be populated]"
-  },
-  {
-    "objectID": "factual-consistency.html#blog-posts-practitioner-resources",
-    "href": "factual-consistency.html#blog-posts-practitioner-resources",
-    "title": "Factual Consistency & Hallucination",
-    "section": "Blog Posts & Practitioner Resources",
-    "text": "Blog Posts & Practitioner Resources\n[To be populated]"
-  },
-  {
-    "objectID": "factual-consistency.html#datasets-benchmarks",
-    "href": "factual-consistency.html#datasets-benchmarks",
-    "title": "Factual Consistency & Hallucination",
-    "section": "Datasets & Benchmarks",
-    "text": "Datasets & Benchmarks\n[To be populated]"
-  },
-  {
-    "objectID": "factual-consistency.html#key-takeaways",
-    "href": "factual-consistency.html#key-takeaways",
-    "title": "Factual Consistency & Hallucination",
-    "section": "Key Takeaways",
-    "text": "Key Takeaways\n[To be populated]\n\n← Taxonomy | Next: Self-Consistency & Contradiction →"
-  },
-  {
-    "objectID": "reasoning-consistency.html",
-    "href": "reasoning-consistency.html",
-    "title": "Reasoning Consistency",
+    "objectID": "taxonomy.html#overview",
+    "href": "taxonomy.html#overview",
+    "title": "Taxonomy of LLM Consistency Issues",
     "section": "",
-    "text": "NoteSection Status\n\n\n\nThis section is being populated by literature research. Content will be updated."
+    "text": "The term “consistency” in the context of LLMs is used loosely across the literature. We use it broadly to mean: a model is consistent if it gives the same (or compatible) answer to the same (or equivalent) question across different contexts, phrasings, sessions, or modalities.\nThis survey decomposes consistency into seven major categories, which we explain and justify below."
   },
   {
-    "objectID": "reasoning-consistency.html#overview",
-    "href": "reasoning-consistency.html#overview",
-    "title": "Reasoning Consistency",
-    "section": "Overview",
-    "text": "Overview\n[Research in progress]"
+    "objectID": "taxonomy.html#the-seven-categories",
+    "href": "taxonomy.html#the-seven-categories",
+    "title": "Taxonomy of LLM Consistency Issues",
+    "section": "The Seven Categories",
+    "text": "The Seven Categories\n\n1. Factual Consistency & Hallucination\nCore question: When an LLM makes a factual claim, is it accurate — and is it reliably accurate across different framings?\nHallucination (generating plausible-sounding but false content) is the most-studied form of inconsistency. It has several subtypes:\n\nIntrinsic hallucination: The model contradicts the source/context it was given\nExtrinsic hallucination: The model generates claims that cannot be verified against any source\nParametric vs. contextual inconsistency: The model’s training knowledge conflicts with in-context information\nTemporal inconsistency: Knowledge cutoff effects cause outdated claims\n\nKey insight: Hallucination is not just about accuracy — it’s about reliability. A model that hallucinates 20% of the time on a topic is inconsistent even if 80% of its answers are correct.\n→ Factual Consistency & Hallucination\n\n\n\n2. Self-Consistency & Contradiction\nCore question: Does the model produce compatible answers when asked the same or logically related questions in different ways?\nThis is perhaps the purest form of inconsistency:\n\nParaphrase inconsistency: Different phrasings of the same question yield different answers\nLogical inconsistency: The model asserts P and later asserts not-P in the same session or across sessions\nCross-session inconsistency: The same prompt gives different answers across runs\nBelief inconsistency: The model holds “beliefs” that contradict each other when elicited in different ways\n\nKey insight: Self-inconsistency reveals that LLMs do not have stable internal representations of facts or beliefs — they are pattern-matching systems whose outputs depend heavily on local context.\n→ Self-Consistency & Contradiction\n\n\n\n3. Reasoning Consistency\nCore question: Is the model’s multi-step reasoning process internally coherent and reliably correct?\nReasoning consistency differs from factual consistency because the failure mode is in the process rather than just the conclusion:\n\nChain-of-thought faithfulness: Does the stated reasoning actually lead to the conclusion?\nMathematical/arithmetic reliability: Do the same calculations always give the same result?\nLogical validity: Does the model respect logical entailments?\nCommonsense reasoning: Are common-sense inferences stable?\nProcess-outcome mismatch: Model gives correct answer with wrong reasoning, or wrong answer with correct reasoning\n\nKey insight: LLMs can produce correct answers for wrong reasons (and vice versa), making their reasoning unreliable as an explanation even when the conclusion is correct.\n→ Reasoning Consistency\n\n\n\n4. Behavioral Consistency & Sycophancy\nCore question: Does the model behave consistently across different social contexts, pressures, and framings?\nThis category covers how the model’s outputs are shaped by social and contextual cues:\n\nSycophancy: Changing answers when the user expresses disagreement or preference\nAuthority bias: Deferring to apparent expertise or status\nPosition/ordering bias: Preferring answers that appear first or last\nFraming effects: Different formulations of the same question yield different normative/factual answers\nVerbosity bias: Preferring longer or more “elaborate-sounding” responses in evaluation\nSocial desirability bias: Giving answers the user seems to want to hear\n\nKey insight: LLMs are trained to maximize human approval, which can directly undermine consistency — the model learns to agree rather than to be correct.\n→ Behavioral Consistency & Sycophancy\n\n\n\n5. Calibration & Uncertainty\nCore question: Is the model’s expressed confidence aligned with its actual accuracy?\nCalibration is about the match between what a model says it believes and how reliable those beliefs are:\n\nOverconfidence: High expressed confidence even when wrong\nUnderconfidence: Excessive hedging on correct claims\nVerbalized vs. numerical uncertainty: Mismatches between “I think” vs. actual probability\nSelective hedging: Hedging on easy questions, confident on hard ones\nEpistemic vs. aleatoric uncertainty: Failure to distinguish “I don’t know” from “this is uncertain”\n\nKey insight: A perfectly accurate model that never expresses uncertainty is still inconsistent in a meaningful sense — it misleads users about when to trust it.\n→ Calibration & Uncertainty\n\n\n\n6. Cross-Context Sensitivity\nCore question: Is the model’s behavior consistent across languages, modalities, templates, and surface-level formatting?\n\nCross-lingual inconsistency: Different languages yield different answers to equivalent questions\nTemplate/format sensitivity: Different prompt templates change answers despite identical semantics\nTokenization artifacts: Superficial changes (capitalization, spacing) affect outputs\nCross-modal consistency: Does a vision-language model give consistent answers from text vs. image descriptions?\nSystem prompt sensitivity: Behavior changes based on system prompt framing\n\nKey insight: If semantically equivalent inputs produce different outputs, the model is not operating on meaning — it is operating on surface form.\n→ Cross-Context Sensitivity\n\n\n\n7. Benchmark Reliability\nCore question: Do our evaluations reliably measure the capabilities they claim to measure?\nThis is a meta-level consistency issue:\n\nData contamination: Benchmark items in training data inflate apparent performance\nPrompt sensitivity in benchmarks: Small changes to evaluation prompts change rankings\nMultiple-choice biases: Option order, labeling, and format affect scores\nEvaluation inconsistency: Different evaluators (human or LLM) disagree substantially\nMetric inconsistency: Different metrics give contradictory rankings of models\n\nKey insight: Many “solved” benchmarks may reflect memorization or prompt optimization rather than genuine capability. Inconsistent evaluation means we don’t know what models can actually do.\n→ Benchmark Reliability"
   },
   {
-    "objectID": "reasoning-consistency.html#key-papers",
-    "href": "reasoning-consistency.html#key-papers",
-    "title": "Reasoning Consistency",
-    "section": "Key Papers",
-    "text": "Key Papers\n[To be populated]"
+    "objectID": "taxonomy.html#how-the-categories-relate",
+    "href": "taxonomy.html#how-the-categories-relate",
+    "title": "Taxonomy of LLM Consistency Issues",
+    "section": "How the Categories Relate",
+    "text": "How the Categories Relate\nThe seven categories are not independent. Here are key relationships:\nFactual Consistency ←→ Self-Consistency\n        ↓                    ↓\n   Calibration        Reasoning Consistency\n        ↓                    ↓\n  Cross-Context ←→ Behavioral Consistency\n              ↘        ↙\n          Benchmark Reliability\n              (measures all of the above)\n\nSycophancy is a behavioral consistency failure that often manifests as factual inconsistency\nCalibration failure can be seen as a self-consistency failure (stated confidence ≠ actual reliability)\n\nCross-context sensitivity amplifies all other consistency failures across prompt variations\nBenchmark reliability is the measurement problem that sits above all others"
   },
   {
-    "objectID": "reasoning-consistency.html#preprints-emerging-work",
-    "href": "reasoning-consistency.html#preprints-emerging-work",
-    "title": "Reasoning Consistency",
-    "section": "Preprints & Emerging Work",
-    "text": "Preprints & Emerging Work\n[To be populated]"
+    "objectID": "taxonomy.html#generator-validator-gap-cross-cutting-concept",
+    "href": "taxonomy.html#generator-validator-gap-cross-cutting-concept",
+    "title": "Taxonomy of LLM Consistency Issues",
+    "section": "Generator-Validator Gap (Cross-Cutting Concept)",
+    "text": "Generator-Validator Gap (Cross-Cutting Concept)\nThe generator-validator gap captures a pattern that spans multiple categories: models are often better at judging candidate answers than producing the best answer in one shot.\nThis concept links:\n\nReasoning consistency: best-of-N sampling + verifier reranking can outperform direct generation on multi-step tasks.\nSelf-consistency: majority voting over sampled chains works because selection is often easier than generation.\nCalibration: disagreement among candidates can serve as a practical uncertainty signal, improving abstention and risk control.\n\nIn other words, many successful reliability methods convert one hard problem (single-pass generation) into two easier ones (candidate generation + discriminative validation). This is why verifier models, process reward models, and structured checking loops have become central in modern LLM reliability pipelines.\n→ Generator-Validator Gap"
   },
   {
-    "objectID": "reasoning-consistency.html#blog-posts-practitioner-resources",
-    "href": "reasoning-consistency.html#blog-posts-practitioner-resources",
-    "title": "Reasoning Consistency",
-    "section": "Blog Posts & Practitioner Resources",
-    "text": "Blog Posts & Practitioner Resources\n[To be populated]"
+    "objectID": "taxonomy.html#boundaries-and-scope",
+    "href": "taxonomy.html#boundaries-and-scope",
+    "title": "Taxonomy of LLM Consistency Issues",
+    "section": "Boundaries and Scope",
+    "text": "Boundaries and Scope\nIncluded: Self-consistency, paraphrase robustness, factual reliability, sycophancy, calibration, cross-lingual consistency, reasoning faithfulness, evaluation robustness\nAdjacent but not the primary focus: Adversarial robustness (attacks designed to break models), privacy/memorization, general alignment and safety (except where it specifically bears on consistency)\nIntentionally excluded: Pure accuracy/knowledge (a model can be consistently wrong — that’s not a consistency issue per se), style and fluency variation (unless it correlates with factual changes)"
   },
   {
-    "objectID": "reasoning-consistency.html#datasets-benchmarks",
-    "href": "reasoning-consistency.html#datasets-benchmarks",
-    "title": "Reasoning Consistency",
-    "section": "Datasets & Benchmarks",
-    "text": "Datasets & Benchmarks\n[To be populated]"
-  },
-  {
-    "objectID": "reasoning-consistency.html#key-takeaways",
-    "href": "reasoning-consistency.html#key-takeaways",
-    "title": "Reasoning Consistency",
-    "section": "Key Takeaways",
-    "text": "Key Takeaways\n[To be populated]\n\n← Taxonomy | Resources →"
-  },
-  {
-    "objectID": "calibration.html",
-    "href": "calibration.html",
-    "title": "Calibration & Uncertainty",
+    "objectID": "self-consistency.html",
+    "href": "self-consistency.html",
+    "title": "Self-Consistency & Contradiction",
     "section": "",
-    "text": "NoteSection Status\n\n\n\nThis section is being populated by literature research. Content will be updated."
+    "text": "Self-consistency concerns whether an LLM returns compatible answers to semantically equivalent questions, paraphrases, or repeated runs. In deployed systems this appears as answer drift: same user intent, different outputs. The issue is partly stochastic (sampling), partly representational (unstable latent beliefs), and partly prompt-induced (format sensitivity).\nAn important distinction in this literature: self-consistency as a failure mode versus self-consistency as a decoding strategy. The Wang et al. method (majority vote over chains) improves outcomes, but it does not imply that the base model is internally coherent. It works precisely because the underlying model is inconsistent enough that sampling can uncover better trajectories.\nSelf-consistency failures also connect directly to factual reliability and hallucination risk: output disagreement is often a useful uncertainty signal when internals are unavailable."
   },
   {
-    "objectID": "calibration.html#overview",
-    "href": "calibration.html#overview",
-    "title": "Calibration & Uncertainty",
-    "section": "Overview",
-    "text": "Overview\n[Research in progress]"
-  },
-  {
-    "objectID": "calibration.html#key-papers",
-    "href": "calibration.html#key-papers",
-    "title": "Calibration & Uncertainty",
-    "section": "Key Papers",
-    "text": "Key Papers\n[To be populated]"
-  },
-  {
-    "objectID": "calibration.html#preprints-emerging-work",
-    "href": "calibration.html#preprints-emerging-work",
-    "title": "Calibration & Uncertainty",
-    "section": "Preprints & Emerging Work",
-    "text": "Preprints & Emerging Work\n[To be populated]"
-  },
-  {
-    "objectID": "calibration.html#blog-posts-practitioner-resources",
-    "href": "calibration.html#blog-posts-practitioner-resources",
-    "title": "Calibration & Uncertainty",
-    "section": "Blog Posts & Practitioner Resources",
-    "text": "Blog Posts & Practitioner Resources\n[To be populated]"
-  },
-  {
-    "objectID": "calibration.html#datasets-benchmarks",
-    "href": "calibration.html#datasets-benchmarks",
-    "title": "Calibration & Uncertainty",
-    "section": "Datasets & Benchmarks",
-    "text": "Datasets & Benchmarks\n[To be populated]"
-  },
-  {
-    "objectID": "calibration.html#key-takeaways",
-    "href": "calibration.html#key-takeaways",
-    "title": "Calibration & Uncertainty",
-    "section": "Key Takeaways",
-    "text": "Key Takeaways\n[To be populated]\n\n← Taxonomy | Resources →"
-  },
-  {
-    "objectID": "benchmark-reliability.html",
-    "href": "benchmark-reliability.html",
-    "title": "Benchmark Reliability",
+    "objectID": "self-consistency.html#overview",
+    "href": "self-consistency.html#overview",
+    "title": "Self-Consistency & Contradiction",
     "section": "",
-    "text": "NoteSection Status\n\n\n\nThis section is being populated by literature research. Content will be updated."
+    "text": "Self-consistency concerns whether an LLM returns compatible answers to semantically equivalent questions, paraphrases, or repeated runs. In deployed systems this appears as answer drift: same user intent, different outputs. The issue is partly stochastic (sampling), partly representational (unstable latent beliefs), and partly prompt-induced (format sensitivity).\nAn important distinction in this literature: self-consistency as a failure mode versus self-consistency as a decoding strategy. The Wang et al. method (majority vote over chains) improves outcomes, but it does not imply that the base model is internally coherent. It works precisely because the underlying model is inconsistent enough that sampling can uncover better trajectories.\nSelf-consistency failures also connect directly to factual reliability and hallucination risk: output disagreement is often a useful uncertainty signal when internals are unavailable."
   },
   {
-    "objectID": "benchmark-reliability.html#overview",
-    "href": "benchmark-reliability.html#overview",
-    "title": "Benchmark Reliability",
-    "section": "Overview",
-    "text": "Overview\n[Research in progress]"
-  },
-  {
-    "objectID": "benchmark-reliability.html#key-papers",
-    "href": "benchmark-reliability.html#key-papers",
-    "title": "Benchmark Reliability",
+    "objectID": "self-consistency.html#key-papers",
+    "href": "self-consistency.html#key-papers",
+    "title": "Self-Consistency & Contradiction",
     "section": "Key Papers",
-    "text": "Key Papers\n[To be populated]"
+    "text": "Key Papers\n\nConsistency as Method vs. Consistency as Property\nSelf-Consistency Improves Chain of Thought Reasoning in Language Models (Wang et al., 2023) · ICLR · link\n\nIntroduced majority-vote decoding over multiple reasoning paths. Strong practical gains, but best interpreted as a mitigation for instability rather than proof of stable internal beliefs.\n\nSelfCheckGPT (Manakul et al., 2023) · EMNLP Findings · link\n\nTreats cross-sample disagreement as a hallucination signal. A practical bridge between self-consistency diagnostics and factuality monitoring.\n\n\n\nContradiction and Invariance Stress Tests\nCheckList (Ribeiro et al., 2020) · ACL · link\n\nEstablished behavioral invariance tests (e.g., paraphrase perturbations), now foundational for consistency audits.\n\nPAWS (Zhang, Baldridge, He, 2019) · NAACL · link\n\nDemonstrated robustness failures under high-overlap paraphrase-like variants, exposing brittle semantic judgments.\n\nTruthfulQA (Lin et al., 2022) · ACL · link\n\nThough a truthfulness benchmark, it is widely used to show model answers can shift under elicitation style."
   },
   {
-    "objectID": "benchmark-reliability.html#preprints-emerging-work",
-    "href": "benchmark-reliability.html#preprints-emerging-work",
-    "title": "Benchmark Reliability",
-    "section": "Preprints & Emerging Work",
-    "text": "Preprints & Emerging Work\n[To be populated]"
+    "objectID": "self-consistency.html#preprints-recent-work",
+    "href": "self-consistency.html#preprints-recent-work",
+    "title": "Self-Consistency & Contradiction",
+    "section": "Preprints & Recent Work",
+    "text": "Preprints & Recent Work\nPromptBench (Zhu et al., 2023) · NeurIPS Datasets/Benchmarks track · link\n\nSystematic perturbation suite for prompt robustness and consistency scoring.\n\nLanguage Models (Mostly) Know What They Know (Kadavath et al., 2022) · arXiv · link\n\nConnects confidence estimation to reliability; useful for interpreting when unstable answers should trigger abstention.\n\nHaluEval (Li et al., 2023) · EMNLP Findings / arXiv · link\n\nIncludes contradiction-like failures against evidence and world facts across tasks."
   },
   {
-    "objectID": "benchmark-reliability.html#blog-posts-practitioner-resources",
-    "href": "benchmark-reliability.html#blog-posts-practitioner-resources",
-    "title": "Benchmark Reliability",
+    "objectID": "self-consistency.html#blog-posts-practitioner-resources",
+    "href": "self-consistency.html#blog-posts-practitioner-resources",
+    "title": "Self-Consistency & Contradiction",
     "section": "Blog Posts & Practitioner Resources",
-    "text": "Blog Posts & Practitioner Resources\n[To be populated]"
+    "text": "Blog Posts & Practitioner Resources\n\nPrompting Guide: Consistency Techniques (DAIR.AI, ongoing) — https://www.promptingguide.ai/techniques/consistency Catalog of practical templates for self-consistency sampling and voting.\nOpenAI Prompt Engineering Guide (OpenAI, ongoing) — https://platform.openai.com/docs/guides/prompt-engineering Production heuristics for reducing answer variance.\nAnthropic research notes on confidence/consistency (Anthropic, ongoing) — https://www.anthropic.com/news Applied discussions of confidence and reliability behavior."
   },
   {
-    "objectID": "benchmark-reliability.html#datasets-benchmarks",
-    "href": "benchmark-reliability.html#datasets-benchmarks",
-    "title": "Benchmark Reliability",
-    "section": "Datasets & Benchmarks",
-    "text": "Datasets & Benchmarks\n[To be populated]"
+    "objectID": "self-consistency.html#benchmarks-datasets",
+    "href": "self-consistency.html#benchmarks-datasets",
+    "title": "Self-Consistency & Contradiction",
+    "section": "Benchmarks & Datasets",
+    "text": "Benchmarks & Datasets\n\n\n\nName\nYear\nDescription\nLink\n\n\n\n\nTruthfulQA\n2022\nTruthfulness under misconception pressure\nhttps://arxiv.org/abs/2109.07958\n\n\nANLI\n2020\nAdversarial entailment/contradiction NLI\nhttps://arxiv.org/abs/1910.14599\n\n\nHANS\n2019\nNLI heuristic stress test\nhttps://aclanthology.org/P19-1334/\n\n\nWinoGrande\n2020\nRobust coreference benchmark\nhttps://arxiv.org/abs/1907.10641\n\n\nWinogender\n2018\nDemographic-swapped consistency diagnostics\nhttps://aclanthology.org/N18-2003/\n\n\nPromptBench\n2023\nPrompt perturbation robustness benchmark\nhttps://arxiv.org/abs/2306.04528"
   },
   {
-    "objectID": "benchmark-reliability.html#key-takeaways",
-    "href": "benchmark-reliability.html#key-takeaways",
-    "title": "Benchmark Reliability",
+    "objectID": "self-consistency.html#github-repos",
+    "href": "self-consistency.html#github-repos",
+    "title": "Self-Consistency & Contradiction",
+    "section": "GitHub Repos",
+    "text": "GitHub Repos\n\nchain-of-thought-hub — https://github.com/FranxYao/chain-of-thought-hub Reproducible prompts and evaluation scripts for consistency-sensitive reasoning tasks.\nBIG-Bench-Hard — https://github.com/suzgunmirac/BIG-Bench-Hard Hard reasoning tasks often used in variance/consistency studies.\nlm-evaluation-harness — https://github.com/EleutherAI/lm-evaluation-harness Standardized benchmarking framework for multi-prompt comparisons."
+  },
+  {
+    "objectID": "self-consistency.html#key-takeaways",
+    "href": "self-consistency.html#key-takeaways",
+    "title": "Self-Consistency & Contradiction",
     "section": "Key Takeaways",
-    "text": "Key Takeaways\n[To be populated]\n\n← Taxonomy | Resources →"
+    "text": "Key Takeaways\n\n\n\n\n\n\nTipKey Insights\n\n\n\n\nCross-sample disagreement is one of the most useful black-box uncertainty signals in practice.\n“Self-consistency decoding” improves outcomes but does not mean models are intrinsically self-consistent.\nRobust evaluation must include paraphrase and prompt perturbation tests, not single-template scores."
+  },
+  {
+    "objectID": "self-consistency.html#see-also",
+    "href": "self-consistency.html#see-also",
+    "title": "Self-Consistency & Contradiction",
+    "section": "See Also",
+    "text": "See Also\n\nReasoning Consistency\nFactual Consistency & Hallucination\nCalibration & Uncertainty\nGenerator-Validator Gap"
+  },
+  {
+    "objectID": "behavioral-consistency.html",
+    "href": "behavioral-consistency.html",
+    "title": "Behavioral Consistency & Sycophancy",
+    "section": "",
+    "text": "Behavioral consistency is about whether an LLM responds stably across social contexts—not just factual contexts. A model may be technically capable of a correct answer yet still shift under user pressure, framing cues, authority signals, or style biases. The most studied case is sycophancy: agreeing with users even when they are wrong.\nThese effects are tightly linked to alignment objectives. Preference optimization can unintentionally reward agreeableness and rhetorical smoothness over truth-maintaining disagreement. In evaluation pipelines, the same problem appears as judge bias: verbosity, position, or framing can influence scores independently of content quality.\nAs a result, behavioral consistency is both a model behavior problem and an evaluation design problem. Robust systems now treat swap-order testing, adversarial prompting, and disagreement probes as standard checks."
+  },
+  {
+    "objectID": "behavioral-consistency.html#overview",
+    "href": "behavioral-consistency.html#overview",
+    "title": "Behavioral Consistency & Sycophancy",
+    "section": "",
+    "text": "Behavioral consistency is about whether an LLM responds stably across social contexts—not just factual contexts. A model may be technically capable of a correct answer yet still shift under user pressure, framing cues, authority signals, or style biases. The most studied case is sycophancy: agreeing with users even when they are wrong.\nThese effects are tightly linked to alignment objectives. Preference optimization can unintentionally reward agreeableness and rhetorical smoothness over truth-maintaining disagreement. In evaluation pipelines, the same problem appears as judge bias: verbosity, position, or framing can influence scores independently of content quality.\nAs a result, behavioral consistency is both a model behavior problem and an evaluation design problem. Robust systems now treat swap-order testing, adversarial prompting, and disagreement probes as standard checks."
+  },
+  {
+    "objectID": "behavioral-consistency.html#key-papers",
+    "href": "behavioral-consistency.html#key-papers",
+    "title": "Behavioral Consistency & Sycophancy",
+    "section": "Key Papers",
+    "text": "Key Papers\n\nSycophancy and Preference-Induced Failure Modes\nDiscovering Language Model Behaviors with Model-Written Evaluations (Perez et al., 2022) · arXiv · link\n\nEarly large-scale evidence of sycophancy and suggestibility, with scalable targeted behavior evals.\n\nTraining Language Models to Follow Instructions with Human Feedback (InstructGPT) (Ouyang et al., 2022) · NeurIPS · link\n\nFoundational RLHF paper; crucial background for how preference optimization can shape behavioral consistency.\n\nConstitutional AI (Bai et al., 2022) · arXiv · link\n\nIntroduces principle-guided critique/revision loops as an alternative to pure user-pleasing optimization.\n\nFrom Yes-Men to Truth-Tellers (Chen et al., 2024) · arXiv · link\n\nExplicit sycophancy-targeted tuning intervention (venue unconfirmed at time of writing).\n\n\n\nPosition, Ordering, and Verbosity Bias\nLost in the Middle (Liu et al., 2023/2024) · TACL · link\n\nDemonstrates long-context positional inconsistency, with underuse of middle-context evidence.\n\nJudging LLM-as-a-Judge with MT-Bench and Chatbot Arena (Zheng et al., 2023) · NeurIPS Datasets/Benchmarks ecosystem · link\n\nCanonical evidence for position and verbosity bias in judge-style evaluation.\n\nG-Eval (Liu et al., 2023) · EMNLP Findings-era · link\n\nShows strong judge-human correlation under structured prompts, while highlighting rubric and prompt sensitivity."
+  },
+  {
+    "objectID": "behavioral-consistency.html#preprints-recent-work",
+    "href": "behavioral-consistency.html#preprints-recent-work",
+    "title": "Behavioral Consistency & Sycophancy",
+    "section": "Preprints & Recent Work",
+    "text": "Preprints & Recent Work\nDirect Preference Optimization (DPO) (Rafailov et al., 2023) · NeurIPS · link\n\nPreference training objective simplification; often studied for downstream behavior trade-offs including sycophancy.\n\nRRHF (Yuan et al., 2023) · arXiv · link\n\nRanking-based alignment alternative used in comparisons of consistency and over-compliance tendencies.\n\nWhose Opinions Do Language Models Reflect? (Santurkar et al., 2023) · ICML · link\n\nShows strong framing sensitivity in “opinionated” outputs."
+  },
+  {
+    "objectID": "behavioral-consistency.html#blog-posts-practitioner-resources",
+    "href": "behavioral-consistency.html#blog-posts-practitioner-resources",
+    "title": "Behavioral Consistency & Sycophancy",
+    "section": "Blog Posts & Practitioner Resources",
+    "text": "Blog Posts & Practitioner Resources\n\nTowards Understanding Sycophancy in Language Models (Anthropic, 2023) — https://www.anthropic.com/research/towards-understanding-sycophancy-in-language-models A practitioner-focused analysis of why and when models over-agree.\nLMSYS Blog (Arena/MT-Bench methodology) (LMSYS, ongoing) — https://lmsys.org/blog/ Practical documentation of judge and pairwise-eval artifacts.\nCRFM HELM reports (Stanford CRFM, ongoing) — https://crfm.stanford.edu/helm/latest/ Multi-metric evaluation framing that includes robustness/fairness dimensions."
+  },
+  {
+    "objectID": "behavioral-consistency.html#benchmarks-datasets",
+    "href": "behavioral-consistency.html#benchmarks-datasets",
+    "title": "Behavioral Consistency & Sycophancy",
+    "section": "Benchmarks & Datasets",
+    "text": "Benchmarks & Datasets\n\n\n\nName\nYear\nDescription\nLink\n\n\n\n\nMT-Bench\n2023\nMulti-turn benchmark used with LLM judges\nhttps://arxiv.org/abs/2306.05685\n\n\nChatbot Arena\n2023–\nLive pairwise human preference benchmark\nhttps://chat.lmsys.org/\n\n\nAlpacaEval\n2023–2024\nAutomated pairwise instruction-following eval\nhttps://github.com/tatsu-lab/alpaca_eval\n\n\nTruthfulQA\n2022\nTruthfulness vs plausible falsehoods\nhttps://arxiv.org/abs/2109.07958\n\n\nBBQ\n2022\nSocial bias QA benchmark\nhttps://aclanthology.org/2022.findings-acl.165/\n\n\nStereoSet\n2021\nStereotype bias in LM completions\nhttps://aclanthology.org/2021.acl-long.416/\n\n\nBOLD\n2021\nOpen-ended generation bias benchmark\nhttps://arxiv.org/abs/2101.11718"
+  },
+  {
+    "objectID": "behavioral-consistency.html#github-repos",
+    "href": "behavioral-consistency.html#github-repos",
+    "title": "Behavioral Consistency & Sycophancy",
+    "section": "GitHub Repos",
+    "text": "GitHub Repos\n\ntatsu-lab/alpaca_eval — https://github.com/tatsu-lab/alpaca_eval Pairwise automatic evaluation toolkit with practical bias controls.\nlm-sys/FastChat — https://github.com/lm-sys/FastChat Infrastructure behind MT-Bench and Arena pipelines.\nstanford-crfm/helm — https://github.com/stanford-crfm/helm Holistic evaluation framework for cross-metric behavior testing."
+  },
+  {
+    "objectID": "behavioral-consistency.html#key-takeaways",
+    "href": "behavioral-consistency.html#key-takeaways",
+    "title": "Behavioral Consistency & Sycophancy",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\n\n\n\n\n\nTipKey Insights\n\n\n\n\nSycophancy is a first-class reliability failure, not just a conversational style quirk.\nBehavioral consistency requires explicit stress tests: disagreement prompts, order swaps, and framing perturbations.\nEvaluation systems can inherit the same biases as models unless rigorously controlled."
+  },
+  {
+    "objectID": "behavioral-consistency.html#see-also",
+    "href": "behavioral-consistency.html#see-also",
+    "title": "Behavioral Consistency & Sycophancy",
+    "section": "See Also",
+    "text": "See Also\n\nCalibration & Uncertainty\nCross-Context & Format Sensitivity\nFactual Consistency & Hallucination\nBenchmark Reliability"
+  },
+  {
+    "objectID": "cross-context.html",
+    "href": "cross-context.html",
+    "title": "Cross-Context & Format Sensitivity",
+    "section": "",
+    "text": "Cross-context consistency measures whether LLM outputs remain stable when semantics are held constant but context form changes: language, template, ordering, punctuation, answer format, or modality. Failures here are especially costly because they make system behavior difficult to predict and replicate.\nThe literature consistently shows that prompt and template details can produce large swings in performance. Demonstration order, label token choices, and small textual artifacts can alter outcomes independent of underlying problem difficulty. Multilingual settings add another layer: the same factual query can yield different answers and confidence levels across languages.\nIn short, many models remain highly sensitive to surface form. Robust deployment therefore requires perturbation testing as a default QA practice, not a niche robustness exercise."
+  },
+  {
+    "objectID": "cross-context.html#overview",
+    "href": "cross-context.html#overview",
+    "title": "Cross-Context & Format Sensitivity",
+    "section": "",
+    "text": "Cross-context consistency measures whether LLM outputs remain stable when semantics are held constant but context form changes: language, template, ordering, punctuation, answer format, or modality. Failures here are especially costly because they make system behavior difficult to predict and replicate.\nThe literature consistently shows that prompt and template details can produce large swings in performance. Demonstration order, label token choices, and small textual artifacts can alter outcomes independent of underlying problem difficulty. Multilingual settings add another layer: the same factual query can yield different answers and confidence levels across languages.\nIn short, many models remain highly sensitive to surface form. Robust deployment therefore requires perturbation testing as a default QA practice, not a niche robustness exercise."
+  },
+  {
+    "objectID": "cross-context.html#key-papers",
+    "href": "cross-context.html#key-papers",
+    "title": "Cross-Context & Format Sensitivity",
+    "section": "Key Papers",
+    "text": "Key Papers\n\nPrompt and Demonstration Sensitivity\nCalibrate Before Use (Zhao et al., 2021) · ICML · link\n\nLandmark paper on contextual calibration and few-shot prompt sensitivity.\n\nFantastically Ordered Prompts (Lu et al., 2022) · ACL · link\n\nDemonstration order alone can strongly affect in-context learning outcomes.\n\nRethinking the Role of Demonstrations (Min et al., 2022) · EMNLP · link\n\nShows superficial format cues can matter more than semantic relevance in ICL.\n\nQuantifying Sensitivity to Spurious Prompt Features (Sclar et al., 2023) · arXiv · link\n\nCapitalization, punctuation, and label tokens can materially shift model behavior.\n\n\n\nCross-Lingual and Multimodal Consistency\nCross-Lingual Consistency of Factual Knowledge in Multilingual LMs (Wang et al., 2023) · arXiv · link\n\nDirect evidence that factual outputs can diverge by language for equivalent questions.\n\nLanguage Models are Multilingual Chain-of-Thought Reasoners (Shi et al., 2023) · ICLR line · link\n\nCoT transfer exists but is uneven across language-resource conditions.\n\nMMBench (Liu et al., 2023) · arXiv · link\n\nMultimodal benchmark exposing prompt/format brittleness in VLM evaluation."
+  },
+  {
+    "objectID": "cross-context.html#preprints-recent-work",
+    "href": "cross-context.html#preprints-recent-work",
+    "title": "Cross-Context & Format Sensitivity",
+    "section": "Preprints & Recent Work",
+    "text": "Preprints & Recent Work\nPromptBench (Zhu et al., 2023) · NeurIPS Datasets/Benchmarks track · link\n\nStandardized stress testing for adversarial and perturbed prompts.\n\nLook at the Labels (Sahay et al., 2024) · arXiv · link\n\nClassifier-free metric for prompt sensitivity and output instability.\n\nMMMU (Fu et al., 2023) · arXiv · link\n\nBroad multimodal reasoning benchmark useful for cross-format consistency studies."
+  },
+  {
+    "objectID": "cross-context.html#blog-posts-practitioner-resources",
+    "href": "cross-context.html#blog-posts-practitioner-resources",
+    "title": "Cross-Context & Format Sensitivity",
+    "section": "Blog Posts & Practitioner Resources",
+    "text": "Blog Posts & Practitioner Resources\n\nHugging Face evaluation/robustness guides (HF, ongoing) — https://huggingface.co/blog Practical tutorials on prompt robustness and multilingual evaluation.\nOpenAI Cookbook (OpenAI, ongoing) — https://cookbook.openai.com/ Prompt/format testing patterns and reproducibility practices.\nCRFM/HELM docs (Stanford CRFM, ongoing) — https://crfm.stanford.edu/helm/latest/ Multi-scenario framework that encourages robust cross-context reporting."
+  },
+  {
+    "objectID": "cross-context.html#benchmarks-datasets",
+    "href": "cross-context.html#benchmarks-datasets",
+    "title": "Cross-Context & Format Sensitivity",
+    "section": "Benchmarks & Datasets",
+    "text": "Benchmarks & Datasets\n\n\n\nName\nYear\nDescription\nLink\n\n\n\n\nPromptBench\n2023\nAdversarial and perturbed prompt robustness\nhttps://arxiv.org/abs/2306.04528\n\n\nCheckList\n2020\nInvariance and directional expectation tests\nhttps://aclanthology.org/2020.acl-main.442/\n\n\nMGSM\n2023\nMultilingual grade-school math consistency\nhttps://arxiv.org/abs/2210.03057\n\n\nXCOPA\n2020\nCross-lingual causal commonsense\nhttps://aclanthology.org/2020.findings-emnlp.240/\n\n\nBelebele\n2023\nMassively multilingual reading comprehension\nhttps://arxiv.org/abs/2308.16884\n\n\nMMBench\n2023\nMultimodal prompt/format robustness\nhttps://arxiv.org/abs/2307.06281\n\n\nMMMU\n2023\nMulti-discipline multimodal reasoning\nhttps://arxiv.org/abs/2311.16502"
+  },
+  {
+    "objectID": "cross-context.html#github-repos",
+    "href": "cross-context.html#github-repos",
+    "title": "Cross-Context & Format Sensitivity",
+    "section": "GitHub Repos",
+    "text": "GitHub Repos\n\nmicrosoft/promptbench — https://github.com/microsoft/promptbench Core benchmark implementation for prompt perturbation testing.\nEleutherAI/lm-evaluation-harness — https://github.com/EleutherAI/lm-evaluation-harness Reproducible multi-task framework for prompt-format comparisons.\nopenai/evals — https://github.com/openai/evals Custom format-variant eval authoring."
+  },
+  {
+    "objectID": "cross-context.html#key-takeaways",
+    "href": "cross-context.html#key-takeaways",
+    "title": "Cross-Context & Format Sensitivity",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\n\n\n\n\n\nTipKey Insights\n\n\n\n\nSurface-form changes frequently cause large behavior shifts even when semantics are unchanged.\nCross-lingual consistency is still a major open reliability problem.\nRobust evaluation should always include prompt/template perturbation sweeps and variance reporting."
+  },
+  {
+    "objectID": "cross-context.html#see-also",
+    "href": "cross-context.html#see-also",
+    "title": "Cross-Context & Format Sensitivity",
+    "section": "See Also",
+    "text": "See Also\n\nSelf-Consistency & Contradiction\nCalibration & Uncertainty\nBehavioral Consistency & Sycophancy\nBenchmark Reliability"
+  },
+  {
+    "objectID": "generator-validator-gap.html",
+    "href": "generator-validator-gap.html",
+    "title": "Generator-Validator Gap",
+    "section": "",
+    "text": "The generator-validator gap is the empirical pattern that LLMs can often evaluate candidate answers more reliably than they can produce the best answer from scratch. In practice, this appears when a model fails at one-shot generation but succeeds when selecting among candidates, verifying steps, or reranking outputs.\nThis concept helps unify several successful techniques: best-of-N sampling, self-consistency voting, verifier reranking, and process reward models. All of them transform a hard single-pass generation task into two stages: (1) generate many imperfect candidates, then (2) apply a comparatively easier discriminative selection process.\nThe gap also explains why intrinsic self-correction is fragile. If the same model is both generator and validator without new evidence, errors can self-reinforce. Reliable improvements usually require stronger or externalized validation signals (step labels, tools, environment feedback, or specialized verifier models)."
+  },
+  {
+    "objectID": "generator-validator-gap.html#overview",
+    "href": "generator-validator-gap.html#overview",
+    "title": "Generator-Validator Gap",
+    "section": "",
+    "text": "The generator-validator gap is the empirical pattern that LLMs can often evaluate candidate answers more reliably than they can produce the best answer from scratch. In practice, this appears when a model fails at one-shot generation but succeeds when selecting among candidates, verifying steps, or reranking outputs.\nThis concept helps unify several successful techniques: best-of-N sampling, self-consistency voting, verifier reranking, and process reward models. All of them transform a hard single-pass generation task into two stages: (1) generate many imperfect candidates, then (2) apply a comparatively easier discriminative selection process.\nThe gap also explains why intrinsic self-correction is fragile. If the same model is both generator and validator without new evidence, errors can self-reinforce. Reliable improvements usually require stronger or externalized validation signals (step labels, tools, environment feedback, or specialized verifier models)."
+  },
+  {
+    "objectID": "generator-validator-gap.html#key-papers",
+    "href": "generator-validator-gap.html#key-papers",
+    "title": "Generator-Validator Gap",
+    "section": "Key Papers",
+    "text": "Key Papers\n\nCore Gap and Verification Methods\nTraining Verifiers to Solve Math Word Problems (Cobbe et al., 2021) · arXiv/OpenAI · link\n\nLandmark generate-then-verify pipeline: a trained verifier reranks candidate solutions and yields large gains over direct generation.\n\nLet’s Verify Step by Step (Lightman et al., 2023) · arXiv/OpenAI · link\n\nStep-level process supervision improves candidate selection and downstream reasoning reliability.\n\nLarge Language Models are Better Reasoners with Self-Verification (Weng et al., 2022) · arXiv · link\n\nDemonstrates gains from explicit verification prompts over generated solutions.\n\n\n\nSampling and Voting as Implicit Validators\nSelf-Consistency Improves Chain of Thought Reasoning (Wang et al., 2023) · ICLR · link\n\nMajority vote over sampled chains is effectively a lightweight validator layer.\n\nSTaR: Bootstrapping Reasoning With Reasoning (Zelikman et al., 2022) · arXiv · link\n\nIterative rationale filtering demonstrates training-time use of evaluator-like signals.\n\n\n\nLimits of Intrinsic Self-Correction\nLarge Language Models Cannot Self-Correct Reasoning Yet (Huang et al., 2023) · arXiv · link\n\nStrong evidence that intrinsic self-correction often fails without external feedback.\n\nSelf-Refine (Madaan et al., 2023) · arXiv · link\n\nShows self-feedback can help in some settings, but gains are task- and prompt-dependent.\n\nReflexion (Shinn et al., 2023) · arXiv · link\n\nImprovement is strongest with environment-grounded outcomes, supporting an extrinsic-feedback view."
+  },
+  {
+    "objectID": "generator-validator-gap.html#preprints-recent-work",
+    "href": "generator-validator-gap.html#preprints-recent-work",
+    "title": "Generator-Validator Gap",
+    "section": "Preprints & Recent Work",
+    "text": "Preprints & Recent Work\nMath-Shepherd (Wang et al., 2023) · arXiv · link\n\nStepwise verification/reinforcement pipeline with reduced annotation burden.\n\nDeepSeekMath (DeepSeek-AI et al., 2024) · arXiv · link\n\nOpen-model evidence for verifier/reward-guided reasoning improvements.\n\nBenchmarking Foundation Models with LM-as-an-Examiner (Fu et al., 2023) · arXiv · link\n\nExamines language-model judges as scalable evaluators, with calibration caveats."
+  },
+  {
+    "objectID": "generator-validator-gap.html#blog-posts-practitioner-resources",
+    "href": "generator-validator-gap.html#blog-posts-practitioner-resources",
+    "title": "Generator-Validator Gap",
+    "section": "Blog Posts & Practitioner Resources",
+    "text": "Blog Posts & Practitioner Resources\n\nLet’s verify step by step (OpenAI, 2023) — https://openai.com/research/lets-verify-step-by-step Practical framing of process supervision and why verification helps.\nConstitutional AI post (Anthropic, 2022) — https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback Structured critique/revision as an externally constrained correction loop.\nFastChat / MT-Bench docs (LMSYS, ongoing) — https://github.com/lm-sys/FastChat Operational judge infrastructure for pairwise evaluation settings."
+  },
+  {
+    "objectID": "generator-validator-gap.html#benchmarks-datasets",
+    "href": "generator-validator-gap.html#benchmarks-datasets",
+    "title": "Generator-Validator Gap",
+    "section": "Benchmarks & Datasets",
+    "text": "Benchmarks & Datasets\n\n\n\nName\nYear\nDescription\nLink\n\n\n\n\nGSM8K\n2021\nCentral benchmark for verifier-based math workflows\nhttps://arxiv.org/abs/2110.14168\n\n\nMATH\n2021\nHard math reasoning benchmark for reranking methods\nhttps://arxiv.org/abs/2103.03874\n\n\nPRM800K\n2023\nStep-level process supervision dataset\nhttps://github.com/openai/prm800k\n\n\nMMLU\n2020\nBroad benchmark used in generation-vs-judging comparisons\nhttps://arxiv.org/abs/2009.03300\n\n\nMT-Bench\n2023\nJudge-oriented chat benchmark\nhttps://arxiv.org/abs/2306.05685\n\n\nChatbot Arena\n2023–\nHuman pairwise ranking for judge calibration analyses\nhttps://chat.lmsys.org/"
+  },
+  {
+    "objectID": "generator-validator-gap.html#github-repos",
+    "href": "generator-validator-gap.html#github-repos",
+    "title": "Generator-Validator Gap",
+    "section": "GitHub Repos",
+    "text": "GitHub Repos\n\nopenai/prm800k — https://github.com/openai/prm800k Process supervision resources for step-level validation.\nopenai/evals — https://github.com/openai/evals Build judge/validator pipelines and regression checks.\nlm-sys/FastChat — https://github.com/lm-sys/FastChat Judge and pairwise comparison infrastructure.\ndeepseek-ai/DeepSeek-Math — https://github.com/deepseek-ai/DeepSeek-Math Open reasoning stack with verifier-adjacent practices."
+  },
+  {
+    "objectID": "generator-validator-gap.html#key-takeaways",
+    "href": "generator-validator-gap.html#key-takeaways",
+    "title": "Generator-Validator Gap",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\n\n\n\n\n\nTipKey Insights\n\n\n\n\nGenerate-then-verify is often more reliable than one-shot generation.\nIntrinsic self-correction is limited; externalized feedback is usually required for robust gains.\nProcess-level validators (PRMs) generally outperform final-answer-only scoring for reasoning quality control."
+  },
+  {
+    "objectID": "generator-validator-gap.html#see-also",
+    "href": "generator-validator-gap.html#see-also",
+    "title": "Generator-Validator Gap",
+    "section": "See Also",
+    "text": "See Also\n\nReasoning Consistency\nSelf-Consistency & Contradiction\nCalibration & Uncertainty\nBenchmark Reliability"
   }
 ]

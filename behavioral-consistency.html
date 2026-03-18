@@ -298,6 +298,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./benchmark-reliability.html">
  <span class="dropdown-text">Benchmark Reliability</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./generator-validator-gap.html">
+ <span class="dropdown-text">Generator-Validator Gap</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -322,11 +326,17 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#key-papers" id="toc-key-papers" class="nav-link" data-scroll-target="#key-papers">Key Papers</a></li>
-  <li><a href="#preprints-emerging-work" id="toc-preprints-emerging-work" class="nav-link" data-scroll-target="#preprints-emerging-work">Preprints &amp; Emerging Work</a></li>
+  <li><a href="#key-papers" id="toc-key-papers" class="nav-link" data-scroll-target="#key-papers">Key Papers</a>
+  <ul class="collapse">
+  <li><a href="#sycophancy-and-preference-induced-failure-modes" id="toc-sycophancy-and-preference-induced-failure-modes" class="nav-link" data-scroll-target="#sycophancy-and-preference-induced-failure-modes">Sycophancy and Preference-Induced Failure Modes</a></li>
+  <li><a href="#position-ordering-and-verbosity-bias" id="toc-position-ordering-and-verbosity-bias" class="nav-link" data-scroll-target="#position-ordering-and-verbosity-bias">Position, Ordering, and Verbosity Bias</a></li>
+  </ul></li>
+  <li><a href="#preprints-recent-work" id="toc-preprints-recent-work" class="nav-link" data-scroll-target="#preprints-recent-work">Preprints &amp; Recent Work</a></li>
   <li><a href="#blog-posts-practitioner-resources" id="toc-blog-posts-practitioner-resources" class="nav-link" data-scroll-target="#blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</a></li>
-  <li><a href="#datasets-benchmarks" id="toc-datasets-benchmarks" class="nav-link" data-scroll-target="#datasets-benchmarks">Datasets &amp; Benchmarks</a></li>
+  <li><a href="#benchmarks-datasets" id="toc-benchmarks-datasets" class="nav-link" data-scroll-target="#benchmarks-datasets">Benchmarks &amp; Datasets</a></li>
+  <li><a href="#github-repos" id="toc-github-repos" class="nav-link" data-scroll-target="#github-repos">GitHub Repos</a></li>
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  <li><a href="#see-also" id="toc-see-also" class="nav-link" data-scroll-target="#see-also">See Also</a></li>
   </ul>
 </nav>
     </div>
@@ -337,7 +347,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Behavioral Consistency &amp; Sycophancy</h1>
-<p class="subtitle lead">When LLMs change answers based on social cues</p>
+<p class="subtitle lead">How social framing, position, and style alter model behavior</p>
 </div>
 
 
@@ -354,44 +364,165 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Behavioral consistency is about whether an LLM responds stably across social contexts—not just factual contexts. A model may be technically capable of a correct answer yet still shift under user pressure, framing cues, authority signals, or style biases. The most studied case is <strong>sycophancy</strong>: agreeing with users even when they are wrong.</p>
+<p>These effects are tightly linked to alignment objectives. Preference optimization can unintentionally reward agreeableness and rhetorical smoothness over truth-maintaining disagreement. In evaluation pipelines, the same problem appears as <strong>judge bias</strong>: verbosity, position, or framing can influence scores independently of content quality.</p>
+<p>As a result, behavioral consistency is both a model behavior problem and an evaluation design problem. Robust systems now treat swap-order testing, adversarial prompting, and disagreement probes as standard checks.</p>
+</section>
+<section id="key-papers" class="level2">
+<h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
+<section id="sycophancy-and-preference-induced-failure-modes" class="level3">
+<h3 class="anchored" data-anchor-id="sycophancy-and-preference-induced-failure-modes">Sycophancy and Preference-Induced Failure Modes</h3>
+<p><strong>Discovering Language Model Behaviors with Model-Written Evaluations</strong> (Perez et al., 2022) · arXiv · <a href="https://arxiv.org/abs/2212.09251">link</a></p>
+<blockquote class="blockquote">
+<p>Early large-scale evidence of sycophancy and suggestibility, with scalable targeted behavior evals.</p>
+</blockquote>
+<p><strong>Training Language Models to Follow Instructions with Human Feedback (InstructGPT)</strong> (Ouyang et al., 2022) · NeurIPS · <a href="https://arxiv.org/abs/2203.02155">link</a></p>
+<blockquote class="blockquote">
+<p>Foundational RLHF paper; crucial background for how preference optimization can shape behavioral consistency.</p>
+</blockquote>
+<p><strong>Constitutional AI</strong> (Bai et al., 2022) · arXiv · <a href="https://arxiv.org/abs/2212.08073">link</a></p>
+<blockquote class="blockquote">
+<p>Introduces principle-guided critique/revision loops as an alternative to pure user-pleasing optimization.</p>
+</blockquote>
+<p><strong>From Yes-Men to Truth-Tellers</strong> (Chen et al., 2024) · arXiv · <a href="https://arxiv.org/abs/2409.01658">link</a></p>
+<blockquote class="blockquote">
+<p>Explicit sycophancy-targeted tuning intervention (venue unconfirmed at time of writing).</p>
+</blockquote>
+</section>
+<section id="position-ordering-and-verbosity-bias" class="level3">
+<h3 class="anchored" data-anchor-id="position-ordering-and-verbosity-bias">Position, Ordering, and Verbosity Bias</h3>
+<p><strong>Lost in the Middle</strong> (Liu et al., 2023/2024) · TACL · <a href="https://arxiv.org/abs/2307.03172">link</a></p>
+<blockquote class="blockquote">
+<p>Demonstrates long-context positional inconsistency, with underuse of middle-context evidence.</p>
+</blockquote>
+<p><strong>Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena</strong> (Zheng et al., 2023) · NeurIPS Datasets/Benchmarks ecosystem · <a href="https://arxiv.org/abs/2306.05685">link</a></p>
+<blockquote class="blockquote">
+<p>Canonical evidence for position and verbosity bias in judge-style evaluation.</p>
+</blockquote>
+<p><strong>G-Eval</strong> (Liu et al., 2023) · EMNLP Findings-era · <a href="https://arxiv.org/abs/2303.16634">link</a></p>
+<blockquote class="blockquote">
+<p>Shows strong judge-human correlation under structured prompts, while highlighting rubric and prompt sensitivity.</p>
+</blockquote>
+</section>
+</section>
+<section id="preprints-recent-work" class="level2">
+<h2 class="anchored" data-anchor-id="preprints-recent-work">Preprints &amp; Recent Work</h2>
+<p><strong>Direct Preference Optimization (DPO)</strong> (Rafailov et al., 2023) · NeurIPS · <a href="https://arxiv.org/abs/2305.18290">link</a></p>
+<blockquote class="blockquote">
+<p>Preference training objective simplification; often studied for downstream behavior trade-offs including sycophancy.</p>
+</blockquote>
+<p><strong>RRHF</strong> (Yuan et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2304.05302">link</a></p>
+<blockquote class="blockquote">
+<p>Ranking-based alignment alternative used in comparisons of consistency and over-compliance tendencies.</p>
+</blockquote>
+<p><strong>Whose Opinions Do Language Models Reflect?</strong> (Santurkar et al., 2023) · ICML · <a href="https://arxiv.org/abs/2303.17548">link</a></p>
+<blockquote class="blockquote">
+<p>Shows strong framing sensitivity in “opinionated” outputs.</p>
+</blockquote>
+</section>
+<section id="blog-posts-practitioner-resources" class="level2">
+<h2 class="anchored" data-anchor-id="blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</h2>
+<ul>
+<li><p><strong>Towards Understanding Sycophancy in Language Models</strong> (Anthropic, 2023) — <a href="https://www.anthropic.com/research/towards-understanding-sycophancy-in-language-models" class="uri">https://www.anthropic.com/research/towards-understanding-sycophancy-in-language-models</a> A practitioner-focused analysis of why and when models over-agree.</p></li>
+<li><p><strong>LMSYS Blog (Arena/MT-Bench methodology)</strong> (LMSYS, ongoing) — <a href="https://lmsys.org/blog/" class="uri">https://lmsys.org/blog/</a> Practical documentation of judge and pairwise-eval artifacts.</p></li>
+<li><p><strong>CRFM HELM reports</strong> (Stanford CRFM, ongoing) — <a href="https://crfm.stanford.edu/helm/latest/" class="uri">https://crfm.stanford.edu/helm/latest/</a> Multi-metric evaluation framing that includes robustness/fairness dimensions.</p></li>
+</ul>
+</section>
+<section id="benchmarks-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="benchmarks-datasets">Benchmarks &amp; Datasets</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Year</th>
+<th>Description</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>MT-Bench</td>
+<td>2023</td>
+<td>Multi-turn benchmark used with LLM judges</td>
+<td><a href="https://arxiv.org/abs/2306.05685" class="uri">https://arxiv.org/abs/2306.05685</a></td>
+</tr>
+<tr class="even">
+<td>Chatbot Arena</td>
+<td>2023–</td>
+<td>Live pairwise human preference benchmark</td>
+<td><a href="https://chat.lmsys.org/" class="uri">https://chat.lmsys.org/</a></td>
+</tr>
+<tr class="odd">
+<td>AlpacaEval</td>
+<td>2023–2024</td>
+<td>Automated pairwise instruction-following eval</td>
+<td><a href="https://github.com/tatsu-lab/alpaca_eval" class="uri">https://github.com/tatsu-lab/alpaca_eval</a></td>
+</tr>
+<tr class="even">
+<td>TruthfulQA</td>
+<td>2022</td>
+<td>Truthfulness vs plausible falsehoods</td>
+<td><a href="https://arxiv.org/abs/2109.07958" class="uri">https://arxiv.org/abs/2109.07958</a></td>
+</tr>
+<tr class="odd">
+<td>BBQ</td>
+<td>2022</td>
+<td>Social bias QA benchmark</td>
+<td><a href="https://aclanthology.org/2022.findings-acl.165/" class="uri">https://aclanthology.org/2022.findings-acl.165/</a></td>
+</tr>
+<tr class="even">
+<td>StereoSet</td>
+<td>2021</td>
+<td>Stereotype bias in LM completions</td>
+<td><a href="https://aclanthology.org/2021.acl-long.416/" class="uri">https://aclanthology.org/2021.acl-long.416/</a></td>
+</tr>
+<tr class="odd">
+<td>BOLD</td>
+<td>2021</td>
+<td>Open-ended generation bias benchmark</td>
+<td><a href="https://arxiv.org/abs/2101.11718" class="uri">https://arxiv.org/abs/2101.11718</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="github-repos" class="level2">
+<h2 class="anchored" data-anchor-id="github-repos">GitHub Repos</h2>
+<ul>
+<li><p><strong>tatsu-lab/alpaca_eval</strong> — <a href="https://github.com/tatsu-lab/alpaca_eval" class="uri">https://github.com/tatsu-lab/alpaca_eval</a> Pairwise automatic evaluation toolkit with practical bias controls.</p></li>
+<li><p><strong>lm-sys/FastChat</strong> — <a href="https://github.com/lm-sys/FastChat" class="uri">https://github.com/lm-sys/FastChat</a> Infrastructure behind MT-Bench and Arena pipelines.</p></li>
+<li><p><strong>stanford-crfm/helm</strong> — <a href="https://github.com/stanford-crfm/helm" class="uri">https://github.com/stanford-crfm/helm</a> Holistic evaluation framework for cross-metric behavior testing.</p></li>
+</ul>
+</section>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Section Status
+<span class="screen-reader-only">Tip</span>Key Insights
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This section is being populated by literature research. Content will be updated.</p>
+<ul>
+<li>Sycophancy is a first-class reliability failure, not just a conversational style quirk.</li>
+<li>Behavioral consistency requires explicit stress tests: disagreement prompts, order swaps, and framing perturbations.</li>
+<li>Evaluation systems can inherit the same biases as models unless rigorously controlled.</li>
+</ul>
 </div>
 </div>
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p><em>[Research in progress]</em></p>
 </section>
-<section id="key-papers" class="level2">
-<h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="preprints-emerging-work" class="level2">
-<h2 class="anchored" data-anchor-id="preprints-emerging-work">Preprints &amp; Emerging Work</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="blog-posts-practitioner-resources" class="level2">
-<h2 class="anchored" data-anchor-id="blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="datasets-benchmarks" class="level2">
-<h2 class="anchored" data-anchor-id="datasets-benchmarks">Datasets &amp; Benchmarks</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="key-takeaways" class="level2">
-<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
-<p><em>[To be populated]</em></p>
-<hr>
-<p>← <a href="./taxonomy.html">Taxonomy</a> | <a href="./resources.html">Resources</a> →</p>
+<section id="see-also" class="level2">
+<h2 class="anchored" data-anchor-id="see-also">See Also</h2>
+<ul>
+<li><a href="./calibration.html">Calibration &amp; Uncertainty</a></li>
+<li><a href="./cross-context.html">Cross-Context &amp; Format Sensitivity</a></li>
+<li><a href="./factual-consistency.html">Factual Consistency &amp; Hallucination</a></li>
+<li><a href="./benchmark-reliability.html">Benchmark Reliability</a></li>
+</ul>
 
 
 </section>
@@ -483,7 +614,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/johnplake\.github\.io\/llm-consistency-survey\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

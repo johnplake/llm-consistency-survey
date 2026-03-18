@@ -298,6 +298,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./benchmark-reliability.html">
  <span class="dropdown-text">Benchmark Reliability</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./generator-validator-gap.html">
+ <span class="dropdown-text">Generator-Validator Gap</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -322,11 +326,18 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#key-papers" id="toc-key-papers" class="nav-link" data-scroll-target="#key-papers">Key Papers</a></li>
-  <li><a href="#preprints-emerging-work" id="toc-preprints-emerging-work" class="nav-link" data-scroll-target="#preprints-emerging-work">Preprints &amp; Emerging Work</a></li>
+  <li><a href="#key-papers" id="toc-key-papers" class="nav-link" data-scroll-target="#key-papers">Key Papers</a>
+  <ul class="collapse">
+  <li><a href="#contamination-and-memorization-risks" id="toc-contamination-and-memorization-risks" class="nav-link" data-scroll-target="#contamination-and-memorization-risks">Contamination and Memorization Risks</a></li>
+  <li><a href="#prompt-and-protocol-instability" id="toc-prompt-and-protocol-instability" class="nav-link" data-scroll-target="#prompt-and-protocol-instability">Prompt and Protocol Instability</a></li>
+  <li><a href="#llm-as-judge-artifacts" id="toc-llm-as-judge-artifacts" class="nav-link" data-scroll-target="#llm-as-judge-artifacts">LLM-as-Judge Artifacts</a></li>
+  </ul></li>
+  <li><a href="#preprints-recent-work" id="toc-preprints-recent-work" class="nav-link" data-scroll-target="#preprints-recent-work">Preprints &amp; Recent Work</a></li>
   <li><a href="#blog-posts-practitioner-resources" id="toc-blog-posts-practitioner-resources" class="nav-link" data-scroll-target="#blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</a></li>
-  <li><a href="#datasets-benchmarks" id="toc-datasets-benchmarks" class="nav-link" data-scroll-target="#datasets-benchmarks">Datasets &amp; Benchmarks</a></li>
+  <li><a href="#benchmarks-datasets" id="toc-benchmarks-datasets" class="nav-link" data-scroll-target="#benchmarks-datasets">Benchmarks &amp; Datasets</a></li>
+  <li><a href="#github-repos" id="toc-github-repos" class="nav-link" data-scroll-target="#github-repos">GitHub Repos</a></li>
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  <li><a href="#see-also" id="toc-see-also" class="nav-link" data-scroll-target="#see-also">See Also</a></li>
   </ul>
 </nav>
     </div>
@@ -337,7 +348,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Benchmark Reliability</h1>
-<p class="subtitle lead">When our evaluations mislead us</p>
+<p class="subtitle lead">When evaluation artifacts distort capability claims</p>
 </div>
 
 
@@ -354,44 +365,189 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Benchmark reliability is the meta-consistency problem: can we trust our measurements of model capability? Leaderboard scores are often treated as objective progress, but in LLM evaluation they are highly sensitive to prompt templates, contamination, grading method, and benchmark saturation.</p>
+<p>Three recurring threats dominate this area. First, <strong>data contamination</strong> inflates apparent performance when benchmark-like content appears in training corpora. Second, <strong>format and prompt sensitivity</strong> can change absolute scores—and sometimes rankings—without model changes. Third, <strong>LLM-as-judge biases</strong> (position, verbosity, style preference) can inject systematic artifacts into automatic evaluation.</p>
+<p>As a result, reliable assessment increasingly uses portfolio evaluation: static benchmarks + dynamic human preference + execution-grounded tasks, with strict metadata and reproducibility controls.</p>
+</section>
+<section id="key-papers" class="level2">
+<h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
+<section id="contamination-and-memorization-risks" class="level3">
+<h3 class="anchored" data-anchor-id="contamination-and-memorization-risks">Contamination and Memorization Risks</h3>
+<p><strong>Language Models are Few-Shot Learners</strong> (Brown et al., 2020) · NeurIPS · <a href="https://arxiv.org/abs/2005.14165">link</a></p>
+<blockquote class="blockquote">
+<p>Early large-scale model paper that explicitly discusses contamination checks and overlap concerns.</p>
+</blockquote>
+<p><strong>Documenting Large Webtext Corpora: C4 Case Study</strong> (Dodge et al., 2021) · EMNLP · <a href="https://aclanthology.org/2021.emnlp-main.98/">link</a></p>
+<blockquote class="blockquote">
+<p>Highlights provenance/filtering limitations in web corpora that complicate clean train-test separation.</p>
+</blockquote>
+<p><strong>Deduplicating Training Data Makes Language Models Better</strong> (Lee et al., 2022) · ACL · <a href="https://aclanthology.org/2022.acl-long.577/">link</a></p>
+<blockquote class="blockquote">
+<p>Shows deduplication improves quality and reduces memorization-like artifacts.</p>
+</blockquote>
+</section>
+<section id="prompt-and-protocol-instability" class="level3">
+<h3 class="anchored" data-anchor-id="prompt-and-protocol-instability">Prompt and Protocol Instability</h3>
+<p><strong>HELM</strong> (Liang et al., 2022) · arXiv / CRFM · <a href="https://arxiv.org/abs/2211.09110">link</a></p>
+<blockquote class="blockquote">
+<p>Landmark multi-metric framework emphasizing standardized scenarios and reporting beyond single scores.</p>
+</blockquote>
+<p><strong>BIG-bench</strong> (Srivastava et al., 2022) · TMLR · <a href="https://arxiv.org/abs/2206.04615">link</a></p>
+<blockquote class="blockquote">
+<p>Demonstrates broad capability coverage and substantial task-level variance.</p>
+</blockquote>
+<p><strong>Fantastically Ordered Prompts</strong> (Lu et al., 2022) · ACL · <a href="https://aclanthology.org/2022.acl-long.556/">link</a></p>
+<blockquote class="blockquote">
+<p>Demonstration order can dramatically alter outcomes, stressing reproducibility concerns.</p>
+</blockquote>
+</section>
+<section id="llm-as-judge-artifacts" class="level3">
+<h3 class="anchored" data-anchor-id="llm-as-judge-artifacts">LLM-as-Judge Artifacts</h3>
+<p><strong>Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena</strong> (Zheng et al., 2023) · NeurIPS Datasets/Benchmarks ecosystem · <a href="https://arxiv.org/abs/2306.05685">link</a></p>
+<blockquote class="blockquote">
+<p>Foundational modern judge framework plus explicit bias caveats.</p>
+</blockquote>
+<p><strong>G-Eval</strong> (Liu et al., 2023) · EMNLP line · <a href="https://arxiv.org/abs/2303.16634">link</a></p>
+<blockquote class="blockquote">
+<p>Strong correlation to human judgments in some settings, but sensitive to rubric/prompt design.</p>
+</blockquote>
+<p><strong>Large Language Models are not Fair Evaluators</strong> (Wang et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2305.17926">link</a></p>
+<blockquote class="blockquote">
+<p>Documents systematic non-content biases in judge outputs.</p>
+</blockquote>
+</section>
+</section>
+<section id="preprints-recent-work" class="level2">
+<h2 class="anchored" data-anchor-id="preprints-recent-work">Preprints &amp; Recent Work</h2>
+<p><strong>MMLU-Pro</strong> (Wang et al., 2024) · arXiv · <a href="https://arxiv.org/abs/2406.01574">link</a></p>
+<blockquote class="blockquote">
+<p>Harder benchmark designed to address saturation and reliability issues in MMLU-like testing.</p>
+</blockquote>
+<p><strong>GPQA</strong> (Rein et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2311.12022">link</a></p>
+<blockquote class="blockquote">
+<p>Graduate-level benchmark intended to restore discriminative power where older tests saturate.</p>
+</blockquote>
+<p><strong>SWE-bench</strong> (Jimenez et al., 2024) · ICLR · <a href="https://arxiv.org/abs/2310.06770">link</a></p>
+<blockquote class="blockquote">
+<p>Execution-grounded software tasks reduce reliance on purely textual grading artifacts.</p>
+</blockquote>
+</section>
+<section id="blog-posts-practitioner-resources" class="level2">
+<h2 class="anchored" data-anchor-id="blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</h2>
+<ul>
+<li><p><strong>The Leaderboard Illusion</strong> (Kapoor &amp; Narayanan, 2024) — <a href="https://www.aisnakeoil.com/p/the-leaderboard-illusion" class="uri">https://www.aisnakeoil.com/p/the-leaderboard-illusion</a> Widely cited critique of benchmark over-interpretation and ranking instability.</p></li>
+<li><p><strong>Open LLM Leaderboard docs</strong> (Hugging Face, ongoing) — <a href="https://huggingface.co/docs/leaderboards/open_llm_leaderboard/about" class="uri">https://huggingface.co/docs/leaderboards/open_llm_leaderboard/about</a> Important caveats on versioning, benchmark composition, and comparability.</p></li>
+<li><p><strong>LMSYS methodology posts</strong> (LMSYS, ongoing) — <a href="https://lmsys.org/blog/" class="uri">https://lmsys.org/blog/</a> Practical reflections on pairwise ranking strengths and limitations.</p></li>
+</ul>
+</section>
+<section id="benchmarks-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="benchmarks-datasets">Benchmarks &amp; Datasets</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Year</th>
+<th>Description</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HELM</td>
+<td>2022</td>
+<td>Multi-metric, scenario-based evaluation framework</td>
+<td><a href="https://crfm.stanford.edu/helm/latest/" class="uri">https://crfm.stanford.edu/helm/latest/</a></td>
+</tr>
+<tr class="even">
+<td>MMLU</td>
+<td>2020</td>
+<td>Broad MCQ benchmark; now partly saturated</td>
+<td><a href="https://arxiv.org/abs/2009.03300" class="uri">https://arxiv.org/abs/2009.03300</a></td>
+</tr>
+<tr class="odd">
+<td>MMLU-Pro</td>
+<td>2024</td>
+<td>Harder MMLU-style benchmark</td>
+<td><a href="https://arxiv.org/abs/2406.01574" class="uri">https://arxiv.org/abs/2406.01574</a></td>
+</tr>
+<tr class="even">
+<td>TruthfulQA</td>
+<td>2022</td>
+<td>Truthfulness benchmark with format sensitivity relevance</td>
+<td><a href="https://arxiv.org/abs/2109.07958" class="uri">https://arxiv.org/abs/2109.07958</a></td>
+</tr>
+<tr class="odd">
+<td>HumanEval</td>
+<td>2021</td>
+<td>Code generation via unit tests</td>
+<td><a href="https://arxiv.org/abs/2107.03374" class="uri">https://arxiv.org/abs/2107.03374</a></td>
+</tr>
+<tr class="even">
+<td>MBPP</td>
+<td>2021</td>
+<td>Python programming benchmark</td>
+<td><a href="https://arxiv.org/abs/2108.07732" class="uri">https://arxiv.org/abs/2108.07732</a></td>
+</tr>
+<tr class="odd">
+<td>GPQA</td>
+<td>2023</td>
+<td>Google-proof graduate-level QA</td>
+<td><a href="https://arxiv.org/abs/2311.12022" class="uri">https://arxiv.org/abs/2311.12022</a></td>
+</tr>
+<tr class="even">
+<td>SWE-bench</td>
+<td>2024</td>
+<td>Real-world GitHub issue resolution benchmark</td>
+<td><a href="https://arxiv.org/abs/2310.06770" class="uri">https://arxiv.org/abs/2310.06770</a></td>
+</tr>
+<tr class="odd">
+<td>Chatbot Arena</td>
+<td>2023–</td>
+<td>Live human pairwise model ranking</td>
+<td><a href="https://lmarena.ai/" class="uri">https://lmarena.ai/</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="github-repos" class="level2">
+<h2 class="anchored" data-anchor-id="github-repos">GitHub Repos</h2>
+<ul>
+<li><p><strong>EleutherAI/lm-evaluation-harness</strong> — <a href="https://github.com/EleutherAI/lm-evaluation-harness" class="uri">https://github.com/EleutherAI/lm-evaluation-harness</a> De facto standard open benchmarking harness.</p></li>
+<li><p><strong>stanford-crfm/helm</strong> — <a href="https://github.com/stanford-crfm/helm" class="uri">https://github.com/stanford-crfm/helm</a> Holistic benchmark protocols and implementation.</p></li>
+<li><p><strong>lm-sys/FastChat</strong> — <a href="https://github.com/lm-sys/FastChat" class="uri">https://github.com/lm-sys/FastChat</a> MT-Bench and Arena ecosystem tooling.</p></li>
+<li><p><strong>openai/evals</strong> — <a href="https://github.com/openai/evals" class="uri">https://github.com/openai/evals</a> Custom eval authoring for regression and policy checks.</p></li>
+</ul>
+</section>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Section Status
+<span class="screen-reader-only">Tip</span>Key Insights
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This section is being populated by literature research. Content will be updated.</p>
+<ul>
+<li>Benchmark scores are highly protocol-dependent; reproducibility metadata is not optional.</li>
+<li>LLM-as-judge is useful at scale but must include swap-ordering, rubric controls, and bias audits.</li>
+<li>Reliable capability assessment increasingly requires dynamic and execution-grounded tasks.</li>
+</ul>
 </div>
 </div>
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p><em>[Research in progress]</em></p>
 </section>
-<section id="key-papers" class="level2">
-<h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="preprints-emerging-work" class="level2">
-<h2 class="anchored" data-anchor-id="preprints-emerging-work">Preprints &amp; Emerging Work</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="blog-posts-practitioner-resources" class="level2">
-<h2 class="anchored" data-anchor-id="blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="datasets-benchmarks" class="level2">
-<h2 class="anchored" data-anchor-id="datasets-benchmarks">Datasets &amp; Benchmarks</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="key-takeaways" class="level2">
-<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
-<p><em>[To be populated]</em></p>
-<hr>
-<p>← <a href="./taxonomy.html">Taxonomy</a> | <a href="./resources.html">Resources</a> →</p>
+<section id="see-also" class="level2">
+<h2 class="anchored" data-anchor-id="see-also">See Also</h2>
+<ul>
+<li><a href="./cross-context.html">Cross-Context &amp; Format Sensitivity</a></li>
+<li><a href="./behavioral-consistency.html">Behavioral Consistency &amp; Sycophancy</a></li>
+<li><a href="./resources.html">Resources &amp; Tools</a></li>
+<li><a href="./generator-validator-gap.html">Generator-Validator Gap</a></li>
+</ul>
 
 
 </section>
@@ -483,7 +639,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/johnplake\.github\.io\/llm-consistency-survey\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

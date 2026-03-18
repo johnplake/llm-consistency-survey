@@ -298,6 +298,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./benchmark-reliability.html">
  <span class="dropdown-text">Benchmark Reliability</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./generator-validator-gap.html">
+ <span class="dropdown-text">Generator-Validator Gap</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -322,11 +326,18 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#key-papers" id="toc-key-papers" class="nav-link" data-scroll-target="#key-papers">Key Papers</a></li>
-  <li><a href="#preprints-emerging-work" id="toc-preprints-emerging-work" class="nav-link" data-scroll-target="#preprints-emerging-work">Preprints &amp; Emerging Work</a></li>
+  <li><a href="#key-papers" id="toc-key-papers" class="nav-link" data-scroll-target="#key-papers">Key Papers</a>
+  <ul class="collapse">
+  <li><a href="#foundational-calibration-methods" id="toc-foundational-calibration-methods" class="nav-link" data-scroll-target="#foundational-calibration-methods">Foundational Calibration Methods</a></li>
+  <li><a href="#llm-confidence-and-verbalized-uncertainty" id="toc-llm-confidence-and-verbalized-uncertainty" class="nav-link" data-scroll-target="#llm-confidence-and-verbalized-uncertainty">LLM Confidence and Verbalized Uncertainty</a></li>
+  <li><a href="#semantic-uncertainty-and-risk-control" id="toc-semantic-uncertainty-and-risk-control" class="nav-link" data-scroll-target="#semantic-uncertainty-and-risk-control">Semantic Uncertainty and Risk Control</a></li>
+  </ul></li>
+  <li><a href="#preprints-recent-work" id="toc-preprints-recent-work" class="nav-link" data-scroll-target="#preprints-recent-work">Preprints &amp; Recent Work</a></li>
   <li><a href="#blog-posts-practitioner-resources" id="toc-blog-posts-practitioner-resources" class="nav-link" data-scroll-target="#blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</a></li>
-  <li><a href="#datasets-benchmarks" id="toc-datasets-benchmarks" class="nav-link" data-scroll-target="#datasets-benchmarks">Datasets &amp; Benchmarks</a></li>
+  <li><a href="#benchmarks-datasets" id="toc-benchmarks-datasets" class="nav-link" data-scroll-target="#benchmarks-datasets">Benchmarks &amp; Datasets</a></li>
+  <li><a href="#github-repos" id="toc-github-repos" class="nav-link" data-scroll-target="#github-repos">GitHub Repos</a></li>
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  <li><a href="#see-also" id="toc-see-also" class="nav-link" data-scroll-target="#see-also">See Also</a></li>
   </ul>
 </nav>
     </div>
@@ -337,7 +348,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Calibration &amp; Uncertainty</h1>
-<p class="subtitle lead">When LLMs don’t know what they don’t know</p>
+<p class="subtitle lead">Aligning expressed confidence with actual correctness</p>
 </div>
 
 
@@ -354,44 +365,156 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Calibration asks whether model confidence tracks empirical correctness. In a calibrated system, statements made with 80% confidence should be correct about 80% of the time. LLMs often fail this in practice—especially on long-tail questions, ambiguous prompts, and hallucination-prone tasks.</p>
+<p>The challenge is amplified in generation: token-level probabilities do not map cleanly to semantic correctness. This has driven work on semantic uncertainty, verbalized confidence elicitation, and selective prediction methods (including abstention). From an operational standpoint, calibration quality determines when a system should answer, hedge, cite, or decline.</p>
+<p>Calibration is also downstream-sensitive: instruction tuning and preference optimization can improve usefulness while distorting confidence behavior. Teams therefore need post-alignment calibration audits, not just pretraining-era metrics.</p>
+</section>
+<section id="key-papers" class="level2">
+<h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
+<section id="foundational-calibration-methods" class="level3">
+<h3 class="anchored" data-anchor-id="foundational-calibration-methods">Foundational Calibration Methods</h3>
+<p><strong>On Calibration of Modern Neural Networks</strong> (Guo et al., 2017) · ICML · <a href="https://arxiv.org/abs/1706.04599">link</a></p>
+<blockquote class="blockquote">
+<p>Established modern ECE/temperature-scaling practice still used in NLP and LLM calibration workflows.</p>
+</blockquote>
+<p><strong>Calibration of Pre-trained Transformers</strong> (Desai, Durrett, 2020) · EMNLP · <a href="https://aclanthology.org/2020.emnlp-main.21/">link</a></p>
+<blockquote class="blockquote">
+<p>Showed transformer classifiers are frequently miscalibrated and benchmarked post-hoc correction methods.</p>
+</blockquote>
+</section>
+<section id="llm-confidence-and-verbalized-uncertainty" class="level3">
+<h3 class="anchored" data-anchor-id="llm-confidence-and-verbalized-uncertainty">LLM Confidence and Verbalized Uncertainty</h3>
+<p><strong>Language Models (Mostly) Know What They Know</strong> (Kadavath et al., 2022) · arXiv · <a href="https://arxiv.org/abs/2207.05221">link</a></p>
+<blockquote class="blockquote">
+<p>Influential evidence that confidence can be informative but remains imperfect and often over-optimistic.</p>
+</blockquote>
+<p><strong>Teaching Models to Express Their Uncertainty in Words</strong> (Kadavath et al., 2022) · arXiv · <a href="https://arxiv.org/abs/2205.14334">link</a></p>
+<blockquote class="blockquote">
+<p>Explores training/prompting schemes for better-aligned verbal confidence estimates.</p>
+</blockquote>
+<p><strong>Can LLMs Express Their Uncertainty?</strong> (Xiong et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2306.13063">link</a></p>
+<blockquote class="blockquote">
+<p>Shows elicitation protocol strongly affects confidence quality, with persistent overconfidence.</p>
+</blockquote>
+</section>
+<section id="semantic-uncertainty-and-risk-control" class="level3">
+<h3 class="anchored" data-anchor-id="semantic-uncertainty-and-risk-control">Semantic Uncertainty and Risk Control</h3>
+<p><strong>Semantic Uncertainty</strong> (Kuhn, Gal, Farquhar, 2023) · Nature/ArXiv line · <a href="https://arxiv.org/abs/2302.09664">link</a></p>
+<blockquote class="blockquote">
+<p>Introduces semantic entropy over meaning-equivalent generations, often superior to token entropy for factual risk estimation.</p>
+</blockquote>
+<p><strong>Conformal Language Modeling</strong> (Angelopoulos et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2306.10193">link</a></p>
+<blockquote class="blockquote">
+<p>Brings distribution-free risk guarantees into language settings, important for selective prediction and abstention.</p>
+</blockquote>
+</section>
+</section>
+<section id="preprints-recent-work" class="level2">
+<h2 class="anchored" data-anchor-id="preprints-recent-work">Preprints &amp; Recent Work</h2>
+<p><strong>Overconfidence is Key</strong> (Kumar et al., 2024) · arXiv · <a href="https://arxiv.org/abs/2405.02917">link</a></p>
+<blockquote class="blockquote">
+<p>Evaluates verbalized uncertainty across LLM/VLM systems, showing systematic overconfidence.</p>
+</blockquote>
+<p><strong>Look at the Labels</strong> (Sahay et al., 2024) · arXiv · <a href="https://arxiv.org/abs/2402.09309">link</a></p>
+<blockquote class="blockquote">
+<p>Prompt-sensitivity metric useful for uncertainty-aware robustness analysis.</p>
+</blockquote>
+<p><strong>Trusting Your Evidence</strong> (Lan et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2305.14739">link</a></p>
+<blockquote class="blockquote">
+<p>Context-aware decoding aligns generation decisions with evidence quality.</p>
+</blockquote>
+</section>
+<section id="blog-posts-practitioner-resources" class="level2">
+<h2 class="anchored" data-anchor-id="blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</h2>
+<ul>
+<li><p><strong>Language Models (Mostly) Know What They Know (research post)</strong> (Anthropic, 2022) — <a href="https://www.anthropic.com/research/language-models-mostly-know-what-they-know" class="uri">https://www.anthropic.com/research/language-models-mostly-know-what-they-know</a> High-signal summary of confidence calibration findings.</p></li>
+<li><p><strong>Evidently AI calibration guides</strong> (Evidently, ongoing) — <a href="https://www.evidentlyai.com/" class="uri">https://www.evidentlyai.com/</a> Applied monitoring workflows for confidence drift and ECE-style checks.</p></li>
+<li><p><strong>OpenAI Cookbook</strong> (OpenAI, ongoing) — <a href="https://cookbook.openai.com/" class="uri">https://cookbook.openai.com/</a> Practical recipes for reliability prompting, multi-sample checks, and abstention behavior.</p></li>
+</ul>
+</section>
+<section id="benchmarks-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="benchmarks-datasets">Benchmarks &amp; Datasets</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Year</th>
+<th>Description</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TruthfulQA</td>
+<td>2022</td>
+<td>Truthfulness benchmark used in confidence studies</td>
+<td><a href="https://arxiv.org/abs/2109.07958" class="uri">https://arxiv.org/abs/2109.07958</a></td>
+</tr>
+<tr class="even">
+<td>MMLU</td>
+<td>2020</td>
+<td>Broad QA benchmark for calibration curves</td>
+<td><a href="https://arxiv.org/abs/2009.03300" class="uri">https://arxiv.org/abs/2009.03300</a></td>
+</tr>
+<tr class="odd">
+<td>BIG-Bench / BBH</td>
+<td>2022–2023</td>
+<td>Robustness-sensitive task suites</td>
+<td><a href="https://arxiv.org/abs/2206.04615" class="uri">https://arxiv.org/abs/2206.04615</a></td>
+</tr>
+<tr class="even">
+<td>PromptBench</td>
+<td>2023</td>
+<td>Prompt perturbation uncertainty stress tests</td>
+<td><a href="https://arxiv.org/abs/2306.04528" class="uri">https://arxiv.org/abs/2306.04528</a></td>
+</tr>
+<tr class="odd">
+<td>SelfCheckGPT setup</td>
+<td>2023</td>
+<td>Uncertainty-via-disagreement protocol</td>
+<td><a href="https://arxiv.org/abs/2303.08896" class="uri">https://arxiv.org/abs/2303.08896</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="github-repos" class="level2">
+<h2 class="anchored" data-anchor-id="github-repos">GitHub Repos</h2>
+<ul>
+<li><p><strong>LM-Polygraph</strong> — <a href="https://github.com/IINemo/lm-polygraph" class="uri">https://github.com/IINemo/lm-polygraph</a> Uncertainty estimation and hallucination detection toolkit.</p></li>
+<li><p><strong>semantic_uncertainty</strong> — <a href="https://github.com/lorenzkuhn/semantic_uncertainty" class="uri">https://github.com/lorenzkuhn/semantic_uncertainty</a> Reference code for semantic entropy methods.</p></li>
+<li><p><strong>OpenAI Evals</strong> — <a href="https://github.com/openai/evals" class="uri">https://github.com/openai/evals</a> Useful for confidence-linked pass/fail and abstention evaluations.</p></li>
+</ul>
+</section>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Section Status
+<span class="screen-reader-only">Tip</span>Key Insights
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This section is being populated by literature research. Content will be updated.</p>
+<ul>
+<li>Overconfidence remains a central LLM failure mode, especially on hallucination-prone prompts.</li>
+<li>Semantic-level uncertainty signals are often more useful than raw token probabilities.</li>
+<li>Reliable products need calibrated abstention behavior, not just better top-1 answer quality.</li>
+</ul>
 </div>
 </div>
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p><em>[Research in progress]</em></p>
 </section>
-<section id="key-papers" class="level2">
-<h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="preprints-emerging-work" class="level2">
-<h2 class="anchored" data-anchor-id="preprints-emerging-work">Preprints &amp; Emerging Work</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="blog-posts-practitioner-resources" class="level2">
-<h2 class="anchored" data-anchor-id="blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="datasets-benchmarks" class="level2">
-<h2 class="anchored" data-anchor-id="datasets-benchmarks">Datasets &amp; Benchmarks</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="key-takeaways" class="level2">
-<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
-<p><em>[To be populated]</em></p>
-<hr>
-<p>← <a href="./taxonomy.html">Taxonomy</a> | <a href="./resources.html">Resources</a> →</p>
+<section id="see-also" class="level2">
+<h2 class="anchored" data-anchor-id="see-also">See Also</h2>
+<ul>
+<li><a href="./factual-consistency.html">Factual Consistency &amp; Hallucination</a></li>
+<li><a href="./cross-context.html">Cross-Context &amp; Format Sensitivity</a></li>
+<li><a href="./behavioral-consistency.html">Behavioral Consistency &amp; Sycophancy</a></li>
+<li><a href="./generator-validator-gap.html">Generator-Validator Gap</a></li>
+</ul>
 
 
 </section>
@@ -483,7 +606,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/johnplake\.github\.io\/llm-consistency-survey\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

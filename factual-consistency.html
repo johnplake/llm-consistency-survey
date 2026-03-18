@@ -298,6 +298,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./benchmark-reliability.html">
  <span class="dropdown-text">Benchmark Reliability</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./generator-validator-gap.html">
+ <span class="dropdown-text">Generator-Validator Gap</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -322,11 +326,18 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#key-papers" id="toc-key-papers" class="nav-link" data-scroll-target="#key-papers">Key Papers</a></li>
-  <li><a href="#preprints-emerging-work" id="toc-preprints-emerging-work" class="nav-link" data-scroll-target="#preprints-emerging-work">Preprints &amp; Emerging Work</a></li>
+  <li><a href="#key-papers" id="toc-key-papers" class="nav-link" data-scroll-target="#key-papers">Key Papers</a>
+  <ul class="collapse">
+  <li><a href="#faithfulness-in-summarization-and-nlg" id="toc-faithfulness-in-summarization-and-nlg" class="nav-link" data-scroll-target="#faithfulness-in-summarization-and-nlg">Faithfulness in Summarization and NLG</a></li>
+  <li><a href="#truthfulness-and-hallucination-in-llms" id="toc-truthfulness-and-hallucination-in-llms" class="nav-link" data-scroll-target="#truthfulness-and-hallucination-in-llms">Truthfulness and Hallucination in LLMs</a></li>
+  <li><a href="#grounding-and-mitigation-architectures" id="toc-grounding-and-mitigation-architectures" class="nav-link" data-scroll-target="#grounding-and-mitigation-architectures">Grounding and Mitigation Architectures</a></li>
+  </ul></li>
+  <li><a href="#preprints-recent-work" id="toc-preprints-recent-work" class="nav-link" data-scroll-target="#preprints-recent-work">Preprints &amp; Recent Work</a></li>
   <li><a href="#blog-posts-practitioner-resources" id="toc-blog-posts-practitioner-resources" class="nav-link" data-scroll-target="#blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</a></li>
-  <li><a href="#datasets-benchmarks" id="toc-datasets-benchmarks" class="nav-link" data-scroll-target="#datasets-benchmarks">Datasets &amp; Benchmarks</a></li>
+  <li><a href="#benchmarks-datasets" id="toc-benchmarks-datasets" class="nav-link" data-scroll-target="#benchmarks-datasets">Benchmarks &amp; Datasets</a></li>
+  <li><a href="#github-repos" id="toc-github-repos" class="nav-link" data-scroll-target="#github-repos">GitHub Repos</a></li>
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  <li><a href="#see-also" id="toc-see-also" class="nav-link" data-scroll-target="#see-also">See Also</a></li>
   </ul>
 </nav>
     </div>
@@ -337,7 +348,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Factual Consistency &amp; Hallucination</h1>
-<p class="subtitle lead">When LLMs make things up — and when they don’t know they’re making things up</p>
+<p class="subtitle lead">When fluent text diverges from truth and evidence</p>
 </div>
 
 
@@ -354,44 +365,177 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Factual consistency asks a basic but difficult question: when a model makes a claim, is that claim supported by reliable evidence? In modern LLM systems, failures are often <em>not</em> obvious nonsense. They are polished, plausible, and confidently delivered statements that may conflict with source documents, world facts, or both. This makes hallucination a reliability problem, not just a generation-quality problem.</p>
+<p>A useful distinction in the literature is between <strong>intrinsic hallucination</strong> (contradicting provided context) and <strong>extrinsic hallucination</strong> (introducing unsupported claims). This split matters operationally: intrinsic failures are often diagnosable with source-grounded checks, while extrinsic failures need retrieval, citation, or explicit uncertainty handling.</p>
+<p>The field has moved from coarse overlap metrics toward claim-level and evidence-aware evaluation (e.g., QA-based checks, atomic fact scoring, citation grounding). In practice, the strongest mitigation stacks combine retrieval, verification, and selective abstention rather than relying on one silver bullet.</p>
+</section>
+<section id="key-papers" class="level2">
+<h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
+<section id="faithfulness-in-summarization-and-nlg" class="level3">
+<h3 class="anchored" data-anchor-id="faithfulness-in-summarization-and-nlg">Faithfulness in Summarization and NLG</h3>
+<p><strong>On Faithfulness and Factuality in Abstractive Summarization</strong> (Maynez et al., 2020) · ACL · <a href="https://aclanthology.org/2020.acl-main.173/">link</a></p>
+<blockquote class="blockquote">
+<p>A foundational paper showing that strong abstractive summarizers can be fluent yet factually inconsistent. It helped separate stylistic quality from factual faithfulness as distinct evaluation targets.</p>
+</blockquote>
+<p><strong>Evaluating the Factual Consistency of Abstractive Text Summarization (FactCC)</strong> (Kryściński et al., 2020) · EMNLP · <a href="https://aclanthology.org/2020.emnlp-main.750/">link</a></p>
+<blockquote class="blockquote">
+<p>Introduced one of the earliest scalable factual inconsistency detectors trained from synthetic perturbations. FactCC became a practical baseline for source-grounded consistency checks.</p>
+</blockquote>
+<p><strong>FEQA: A Question Answering Evaluation Framework for Faithfulness Assessment in Abstractive Summarization</strong> (Durmus, He, Diab, 2020) · ACL · <a href="https://aclanthology.org/2020.acl-main.454/">link</a></p>
+<blockquote class="blockquote">
+<p>Proposed QA-based factuality scoring, moving evaluation from lexical overlap to claim verification. This heavily influenced later factuality metrics.</p>
+</blockquote>
+</section>
+<section id="truthfulness-and-hallucination-in-llms" class="level3">
+<h3 class="anchored" data-anchor-id="truthfulness-and-hallucination-in-llms">Truthfulness and Hallucination in LLMs</h3>
+<p><strong>TruthfulQA: Measuring How Models Mimic Human Falsehoods</strong> (Lin, Hilton, Evans, 2022) · ACL · <a href="https://aclanthology.org/2022.acl-long.229/">link</a></p>
+<blockquote class="blockquote">
+<p>Established a benchmark where plausible misconceptions are common. A key finding is that scale alone does not guarantee truthfulness.</p>
+</blockquote>
+<p><strong>SelfCheckGPT</strong> (Manakul, Liusie, Gales, 2023) · EMNLP Findings · <a href="https://arxiv.org/abs/2303.08896">link</a></p>
+<blockquote class="blockquote">
+<p>Uses disagreement across sampled outputs as a black-box hallucination signal. Particularly useful when token probabilities or internals are inaccessible.</p>
+</blockquote>
+<p><strong>FActScore</strong> (Min et al., 2023) · EMNLP · <a href="https://arxiv.org/abs/2305.14251">link</a></p>
+<blockquote class="blockquote">
+<p>Decomposes generations into atomic facts and scores evidence support. Strong for long-form outputs where aggregate metrics miss local hallucinations.</p>
+</blockquote>
+</section>
+<section id="grounding-and-mitigation-architectures" class="level3">
+<h3 class="anchored" data-anchor-id="grounding-and-mitigation-architectures">Grounding and Mitigation Architectures</h3>
+<p><strong>RAG: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</strong> (Lewis et al., 2020) · NeurIPS · <a href="https://arxiv.org/abs/2005.11401">link</a></p>
+<blockquote class="blockquote">
+<p>The canonical generate-with-retrieval architecture that anchors responses to external evidence. It remains the backbone of many production anti-hallucination systems.</p>
+</blockquote>
+<p><strong>Chain-of-Verification Reduces Hallucination in Large Language Models</strong> (Dhuliawala et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2309.11495">link</a></p>
+<blockquote class="blockquote">
+<p>Shows that structured decomposition and verification passes reduce unsupported claims in long-form generation.</p>
+</blockquote>
+</section>
+</section>
+<section id="preprints-recent-work" class="level2">
+<h2 class="anchored" data-anchor-id="preprints-recent-work">Preprints &amp; Recent Work</h2>
+<p><strong>A Survey of Hallucination in Natural Language Generation</strong> (Ji et al., 2023) · ACM CSUR · <a href="https://arxiv.org/abs/2202.03629">link</a></p>
+<blockquote class="blockquote">
+<p>A widely cited taxonomy of hallucination types, causes, and interventions across tasks.</p>
+</blockquote>
+<p><strong>A Survey on Hallucination in Large Language Models</strong> (Huang et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2311.05232">link</a></p>
+<blockquote class="blockquote">
+<p>LLM-era reframing of hallucination detection and mitigation with emphasis on instruction-tuned systems.</p>
+</blockquote>
+<p><strong>HaluEval</strong> (Li et al., 2023) · EMNLP Findings / arXiv · <a href="https://arxiv.org/abs/2305.11747">link</a></p>
+<blockquote class="blockquote">
+<p>Large-scale benchmark for hallucination behavior in QA/dialog settings.</p>
+</blockquote>
+<p><strong>ALCE: Enabling and Evaluating LLMs with Automatic Citations</strong> (Gao et al., 2023) · venue unconfirmed · <a href="https://arxiv.org/abs/2305.14627">link</a></p>
+<blockquote class="blockquote">
+<p>Pushes factual evaluation toward explicit evidence attribution with citation-aware protocols.</p>
+</blockquote>
+</section>
+<section id="blog-posts-practitioner-resources" class="level2">
+<h2 class="anchored" data-anchor-id="blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</h2>
+<ul>
+<li><p><strong>Hallucination in Natural Language Generation</strong> (Lilian Weng, 2024) — <a href="https://lilianweng.github.io/posts/2024-07-07-hallucination/" class="uri">https://lilianweng.github.io/posts/2024-07-07-hallucination/</a> A clear technical synthesis of causes, detection, and mitigation patterns.</p></li>
+<li><p><strong>LLM Evaluation Guidebook</strong> (Evidently AI, 2023–2024) — <a href="https://www.evidentlyai.com/llm-guide/llm-evaluation" class="uri">https://www.evidentlyai.com/llm-guide/llm-evaluation</a> Practical guidance for groundedness and factuality monitoring in deployed systems.</p></li>
+<li><p><strong>RAGAS Documentation</strong> (Exploding Gradients, ongoing) — <a href="https://docs.ragas.io/" class="uri">https://docs.ragas.io/</a> Production-friendly faithfulness/relevance metrics for RAG pipelines.</p></li>
+</ul>
+</section>
+<section id="benchmarks-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="benchmarks-datasets">Benchmarks &amp; Datasets</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Year</th>
+<th>Description</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TruthfulQA</td>
+<td>2022</td>
+<td>Truthfulness under misconception-rich prompts</td>
+<td><a href="https://aclanthology.org/2022.acl-long.229/" class="uri">https://aclanthology.org/2022.acl-long.229/</a></td>
+</tr>
+<tr class="even">
+<td>FRANK</td>
+<td>2021</td>
+<td>Factual errors in summarization outputs</td>
+<td><a href="https://aclanthology.org/2021.naacl-main.383/" class="uri">https://aclanthology.org/2021.naacl-main.383/</a></td>
+</tr>
+<tr class="odd">
+<td>TRUE</td>
+<td>2021</td>
+<td>Unified factual consistency benchmark</td>
+<td><a href="https://aclanthology.org/2021.naacl-main.287/" class="uri">https://aclanthology.org/2021.naacl-main.287/</a></td>
+</tr>
+<tr class="even">
+<td>FactCC data/protocol</td>
+<td>2020</td>
+<td>Synthetic inconsistency examples for summarization</td>
+<td><a href="https://aclanthology.org/2020.emnlp-main.750/" class="uri">https://aclanthology.org/2020.emnlp-main.750/</a></td>
+</tr>
+<tr class="odd">
+<td>FActScore</td>
+<td>2023</td>
+<td>Atomic fact precision for long-form text</td>
+<td><a href="https://arxiv.org/abs/2305.14251" class="uri">https://arxiv.org/abs/2305.14251</a></td>
+</tr>
+<tr class="even">
+<td>HaluEval</td>
+<td>2023</td>
+<td>Hallucination benchmark across tasks</td>
+<td><a href="https://arxiv.org/abs/2305.11747" class="uri">https://arxiv.org/abs/2305.11747</a></td>
+</tr>
+<tr class="odd">
+<td>ALCE</td>
+<td>2023</td>
+<td>Citation-grounded answer evaluation</td>
+<td><a href="https://arxiv.org/abs/2305.14627" class="uri">https://arxiv.org/abs/2305.14627</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="github-repos" class="level2">
+<h2 class="anchored" data-anchor-id="github-repos">GitHub Repos</h2>
+<ul>
+<li><p><strong>SelfCheckGPT</strong> — <a href="https://github.com/potsawee/selfcheckgpt" class="uri">https://github.com/potsawee/selfcheckgpt</a> Reference implementation for black-box hallucination detection.</p></li>
+<li><p><strong>FActScore</strong> — <a href="https://github.com/shmsw25/FActScore" class="uri">https://github.com/shmsw25/FActScore</a> Atomic fact extraction and scoring toolkit.</p></li>
+<li><p><strong>RAGAS</strong> — <a href="https://github.com/explodinggradients/ragas" class="uri">https://github.com/explodinggradients/ragas</a> RAG evaluation package for faithfulness, relevance, and context quality.</p></li>
+<li><p><strong>TruthfulQA</strong> — <a href="https://github.com/sylinrl/TruthfulQA" class="uri">https://github.com/sylinrl/TruthfulQA</a> Benchmark resources for model truthfulness testing.</p></li>
+</ul>
+</section>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Section Status
+<span class="screen-reader-only">Tip</span>Key Insights
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This section is being populated by literature research. Content will be updated.</p>
+<ul>
+<li>Hallucination is heterogeneous: intrinsic and extrinsic failures require different diagnostics.</li>
+<li>Retrieval helps, but robust factuality usually needs retrieval <strong>plus</strong> verification <strong>plus</strong> uncertainty-aware abstention.</li>
+<li>Claim-level evaluation (e.g., FActScore-style) provides better debugging signals than one-shot aggregate scores.</li>
+</ul>
 </div>
 </div>
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p><em>[Research in progress — will be populated with papers, preprints, blog posts, and resources on hallucination, factual consistency, and knowledge reliability in LLMs.]</em></p>
 </section>
-<section id="key-papers" class="level2">
-<h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="preprints-emerging-work" class="level2">
-<h2 class="anchored" data-anchor-id="preprints-emerging-work">Preprints &amp; Emerging Work</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="blog-posts-practitioner-resources" class="level2">
-<h2 class="anchored" data-anchor-id="blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="datasets-benchmarks" class="level2">
-<h2 class="anchored" data-anchor-id="datasets-benchmarks">Datasets &amp; Benchmarks</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="key-takeaways" class="level2">
-<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
-<p><em>[To be populated]</em></p>
-<hr>
-<p>← <a href="./taxonomy.html">Taxonomy</a> | Next: <a href="./self-consistency.html">Self-Consistency &amp; Contradiction</a> →</p>
+<section id="see-also" class="level2">
+<h2 class="anchored" data-anchor-id="see-also">See Also</h2>
+<ul>
+<li><a href="./self-consistency.html">Self-Consistency &amp; Contradiction</a></li>
+<li><a href="./calibration.html">Calibration &amp; Uncertainty</a></li>
+<li><a href="./generator-validator-gap.html">Generator-Validator Gap</a></li>
+<li><a href="./benchmark-reliability.html">Benchmark Reliability</a></li>
+</ul>
 
 
 </section>
@@ -483,7 +627,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/johnplake\.github\.io\/llm-consistency-survey\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

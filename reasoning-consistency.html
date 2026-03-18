@@ -298,6 +298,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./benchmark-reliability.html">
  <span class="dropdown-text">Benchmark Reliability</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./generator-validator-gap.html">
+ <span class="dropdown-text">Generator-Validator Gap</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -322,11 +326,18 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#key-papers" id="toc-key-papers" class="nav-link" data-scroll-target="#key-papers">Key Papers</a></li>
-  <li><a href="#preprints-emerging-work" id="toc-preprints-emerging-work" class="nav-link" data-scroll-target="#preprints-emerging-work">Preprints &amp; Emerging Work</a></li>
+  <li><a href="#key-papers" id="toc-key-papers" class="nav-link" data-scroll-target="#key-papers">Key Papers</a>
+  <ul class="collapse">
+  <li><a href="#chain-of-thought-and-its-limits" id="toc-chain-of-thought-and-its-limits" class="nav-link" data-scroll-target="#chain-of-thought-and-its-limits">Chain-of-Thought and Its Limits</a></li>
+  <li><a href="#process-supervision-and-verification" id="toc-process-supervision-and-verification" class="nav-link" data-scroll-target="#process-supervision-and-verification">Process Supervision and Verification</a></li>
+  <li><a href="#search-and-deliberation" id="toc-search-and-deliberation" class="nav-link" data-scroll-target="#search-and-deliberation">Search and Deliberation</a></li>
+  </ul></li>
+  <li><a href="#preprints-recent-work" id="toc-preprints-recent-work" class="nav-link" data-scroll-target="#preprints-recent-work">Preprints &amp; Recent Work</a></li>
   <li><a href="#blog-posts-practitioner-resources" id="toc-blog-posts-practitioner-resources" class="nav-link" data-scroll-target="#blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</a></li>
-  <li><a href="#datasets-benchmarks" id="toc-datasets-benchmarks" class="nav-link" data-scroll-target="#datasets-benchmarks">Datasets &amp; Benchmarks</a></li>
+  <li><a href="#benchmarks-datasets" id="toc-benchmarks-datasets" class="nav-link" data-scroll-target="#benchmarks-datasets">Benchmarks &amp; Datasets</a></li>
+  <li><a href="#github-repos" id="toc-github-repos" class="nav-link" data-scroll-target="#github-repos">GitHub Repos</a></li>
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  <li><a href="#see-also" id="toc-see-also" class="nav-link" data-scroll-target="#see-also">See Also</a></li>
   </ul>
 </nav>
     </div>
@@ -337,7 +348,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Reasoning Consistency</h1>
-<p class="subtitle lead">When LLMs reason incorrectly or unfaithfully</p>
+<p class="subtitle lead">When final answers and reasoning traces diverge</p>
 </div>
 
 
@@ -354,44 +365,166 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Reasoning consistency asks whether an LLM’s multi-step reasoning is stable, valid, and faithful—not just whether it occasionally lands on the right final answer. A recurring finding is <strong>process-outcome mismatch</strong>: models can produce correct answers with weak rationales, and persuasive rationales with incorrect conclusions.</p>
+<p>Chain-of-thought prompting dramatically improved benchmark performance, but it also exposed faithfulness problems. Generated rationales are often post-hoc narratives rather than transparent traces of computation. This matters for safety and auditability: if the rationale is unreliable, it cannot be treated as a trustworthy explanation.</p>
+<p>The field is moving toward verifier-centric and process-supervised methods (step-level checks, process reward models, search over candidate traces). These methods implicitly treat reasoning reliability as a generate-then-validate problem.</p>
+</section>
+<section id="key-papers" class="level2">
+<h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
+<section id="chain-of-thought-and-its-limits" class="level3">
+<h3 class="anchored" data-anchor-id="chain-of-thought-and-its-limits">Chain-of-Thought and Its Limits</h3>
+<p><strong>Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</strong> (Wei et al., 2022) · NeurIPS · <a href="https://arxiv.org/abs/2201.11903">link</a></p>
+<blockquote class="blockquote">
+<p>Foundational CoT paper showing large gains on reasoning tasks via intermediate steps.</p>
+</blockquote>
+<p><strong>Large Language Models are Zero-Shot Reasoners</strong> (Kojima et al., 2022) · NeurIPS · <a href="https://arxiv.org/abs/2205.11916">link</a></p>
+<blockquote class="blockquote">
+<p>Demonstrated “Let’s think step by step” prompting as a robust zero-shot booster.</p>
+</blockquote>
+<p><strong>Language Models Don’t Always Say What They Think</strong> (Turpin et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2305.04388">link</a></p>
+<blockquote class="blockquote">
+<p>Strong evidence that many CoT explanations are unfaithful to actual decision mechanisms.</p>
+</blockquote>
+</section>
+<section id="process-supervision-and-verification" class="level3">
+<h3 class="anchored" data-anchor-id="process-supervision-and-verification">Process Supervision and Verification</h3>
+<p><strong>Training Verifiers to Solve Math Word Problems</strong> (Cobbe et al., 2021) · arXiv · <a href="https://arxiv.org/abs/2110.14168">link</a></p>
+<blockquote class="blockquote">
+<p>Separated generation and verification, showing verifier reranking can outperform raw generation.</p>
+</blockquote>
+<p><strong>Let’s Verify Step by Step</strong> (Lightman et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2305.20050">link</a></p>
+<blockquote class="blockquote">
+<p>Process supervision with step-level labels improved reasoning reliability relative to outcome-only supervision.</p>
+</blockquote>
+<p><strong>Faithful Chain-of-Thought Reasoning</strong> (Lyu et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2301.13379">link</a></p>
+<blockquote class="blockquote">
+<p>Explores approaches to align generated rationales with executable/verifiable intermediate steps.</p>
+</blockquote>
+</section>
+<section id="search-and-deliberation" class="level3">
+<h3 class="anchored" data-anchor-id="search-and-deliberation">Search and Deliberation</h3>
+<p><strong>Tree of Thoughts</strong> (Yao et al., 2023) · NeurIPS · <a href="https://arxiv.org/abs/2305.10601">link</a></p>
+<blockquote class="blockquote">
+<p>Uses branching search over candidate thoughts to reduce one-shot reasoning errors.</p>
+</blockquote>
+<p><strong>ReAct</strong> (Yao et al., 2023) · ICLR · <a href="https://arxiv.org/abs/2210.03629">link</a></p>
+<blockquote class="blockquote">
+<p>Integrates reasoning with tool interaction, improving verifiability and reducing unsupported internal speculation.</p>
+</blockquote>
+</section>
+</section>
+<section id="preprints-recent-work" class="level2">
+<h2 class="anchored" data-anchor-id="preprints-recent-work">Preprints &amp; Recent Work</h2>
+<p><strong>Math-Shepherd</strong> (Wang et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2312.08935">link</a></p>
+<blockquote class="blockquote">
+<p>Step-by-step verification pipeline without full human annotation overhead.</p>
+</blockquote>
+<p><strong>Reflexion</strong> (Shinn et al., 2023) · NeurIPS-era preprint · <a href="https://arxiv.org/abs/2303.11366">link</a></p>
+<blockquote class="blockquote">
+<p>Iterative self-improvement with feedback memory; works best with external success signals.</p>
+</blockquote>
+<p><strong>Large Language Models Cannot Self-Correct Reasoning Yet</strong> (Huang et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2310.01798">link</a></p>
+<blockquote class="blockquote">
+<p>Shows intrinsic self-correction is often unreliable without externalized feedback.</p>
+</blockquote>
+</section>
+<section id="blog-posts-practitioner-resources" class="level2">
+<h2 class="anchored" data-anchor-id="blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</h2>
+<ul>
+<li><p><strong>Let’s verify step by step</strong> (OpenAI, 2023) — <a href="https://openai.com/research/lets-verify-step-by-step" class="uri">https://openai.com/research/lets-verify-step-by-step</a> Accessible explanation of process supervision and step-level verification.</p></li>
+<li><p><strong>Prompting Guide: CoT, Self-Consistency, ToT</strong> (DAIR.AI) — <a href="https://www.promptingguide.ai/" class="uri">https://www.promptingguide.ai/</a> Practical patterns for improving reasoning stability.</p></li>
+<li><p><strong>OpenAI Evals docs</strong> (OpenAI, ongoing) — <a href="https://github.com/openai/evals" class="uri">https://github.com/openai/evals</a> Framework for custom reasoning checks and judge-based evaluation loops.</p></li>
+</ul>
+</section>
+<section id="benchmarks-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="benchmarks-datasets">Benchmarks &amp; Datasets</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Year</th>
+<th>Description</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>GSM8K</td>
+<td>2021</td>
+<td>Grade-school math reasoning benchmark</td>
+<td><a href="https://arxiv.org/abs/2110.14168" class="uri">https://arxiv.org/abs/2110.14168</a></td>
+</tr>
+<tr class="even">
+<td>MATH</td>
+<td>2021</td>
+<td>Competition-level multi-step math reasoning</td>
+<td><a href="https://arxiv.org/abs/2103.03874" class="uri">https://arxiv.org/abs/2103.03874</a></td>
+</tr>
+<tr class="odd">
+<td>SVAMP</td>
+<td>2021</td>
+<td>Perturbation-based math robustness benchmark</td>
+<td><a href="https://arxiv.org/abs/2109.07197" class="uri">https://arxiv.org/abs/2109.07197</a></td>
+</tr>
+<tr class="even">
+<td>AQuA-RAT</td>
+<td>2019</td>
+<td>Arithmetic QA with rationales</td>
+<td><a href="https://arxiv.org/abs/1903.00161" class="uri">https://arxiv.org/abs/1903.00161</a></td>
+</tr>
+<tr class="odd">
+<td>BIG-Bench Hard</td>
+<td>2023</td>
+<td>Hard reasoning subset exposing fragility</td>
+<td><a href="https://github.com/suzgunmirac/BIG-Bench-Hard" class="uri">https://github.com/suzgunmirac/BIG-Bench-Hard</a></td>
+</tr>
+<tr class="even">
+<td>PRM800K</td>
+<td>2023</td>
+<td>Step-level process supervision dataset</td>
+<td><a href="https://github.com/openai/prm800k" class="uri">https://github.com/openai/prm800k</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="github-repos" class="level2">
+<h2 class="anchored" data-anchor-id="github-repos">GitHub Repos</h2>
+<ul>
+<li><p><strong>openai/prm800k</strong> — <a href="https://github.com/openai/prm800k" class="uri">https://github.com/openai/prm800k</a> Data/tooling for process reward modeling.</p></li>
+<li><p><strong>openai/evals</strong> — <a href="https://github.com/openai/evals" class="uri">https://github.com/openai/evals</a> Eval suite for reasoning-focused assessments.</p></li>
+<li><p><strong>chain-of-thought-hub</strong> — <a href="https://github.com/FranxYao/chain-of-thought-hub" class="uri">https://github.com/FranxYao/chain-of-thought-hub</a> Prompt and benchmark recipes for reasoning experiments.</p></li>
+</ul>
+</section>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Section Status
+<span class="screen-reader-only">Tip</span>Key Insights
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This section is being populated by literature research. Content will be updated.</p>
+<ul>
+<li>Final-answer accuracy can mask unstable or unfaithful reasoning traces.</li>
+<li>Process supervision and verifier-guided reranking are currently among the strongest reliability upgrades.</li>
+<li>Intrinsic self-correction is brittle; external feedback loops are far more dependable.</li>
+</ul>
 </div>
 </div>
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p><em>[Research in progress]</em></p>
 </section>
-<section id="key-papers" class="level2">
-<h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="preprints-emerging-work" class="level2">
-<h2 class="anchored" data-anchor-id="preprints-emerging-work">Preprints &amp; Emerging Work</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="blog-posts-practitioner-resources" class="level2">
-<h2 class="anchored" data-anchor-id="blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="datasets-benchmarks" class="level2">
-<h2 class="anchored" data-anchor-id="datasets-benchmarks">Datasets &amp; Benchmarks</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="key-takeaways" class="level2">
-<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
-<p><em>[To be populated]</em></p>
-<hr>
-<p>← <a href="./taxonomy.html">Taxonomy</a> | <a href="./resources.html">Resources</a> →</p>
+<section id="see-also" class="level2">
+<h2 class="anchored" data-anchor-id="see-also">See Also</h2>
+<ul>
+<li><a href="./self-consistency.html">Self-Consistency &amp; Contradiction</a></li>
+<li><a href="./generator-validator-gap.html">Generator-Validator Gap</a></li>
+<li><a href="./calibration.html">Calibration &amp; Uncertainty</a></li>
+<li><a href="./benchmark-reliability.html">Benchmark Reliability</a></li>
+</ul>
 
 
 </section>
@@ -483,7 +616,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/johnplake\.github\.io\/llm-consistency-survey\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

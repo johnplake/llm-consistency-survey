@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Resources &amp; Tools – LLM Consistency: A Literature Survey</title>
+<title>Generator-Validator Gap – LLM Consistency: A Literature Survey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -298,10 +298,14 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./benchmark-reliability.html">
  <span class="dropdown-text">Benchmark Reliability</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./generator-validator-gap.html">
+ <span class="dropdown-text">Generator-Validator Gap</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="./resources.html" aria-current="page"> 
+    <a class="nav-link" href="./resources.html"> 
 <span class="menu-text">Resources &amp; Tools</span></a>
   </li>  
 </ul>
@@ -321,11 +325,19 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#benchmarks-datasets" id="toc-benchmarks-datasets" class="nav-link active" data-scroll-target="#benchmarks-datasets">Benchmarks &amp; Datasets</a></li>
-  <li><a href="#code-github-repos" id="toc-code-github-repos" class="nav-link" data-scroll-target="#code-github-repos">Code &amp; GitHub Repos</a></li>
-  <li><a href="#blog-posts-essays" id="toc-blog-posts-essays" class="nav-link" data-scroll-target="#blog-posts-essays">Blog Posts &amp; Essays</a></li>
-  <li><a href="#talks-lectures" id="toc-talks-lectures" class="nav-link" data-scroll-target="#talks-lectures">Talks &amp; Lectures</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#key-papers" id="toc-key-papers" class="nav-link" data-scroll-target="#key-papers">Key Papers</a>
+  <ul class="collapse">
+  <li><a href="#core-gap-and-verification-methods" id="toc-core-gap-and-verification-methods" class="nav-link" data-scroll-target="#core-gap-and-verification-methods">Core Gap and Verification Methods</a></li>
+  <li><a href="#sampling-and-voting-as-implicit-validators" id="toc-sampling-and-voting-as-implicit-validators" class="nav-link" data-scroll-target="#sampling-and-voting-as-implicit-validators">Sampling and Voting as Implicit Validators</a></li>
+  <li><a href="#limits-of-intrinsic-self-correction" id="toc-limits-of-intrinsic-self-correction" class="nav-link" data-scroll-target="#limits-of-intrinsic-self-correction">Limits of Intrinsic Self-Correction</a></li>
+  </ul></li>
+  <li><a href="#preprints-recent-work" id="toc-preprints-recent-work" class="nav-link" data-scroll-target="#preprints-recent-work">Preprints &amp; Recent Work</a></li>
+  <li><a href="#blog-posts-practitioner-resources" id="toc-blog-posts-practitioner-resources" class="nav-link" data-scroll-target="#blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</a></li>
+  <li><a href="#benchmarks-datasets" id="toc-benchmarks-datasets" class="nav-link" data-scroll-target="#benchmarks-datasets">Benchmarks &amp; Datasets</a></li>
+  <li><a href="#github-repos" id="toc-github-repos" class="nav-link" data-scroll-target="#github-repos">GitHub Repos</a></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  <li><a href="#see-also" id="toc-see-also" class="nav-link" data-scroll-target="#see-also">See Also</a></li>
   </ul>
 </nav>
     </div>
@@ -335,8 +347,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Resources &amp; Tools</h1>
-<p class="subtitle lead">Benchmarks, datasets, code, and curated links</p>
+<h1 class="title">Generator-Validator Gap</h1>
+<p class="subtitle lead">Why models often judge better than they generate</p>
 </div>
 
 
@@ -353,38 +365,167 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>The <strong>generator-validator gap</strong> is the empirical pattern that LLMs can often evaluate candidate answers more reliably than they can produce the best answer from scratch. In practice, this appears when a model fails at one-shot generation but succeeds when selecting among candidates, verifying steps, or reranking outputs.</p>
+<p>This concept helps unify several successful techniques: best-of-N sampling, self-consistency voting, verifier reranking, and process reward models. All of them transform a hard single-pass generation task into two stages: (1) generate many imperfect candidates, then (2) apply a comparatively easier discriminative selection process.</p>
+<p>The gap also explains why intrinsic self-correction is fragile. If the same model is both generator and validator without new evidence, errors can self-reinforce. Reliable improvements usually require stronger or externalized validation signals (step labels, tools, environment feedback, or specialized verifier models).</p>
+</section>
+<section id="key-papers" class="level2">
+<h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
+<section id="core-gap-and-verification-methods" class="level3">
+<h3 class="anchored" data-anchor-id="core-gap-and-verification-methods">Core Gap and Verification Methods</h3>
+<p><strong>Training Verifiers to Solve Math Word Problems</strong> (Cobbe et al., 2021) · arXiv/OpenAI · <a href="https://arxiv.org/abs/2110.14168">link</a></p>
+<blockquote class="blockquote">
+<p>Landmark generate-then-verify pipeline: a trained verifier reranks candidate solutions and yields large gains over direct generation.</p>
+</blockquote>
+<p><strong>Let’s Verify Step by Step</strong> (Lightman et al., 2023) · arXiv/OpenAI · <a href="https://arxiv.org/abs/2305.20050">link</a></p>
+<blockquote class="blockquote">
+<p>Step-level process supervision improves candidate selection and downstream reasoning reliability.</p>
+</blockquote>
+<p><strong>Large Language Models are Better Reasoners with Self-Verification</strong> (Weng et al., 2022) · arXiv · <a href="https://arxiv.org/abs/2212.09561">link</a></p>
+<blockquote class="blockquote">
+<p>Demonstrates gains from explicit verification prompts over generated solutions.</p>
+</blockquote>
+</section>
+<section id="sampling-and-voting-as-implicit-validators" class="level3">
+<h3 class="anchored" data-anchor-id="sampling-and-voting-as-implicit-validators">Sampling and Voting as Implicit Validators</h3>
+<p><strong>Self-Consistency Improves Chain of Thought Reasoning</strong> (Wang et al., 2023) · ICLR · <a href="https://arxiv.org/abs/2203.11171">link</a></p>
+<blockquote class="blockquote">
+<p>Majority vote over sampled chains is effectively a lightweight validator layer.</p>
+</blockquote>
+<p><strong>STaR: Bootstrapping Reasoning With Reasoning</strong> (Zelikman et al., 2022) · arXiv · <a href="https://arxiv.org/abs/2203.14465">link</a></p>
+<blockquote class="blockquote">
+<p>Iterative rationale filtering demonstrates training-time use of evaluator-like signals.</p>
+</blockquote>
+</section>
+<section id="limits-of-intrinsic-self-correction" class="level3">
+<h3 class="anchored" data-anchor-id="limits-of-intrinsic-self-correction">Limits of Intrinsic Self-Correction</h3>
+<p><strong>Large Language Models Cannot Self-Correct Reasoning Yet</strong> (Huang et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2310.01798">link</a></p>
+<blockquote class="blockquote">
+<p>Strong evidence that intrinsic self-correction often fails without external feedback.</p>
+</blockquote>
+<p><strong>Self-Refine</strong> (Madaan et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2303.17651">link</a></p>
+<blockquote class="blockquote">
+<p>Shows self-feedback can help in some settings, but gains are task- and prompt-dependent.</p>
+</blockquote>
+<p><strong>Reflexion</strong> (Shinn et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2303.11366">link</a></p>
+<blockquote class="blockquote">
+<p>Improvement is strongest with environment-grounded outcomes, supporting an extrinsic-feedback view.</p>
+</blockquote>
+</section>
+</section>
+<section id="preprints-recent-work" class="level2">
+<h2 class="anchored" data-anchor-id="preprints-recent-work">Preprints &amp; Recent Work</h2>
+<p><strong>Math-Shepherd</strong> (Wang et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2312.08935">link</a></p>
+<blockquote class="blockquote">
+<p>Stepwise verification/reinforcement pipeline with reduced annotation burden.</p>
+</blockquote>
+<p><strong>DeepSeekMath</strong> (DeepSeek-AI et al., 2024) · arXiv · <a href="https://arxiv.org/abs/2402.03300">link</a></p>
+<blockquote class="blockquote">
+<p>Open-model evidence for verifier/reward-guided reasoning improvements.</p>
+</blockquote>
+<p><strong>Benchmarking Foundation Models with LM-as-an-Examiner</strong> (Fu et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2306.04181">link</a></p>
+<blockquote class="blockquote">
+<p>Examines language-model judges as scalable evaluators, with calibration caveats.</p>
+</blockquote>
+</section>
+<section id="blog-posts-practitioner-resources" class="level2">
+<h2 class="anchored" data-anchor-id="blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</h2>
+<ul>
+<li><p><strong>Let’s verify step by step</strong> (OpenAI, 2023) — <a href="https://openai.com/research/lets-verify-step-by-step" class="uri">https://openai.com/research/lets-verify-step-by-step</a> Practical framing of process supervision and why verification helps.</p></li>
+<li><p><strong>Constitutional AI post</strong> (Anthropic, 2022) — <a href="https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback" class="uri">https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback</a> Structured critique/revision as an externally constrained correction loop.</p></li>
+<li><p><strong>FastChat / MT-Bench docs</strong> (LMSYS, ongoing) — <a href="https://github.com/lm-sys/FastChat" class="uri">https://github.com/lm-sys/FastChat</a> Operational judge infrastructure for pairwise evaluation settings.</p></li>
+</ul>
+</section>
+<section id="benchmarks-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="benchmarks-datasets">Benchmarks &amp; Datasets</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Year</th>
+<th>Description</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>GSM8K</td>
+<td>2021</td>
+<td>Central benchmark for verifier-based math workflows</td>
+<td><a href="https://arxiv.org/abs/2110.14168" class="uri">https://arxiv.org/abs/2110.14168</a></td>
+</tr>
+<tr class="even">
+<td>MATH</td>
+<td>2021</td>
+<td>Hard math reasoning benchmark for reranking methods</td>
+<td><a href="https://arxiv.org/abs/2103.03874" class="uri">https://arxiv.org/abs/2103.03874</a></td>
+</tr>
+<tr class="odd">
+<td>PRM800K</td>
+<td>2023</td>
+<td>Step-level process supervision dataset</td>
+<td><a href="https://github.com/openai/prm800k" class="uri">https://github.com/openai/prm800k</a></td>
+</tr>
+<tr class="even">
+<td>MMLU</td>
+<td>2020</td>
+<td>Broad benchmark used in generation-vs-judging comparisons</td>
+<td><a href="https://arxiv.org/abs/2009.03300" class="uri">https://arxiv.org/abs/2009.03300</a></td>
+</tr>
+<tr class="odd">
+<td>MT-Bench</td>
+<td>2023</td>
+<td>Judge-oriented chat benchmark</td>
+<td><a href="https://arxiv.org/abs/2306.05685" class="uri">https://arxiv.org/abs/2306.05685</a></td>
+</tr>
+<tr class="even">
+<td>Chatbot Arena</td>
+<td>2023–</td>
+<td>Human pairwise ranking for judge calibration analyses</td>
+<td><a href="https://chat.lmsys.org/" class="uri">https://chat.lmsys.org/</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="github-repos" class="level2">
+<h2 class="anchored" data-anchor-id="github-repos">GitHub Repos</h2>
+<ul>
+<li><p><strong>openai/prm800k</strong> — <a href="https://github.com/openai/prm800k" class="uri">https://github.com/openai/prm800k</a> Process supervision resources for step-level validation.</p></li>
+<li><p><strong>openai/evals</strong> — <a href="https://github.com/openai/evals" class="uri">https://github.com/openai/evals</a> Build judge/validator pipelines and regression checks.</p></li>
+<li><p><strong>lm-sys/FastChat</strong> — <a href="https://github.com/lm-sys/FastChat" class="uri">https://github.com/lm-sys/FastChat</a> Judge and pairwise comparison infrastructure.</p></li>
+<li><p><strong>deepseek-ai/DeepSeek-Math</strong> — <a href="https://github.com/deepseek-ai/DeepSeek-Math" class="uri">https://github.com/deepseek-ai/DeepSeek-Math</a> Open reasoning stack with verifier-adjacent practices.</p></li>
+</ul>
+</section>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Section Status
+<span class="screen-reader-only">Tip</span>Key Insights
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This section is being populated by literature research.</p>
+<ul>
+<li>Generate-then-verify is often more reliable than one-shot generation.</li>
+<li>Intrinsic self-correction is limited; externalized feedback is usually required for robust gains.</li>
+<li>Process-level validators (PRMs) generally outperform final-answer-only scoring for reasoning quality control.</li>
+</ul>
 </div>
 </div>
-<section id="benchmarks-datasets" class="level2">
-<h2 class="anchored" data-anchor-id="benchmarks-datasets">Benchmarks &amp; Datasets</h2>
-<p><em>[To be populated]</em></p>
 </section>
-<section id="code-github-repos" class="level2">
-<h2 class="anchored" data-anchor-id="code-github-repos">Code &amp; GitHub Repos</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="blog-posts-essays" class="level2">
-<h2 class="anchored" data-anchor-id="blog-posts-essays">Blog Posts &amp; Essays</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="talks-lectures" class="level2">
-<h2 class="anchored" data-anchor-id="talks-lectures">Talks &amp; Lectures</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="further-reading" class="level2">
-<h2 class="anchored" data-anchor-id="further-reading">Further Reading</h2>
-<p><em>[To be populated]</em></p>
+<section id="see-also" class="level2">
+<h2 class="anchored" data-anchor-id="see-also">See Also</h2>
+<ul>
+<li><a href="./reasoning-consistency.html">Reasoning Consistency</a></li>
+<li><a href="./self-consistency.html">Self-Consistency &amp; Contradiction</a></li>
+<li><a href="./calibration.html">Calibration &amp; Uncertainty</a></li>
+<li><a href="./benchmark-reliability.html">Benchmark Reliability</a></li>
+</ul>
 
 
 </section>
@@ -476,7 +617,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/johnplake\.github\.io\/llm-consistency-survey\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

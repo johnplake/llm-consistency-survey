@@ -298,6 +298,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./benchmark-reliability.html">
  <span class="dropdown-text">Benchmark Reliability</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./generator-validator-gap.html">
+ <span class="dropdown-text">Generator-Validator Gap</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -322,11 +326,17 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#key-papers" id="toc-key-papers" class="nav-link" data-scroll-target="#key-papers">Key Papers</a></li>
-  <li><a href="#preprints-emerging-work" id="toc-preprints-emerging-work" class="nav-link" data-scroll-target="#preprints-emerging-work">Preprints &amp; Emerging Work</a></li>
+  <li><a href="#key-papers" id="toc-key-papers" class="nav-link" data-scroll-target="#key-papers">Key Papers</a>
+  <ul class="collapse">
+  <li><a href="#consistency-as-method-vs.-consistency-as-property" id="toc-consistency-as-method-vs.-consistency-as-property" class="nav-link" data-scroll-target="#consistency-as-method-vs.-consistency-as-property">Consistency as Method vs.&nbsp;Consistency as Property</a></li>
+  <li><a href="#contradiction-and-invariance-stress-tests" id="toc-contradiction-and-invariance-stress-tests" class="nav-link" data-scroll-target="#contradiction-and-invariance-stress-tests">Contradiction and Invariance Stress Tests</a></li>
+  </ul></li>
+  <li><a href="#preprints-recent-work" id="toc-preprints-recent-work" class="nav-link" data-scroll-target="#preprints-recent-work">Preprints &amp; Recent Work</a></li>
   <li><a href="#blog-posts-practitioner-resources" id="toc-blog-posts-practitioner-resources" class="nav-link" data-scroll-target="#blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</a></li>
-  <li><a href="#datasets-benchmarks" id="toc-datasets-benchmarks" class="nav-link" data-scroll-target="#datasets-benchmarks">Datasets &amp; Benchmarks</a></li>
+  <li><a href="#benchmarks-datasets" id="toc-benchmarks-datasets" class="nav-link" data-scroll-target="#benchmarks-datasets">Benchmarks &amp; Datasets</a></li>
+  <li><a href="#github-repos" id="toc-github-repos" class="nav-link" data-scroll-target="#github-repos">GitHub Repos</a></li>
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  <li><a href="#see-also" id="toc-see-also" class="nav-link" data-scroll-target="#see-also">See Also</a></li>
   </ul>
 </nav>
     </div>
@@ -337,7 +347,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Self-Consistency &amp; Contradiction</h1>
-<p class="subtitle lead">When LLMs disagree with themselves</p>
+<p class="subtitle lead">Whether models agree with themselves across prompts and samples</p>
 </div>
 
 
@@ -354,44 +364,151 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Self-consistency concerns whether an LLM returns compatible answers to semantically equivalent questions, paraphrases, or repeated runs. In deployed systems this appears as answer drift: same user intent, different outputs. The issue is partly stochastic (sampling), partly representational (unstable latent beliefs), and partly prompt-induced (format sensitivity).</p>
+<p>An important distinction in this literature: <strong>self-consistency as a failure mode</strong> versus <strong>self-consistency as a decoding strategy</strong>. The Wang et al.&nbsp;method (majority vote over chains) improves outcomes, but it does not imply that the base model is internally coherent. It works precisely because the underlying model is inconsistent enough that sampling can uncover better trajectories.</p>
+<p>Self-consistency failures also connect directly to factual reliability and hallucination risk: output disagreement is often a useful uncertainty signal when internals are unavailable.</p>
+</section>
+<section id="key-papers" class="level2">
+<h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
+<section id="consistency-as-method-vs.-consistency-as-property" class="level3">
+<h3 class="anchored" data-anchor-id="consistency-as-method-vs.-consistency-as-property">Consistency as Method vs.&nbsp;Consistency as Property</h3>
+<p><strong>Self-Consistency Improves Chain of Thought Reasoning in Language Models</strong> (Wang et al., 2023) · ICLR · <a href="https://arxiv.org/abs/2203.11171">link</a></p>
+<blockquote class="blockquote">
+<p>Introduced majority-vote decoding over multiple reasoning paths. Strong practical gains, but best interpreted as a mitigation for instability rather than proof of stable internal beliefs.</p>
+</blockquote>
+<p><strong>SelfCheckGPT</strong> (Manakul et al., 2023) · EMNLP Findings · <a href="https://arxiv.org/abs/2303.08896">link</a></p>
+<blockquote class="blockquote">
+<p>Treats cross-sample disagreement as a hallucination signal. A practical bridge between self-consistency diagnostics and factuality monitoring.</p>
+</blockquote>
+</section>
+<section id="contradiction-and-invariance-stress-tests" class="level3">
+<h3 class="anchored" data-anchor-id="contradiction-and-invariance-stress-tests">Contradiction and Invariance Stress Tests</h3>
+<p><strong>CheckList</strong> (Ribeiro et al., 2020) · ACL · <a href="https://aclanthology.org/2020.acl-main.442/">link</a></p>
+<blockquote class="blockquote">
+<p>Established behavioral invariance tests (e.g., paraphrase perturbations), now foundational for consistency audits.</p>
+</blockquote>
+<p><strong>PAWS</strong> (Zhang, Baldridge, He, 2019) · NAACL · <a href="https://aclanthology.org/N19-1382/">link</a></p>
+<blockquote class="blockquote">
+<p>Demonstrated robustness failures under high-overlap paraphrase-like variants, exposing brittle semantic judgments.</p>
+</blockquote>
+<p><strong>TruthfulQA</strong> (Lin et al., 2022) · ACL · <a href="https://aclanthology.org/2022.acl-long.229/">link</a></p>
+<blockquote class="blockquote">
+<p>Though a truthfulness benchmark, it is widely used to show model answers can shift under elicitation style.</p>
+</blockquote>
+</section>
+</section>
+<section id="preprints-recent-work" class="level2">
+<h2 class="anchored" data-anchor-id="preprints-recent-work">Preprints &amp; Recent Work</h2>
+<p><strong>PromptBench</strong> (Zhu et al., 2023) · NeurIPS Datasets/Benchmarks track · <a href="https://arxiv.org/abs/2306.04528">link</a></p>
+<blockquote class="blockquote">
+<p>Systematic perturbation suite for prompt robustness and consistency scoring.</p>
+</blockquote>
+<p><strong>Language Models (Mostly) Know What They Know</strong> (Kadavath et al., 2022) · arXiv · <a href="https://arxiv.org/abs/2207.05221">link</a></p>
+<blockquote class="blockquote">
+<p>Connects confidence estimation to reliability; useful for interpreting when unstable answers should trigger abstention.</p>
+</blockquote>
+<p><strong>HaluEval</strong> (Li et al., 2023) · EMNLP Findings / arXiv · <a href="https://arxiv.org/abs/2305.11747">link</a></p>
+<blockquote class="blockquote">
+<p>Includes contradiction-like failures against evidence and world facts across tasks.</p>
+</blockquote>
+</section>
+<section id="blog-posts-practitioner-resources" class="level2">
+<h2 class="anchored" data-anchor-id="blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</h2>
+<ul>
+<li><p><strong>Prompting Guide: Consistency Techniques</strong> (DAIR.AI, ongoing) — <a href="https://www.promptingguide.ai/techniques/consistency" class="uri">https://www.promptingguide.ai/techniques/consistency</a> Catalog of practical templates for self-consistency sampling and voting.</p></li>
+<li><p><strong>OpenAI Prompt Engineering Guide</strong> (OpenAI, ongoing) — <a href="https://platform.openai.com/docs/guides/prompt-engineering" class="uri">https://platform.openai.com/docs/guides/prompt-engineering</a> Production heuristics for reducing answer variance.</p></li>
+<li><p><strong>Anthropic research notes on confidence/consistency</strong> (Anthropic, ongoing) — <a href="https://www.anthropic.com/news" class="uri">https://www.anthropic.com/news</a> Applied discussions of confidence and reliability behavior.</p></li>
+</ul>
+</section>
+<section id="benchmarks-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="benchmarks-datasets">Benchmarks &amp; Datasets</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Year</th>
+<th>Description</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TruthfulQA</td>
+<td>2022</td>
+<td>Truthfulness under misconception pressure</td>
+<td><a href="https://arxiv.org/abs/2109.07958" class="uri">https://arxiv.org/abs/2109.07958</a></td>
+</tr>
+<tr class="even">
+<td>ANLI</td>
+<td>2020</td>
+<td>Adversarial entailment/contradiction NLI</td>
+<td><a href="https://arxiv.org/abs/1910.14599" class="uri">https://arxiv.org/abs/1910.14599</a></td>
+</tr>
+<tr class="odd">
+<td>HANS</td>
+<td>2019</td>
+<td>NLI heuristic stress test</td>
+<td><a href="https://aclanthology.org/P19-1334/" class="uri">https://aclanthology.org/P19-1334/</a></td>
+</tr>
+<tr class="even">
+<td>WinoGrande</td>
+<td>2020</td>
+<td>Robust coreference benchmark</td>
+<td><a href="https://arxiv.org/abs/1907.10641" class="uri">https://arxiv.org/abs/1907.10641</a></td>
+</tr>
+<tr class="odd">
+<td>Winogender</td>
+<td>2018</td>
+<td>Demographic-swapped consistency diagnostics</td>
+<td><a href="https://aclanthology.org/N18-2003/" class="uri">https://aclanthology.org/N18-2003/</a></td>
+</tr>
+<tr class="even">
+<td>PromptBench</td>
+<td>2023</td>
+<td>Prompt perturbation robustness benchmark</td>
+<td><a href="https://arxiv.org/abs/2306.04528" class="uri">https://arxiv.org/abs/2306.04528</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="github-repos" class="level2">
+<h2 class="anchored" data-anchor-id="github-repos">GitHub Repos</h2>
+<ul>
+<li><p><strong>chain-of-thought-hub</strong> — <a href="https://github.com/FranxYao/chain-of-thought-hub" class="uri">https://github.com/FranxYao/chain-of-thought-hub</a> Reproducible prompts and evaluation scripts for consistency-sensitive reasoning tasks.</p></li>
+<li><p><strong>BIG-Bench-Hard</strong> — <a href="https://github.com/suzgunmirac/BIG-Bench-Hard" class="uri">https://github.com/suzgunmirac/BIG-Bench-Hard</a> Hard reasoning tasks often used in variance/consistency studies.</p></li>
+<li><p><strong>lm-evaluation-harness</strong> — <a href="https://github.com/EleutherAI/lm-evaluation-harness" class="uri">https://github.com/EleutherAI/lm-evaluation-harness</a> Standardized benchmarking framework for multi-prompt comparisons.</p></li>
+</ul>
+</section>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Section Status
+<span class="screen-reader-only">Tip</span>Key Insights
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This section is being populated by literature research. Content will be updated.</p>
+<ul>
+<li>Cross-sample disagreement is one of the most useful black-box uncertainty signals in practice.</li>
+<li>“Self-consistency decoding” improves outcomes but does not mean models are intrinsically self-consistent.</li>
+<li>Robust evaluation must include paraphrase and prompt perturbation tests, not single-template scores.</li>
+</ul>
 </div>
 </div>
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p><em>[Research in progress]</em></p>
 </section>
-<section id="key-papers" class="level2">
-<h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="preprints-emerging-work" class="level2">
-<h2 class="anchored" data-anchor-id="preprints-emerging-work">Preprints &amp; Emerging Work</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="blog-posts-practitioner-resources" class="level2">
-<h2 class="anchored" data-anchor-id="blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="datasets-benchmarks" class="level2">
-<h2 class="anchored" data-anchor-id="datasets-benchmarks">Datasets &amp; Benchmarks</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="key-takeaways" class="level2">
-<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
-<p><em>[To be populated]</em></p>
-<hr>
-<p>← <a href="./taxonomy.html">Taxonomy</a> | <a href="./resources.html">Resources</a> →</p>
+<section id="see-also" class="level2">
+<h2 class="anchored" data-anchor-id="see-also">See Also</h2>
+<ul>
+<li><a href="./reasoning-consistency.html">Reasoning Consistency</a></li>
+<li><a href="./factual-consistency.html">Factual Consistency &amp; Hallucination</a></li>
+<li><a href="./calibration.html">Calibration &amp; Uncertainty</a></li>
+<li><a href="./generator-validator-gap.html">Generator-Validator Gap</a></li>
+</ul>
 
 
 </section>
@@ -483,7 +600,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/johnplake\.github\.io\/llm-consistency-survey\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

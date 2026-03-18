@@ -298,6 +298,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./benchmark-reliability.html">
  <span class="dropdown-text">Benchmark Reliability</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./generator-validator-gap.html">
+ <span class="dropdown-text">Generator-Validator Gap</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -321,11 +325,18 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#benchmarks-datasets" id="toc-benchmarks-datasets" class="nav-link active" data-scroll-target="#benchmarks-datasets">Benchmarks &amp; Datasets</a></li>
-  <li><a href="#code-github-repos" id="toc-code-github-repos" class="nav-link" data-scroll-target="#code-github-repos">Code &amp; GitHub Repos</a></li>
-  <li><a href="#blog-posts-essays" id="toc-blog-posts-essays" class="nav-link" data-scroll-target="#blog-posts-essays">Blog Posts &amp; Essays</a></li>
-  <li><a href="#talks-lectures" id="toc-talks-lectures" class="nav-link" data-scroll-target="#talks-lectures">Talks &amp; Lectures</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#key-papers" id="toc-key-papers" class="nav-link" data-scroll-target="#key-papers">Key Papers</a>
+  <ul class="collapse">
+  <li><a href="#foundational-survey-taxonomy-references" id="toc-foundational-survey-taxonomy-references" class="nav-link" data-scroll-target="#foundational-survey-taxonomy-references">Foundational Survey &amp; Taxonomy References</a></li>
+  <li><a href="#trustworthy-evaluation-frameworks" id="toc-trustworthy-evaluation-frameworks" class="nav-link" data-scroll-target="#trustworthy-evaluation-frameworks">Trustworthy Evaluation Frameworks</a></li>
+  </ul></li>
+  <li><a href="#preprints-recent-work" id="toc-preprints-recent-work" class="nav-link" data-scroll-target="#preprints-recent-work">Preprints &amp; Recent Work</a></li>
+  <li><a href="#blog-posts-practitioner-resources" id="toc-blog-posts-practitioner-resources" class="nav-link" data-scroll-target="#blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</a></li>
+  <li><a href="#benchmarks-datasets" id="toc-benchmarks-datasets" class="nav-link" data-scroll-target="#benchmarks-datasets">Benchmarks &amp; Datasets</a></li>
+  <li><a href="#github-repos" id="toc-github-repos" class="nav-link" data-scroll-target="#github-repos">GitHub Repos</a></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  <li><a href="#see-also" id="toc-see-also" class="nav-link" data-scroll-target="#see-also">See Also</a></li>
   </ul>
 </nav>
     </div>
@@ -336,7 +347,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Resources &amp; Tools</h1>
-<p class="subtitle lead">Benchmarks, datasets, code, and curated links</p>
+<p class="subtitle lead">Surveys, benchmarks, frameworks, and practitioner infrastructure</p>
 </div>
 
 
@@ -353,38 +364,186 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>This page is a curated hub for navigating the LLM consistency literature and tooling ecosystem. The core challenge is fragmentation: relevant work is spread across hallucination papers, robust NLP methods, calibration studies, benchmark design, and applied eval engineering. This hub consolidates those strands into one actionable map.</p>
+<p>A practical pattern emerges from both research and production: no single metric or benchmark is sufficient. Teams that get reliable results combine static task suites, perturbation tests, human preference data, and task-grounded execution checks—then version the entire pipeline.</p>
+<p>Use this page as a “build sheet” for your evaluation stack: start with broad references, pick benchmark families by risk profile, and adopt tooling that supports reproducible reruns and regression testing.</p>
+</section>
+<section id="key-papers" class="level2">
+<h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
+<section id="foundational-survey-taxonomy-references" class="level3">
+<h3 class="anchored" data-anchor-id="foundational-survey-taxonomy-references">Foundational Survey &amp; Taxonomy References</h3>
+<p><strong>A Survey of Large Language Models</strong> (Zhao et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2303.18223">link</a></p>
+<blockquote class="blockquote">
+<p>Broad technical overview of LLM foundations and evaluation context.</p>
+</blockquote>
+<p><strong>A Survey of Hallucination in Natural Language Generation</strong> (Ji et al., 2023) · ACM CSUR · <a href="https://arxiv.org/abs/2202.03629">link</a></p>
+<blockquote class="blockquote">
+<p>Canonical hallucination taxonomy and mitigation map.</p>
+</blockquote>
+<p><strong>On the Evaluation of Large Language Models</strong> (Chang et al., 2024) · arXiv · <a href="https://arxiv.org/abs/2307.03109">link</a></p>
+<blockquote class="blockquote">
+<p>Comprehensive treatment of evaluation pitfalls and protocol design.</p>
+</blockquote>
+<p><strong>HELM: Holistic Evaluation of Language Models</strong> (Liang et al., 2022) · arXiv/CRFM · <a href="https://arxiv.org/abs/2211.09110">link</a></p>
+<blockquote class="blockquote">
+<p>Landmark framework for multi-metric, scenario-specific model assessment.</p>
+</blockquote>
+</section>
+<section id="trustworthy-evaluation-frameworks" class="level3">
+<h3 class="anchored" data-anchor-id="trustworthy-evaluation-frameworks">Trustworthy Evaluation Frameworks</h3>
+<p><strong>TrustLLM</strong> (Huang et al., 2024) · arXiv · <a href="https://arxiv.org/abs/2401.05561">link</a></p>
+<blockquote class="blockquote">
+<p>Framework and benchmark for trust dimensions spanning truthfulness, robustness, safety, and fairness.</p>
+</blockquote>
+<p><strong>Dynabench</strong> (Kiela et al., 2021) · NAACL · <a href="https://aclanthology.org/2021.naacl-main.324/">link</a></p>
+<blockquote class="blockquote">
+<p>Dynamic benchmark philosophy to reduce static-test overfitting.</p>
+</blockquote>
+</section>
+</section>
+<section id="preprints-recent-work" class="level2">
+<h2 class="anchored" data-anchor-id="preprints-recent-work">Preprints &amp; Recent Work</h2>
+<p><strong>MMLU-Pro</strong> (Wang et al., 2024) · arXiv · <a href="https://arxiv.org/abs/2406.01574">link</a></p>
+<blockquote class="blockquote">
+<p>Harder successor benchmark motivated by saturation concerns.</p>
+</blockquote>
+<p><strong>SWE-bench</strong> (Jimenez et al., 2024) · ICLR · <a href="https://arxiv.org/abs/2310.06770">link</a></p>
+<blockquote class="blockquote">
+<p>Real-world software issue resolution benchmark, useful for grounded capability testing.</p>
+</blockquote>
+<p><strong>MT-Bench + Arena analysis</strong> (Zheng et al., 2023+) · <a href="https://arxiv.org/abs/2306.05685">link</a></p>
+<blockquote class="blockquote">
+<p>Evolving methodology for pairwise quality comparison and judge calibration.</p>
+</blockquote>
+</section>
+<section id="blog-posts-practitioner-resources" class="level2">
+<h2 class="anchored" data-anchor-id="blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</h2>
+<ul>
+<li><p><strong>The Leaderboard Illusion</strong> (AI Snake Oil, 2024) — <a href="https://www.aisnakeoil.com/p/the-leaderboard-illusion" class="uri">https://www.aisnakeoil.com/p/the-leaderboard-illusion</a> Essential read on Goodhart pressure and ranking instability.</p></li>
+<li><p><strong>HELM launch and methodology posts</strong> (CRFM) — <a href="https://crfm.stanford.edu/2022/11/17/helm.html" class="uri">https://crfm.stanford.edu/2022/11/17/helm.html</a> Why single-number reporting fails for real-world reliability.</p></li>
+<li><p><strong>LMSYS Blog</strong> (Arena/MT-Bench updates) — <a href="https://lmsys.org/blog/" class="uri">https://lmsys.org/blog/</a> Ongoing practical insights into pairwise eval and judge artifacts.</p></li>
+<li><p><strong>Open LLM Leaderboard docs</strong> (Hugging Face) — <a href="https://huggingface.co/docs/leaderboards/open_llm_leaderboard/about" class="uri">https://huggingface.co/docs/leaderboards/open_llm_leaderboard/about</a> Versioning notes, caveats, and interpretation guidance.</p></li>
+<li><p><strong>Anthropic/OpenAI safety &amp; system-card resources</strong> — <a href="https://www.anthropic.com/news" class="uri">https://www.anthropic.com/news</a>, <a href="https://openai.com/safety" class="uri">https://openai.com/safety</a> Model evaluation transparency and deployment risk framing.</p></li>
+</ul>
+</section>
+<section id="benchmarks-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="benchmarks-datasets">Benchmarks &amp; Datasets</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Year</th>
+<th>Description</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TruthfulQA</td>
+<td>2022</td>
+<td>Truthfulness under misconception pressure</td>
+<td><a href="https://arxiv.org/abs/2109.07958" class="uri">https://arxiv.org/abs/2109.07958</a></td>
+</tr>
+<tr class="even">
+<td>MMLU</td>
+<td>2020</td>
+<td>Broad MCQ capability benchmark</td>
+<td><a href="https://arxiv.org/abs/2009.03300" class="uri">https://arxiv.org/abs/2009.03300</a></td>
+</tr>
+<tr class="odd">
+<td>MMLU-Pro</td>
+<td>2024</td>
+<td>Harder and less saturated MMLU variant</td>
+<td><a href="https://arxiv.org/abs/2406.01574" class="uri">https://arxiv.org/abs/2406.01574</a></td>
+</tr>
+<tr class="even">
+<td>GSM8K</td>
+<td>2021</td>
+<td>Grade-school math reasoning</td>
+<td><a href="https://arxiv.org/abs/2110.14168" class="uri">https://arxiv.org/abs/2110.14168</a></td>
+</tr>
+<tr class="odd">
+<td>HumanEval</td>
+<td>2021</td>
+<td>Code generation with tests</td>
+<td><a href="https://arxiv.org/abs/2107.03374" class="uri">https://arxiv.org/abs/2107.03374</a></td>
+</tr>
+<tr class="even">
+<td>SWE-bench</td>
+<td>2024</td>
+<td>Real-world software issue benchmark</td>
+<td><a href="https://arxiv.org/abs/2310.06770" class="uri">https://arxiv.org/abs/2310.06770</a></td>
+</tr>
+<tr class="odd">
+<td>FActScore</td>
+<td>2023</td>
+<td>Atomic factual precision metric/benchmark</td>
+<td><a href="https://arxiv.org/abs/2305.14251" class="uri">https://arxiv.org/abs/2305.14251</a></td>
+</tr>
+<tr class="even">
+<td>HaluEval</td>
+<td>2023</td>
+<td>Hallucination benchmark for LLMs</td>
+<td><a href="https://arxiv.org/abs/2305.11747" class="uri">https://arxiv.org/abs/2305.11747</a></td>
+</tr>
+<tr class="odd">
+<td>MT-Bench</td>
+<td>2023</td>
+<td>Multi-turn quality benchmark</td>
+<td><a href="https://arxiv.org/abs/2306.05685" class="uri">https://arxiv.org/abs/2306.05685</a></td>
+</tr>
+<tr class="even">
+<td>Chatbot Arena</td>
+<td>2023–</td>
+<td>Live pairwise human preference ranking</td>
+<td><a href="https://lmarena.ai/" class="uri">https://lmarena.ai/</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="github-repos" class="level2">
+<h2 class="anchored" data-anchor-id="github-repos">GitHub Repos</h2>
+<ul>
+<li><p><strong>EleutherAI/lm-evaluation-harness</strong> — <a href="https://github.com/EleutherAI/lm-evaluation-harness" class="uri">https://github.com/EleutherAI/lm-evaluation-harness</a> Standard runner for many public benchmark suites.</p></li>
+<li><p><strong>openai/evals</strong> — <a href="https://github.com/openai/evals" class="uri">https://github.com/openai/evals</a> Extensible framework for custom regression and policy checks.</p></li>
+<li><p><strong>stanford-crfm/helm</strong> — <a href="https://github.com/stanford-crfm/helm" class="uri">https://github.com/stanford-crfm/helm</a> Holistic evaluation scenarios and metrics.</p></li>
+<li><p><strong>google/BIG-bench</strong> — <a href="https://github.com/google/BIG-bench" class="uri">https://github.com/google/BIG-bench</a> Broad capability stress suite.</p></li>
+<li><p><strong>microsoft/promptbench</strong> — <a href="https://github.com/microsoft/promptbench" class="uri">https://github.com/microsoft/promptbench</a> Prompt perturbation robustness framework.</p></li>
+<li><p><strong>huggingface/lighteval</strong> — <a href="https://github.com/huggingface/lighteval" class="uri">https://github.com/huggingface/lighteval</a> Modular open-model evaluation pipeline.</p></li>
+<li><p><strong>explodinggradients/ragas</strong> — <a href="https://github.com/explodinggradients/ragas" class="uri">https://github.com/explodinggradients/ragas</a> RAG-focused factuality and relevance evaluation.</p></li>
+<li><p><strong>truera/trulens</strong> — <a href="https://github.com/truera/trulens" class="uri">https://github.com/truera/trulens</a> LLM app observability with groundedness checks.</p></li>
+</ul>
+</section>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Section Status
+<span class="screen-reader-only">Tip</span>Key Insights
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This section is being populated by literature research.</p>
+<ul>
+<li>Build evaluation as a <strong>stack</strong>, not a single benchmark: static tests + perturbations + human preference + grounded execution.</li>
+<li>Track versions of prompts, datasets, judges, and decoding settings; otherwise comparisons are weak.</li>
+<li>Treat benchmark results as evidence, not truth—especially when scores are near saturation.</li>
+</ul>
 </div>
 </div>
-<section id="benchmarks-datasets" class="level2">
-<h2 class="anchored" data-anchor-id="benchmarks-datasets">Benchmarks &amp; Datasets</h2>
-<p><em>[To be populated]</em></p>
 </section>
-<section id="code-github-repos" class="level2">
-<h2 class="anchored" data-anchor-id="code-github-repos">Code &amp; GitHub Repos</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="blog-posts-essays" class="level2">
-<h2 class="anchored" data-anchor-id="blog-posts-essays">Blog Posts &amp; Essays</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="talks-lectures" class="level2">
-<h2 class="anchored" data-anchor-id="talks-lectures">Talks &amp; Lectures</h2>
-<p><em>[To be populated]</em></p>
-</section>
-<section id="further-reading" class="level2">
-<h2 class="anchored" data-anchor-id="further-reading">Further Reading</h2>
-<p><em>[To be populated]</em></p>
+<section id="see-also" class="level2">
+<h2 class="anchored" data-anchor-id="see-also">See Also</h2>
+<ul>
+<li><a href="./taxonomy.html">Taxonomy</a></li>
+<li><a href="./benchmark-reliability.html">Benchmark Reliability</a></li>
+<li><a href="./factual-consistency.html">Factual Consistency &amp; Hallucination</a></li>
+<li><a href="./generator-validator-gap.html">Generator-Validator Gap</a></li>
+</ul>
 
 
 </section>
@@ -476,7 +635,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/johnplake\.github\.io\/llm-consistency-survey\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
