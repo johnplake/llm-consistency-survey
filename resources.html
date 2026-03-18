@@ -367,37 +367,37 @@ ul.task-list li input[type="checkbox"] {
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>This page is a curated hub for navigating the LLM consistency literature and tooling ecosystem. The core challenge is fragmentation: relevant work is spread across hallucination papers, robust NLP methods, calibration studies, benchmark design, and applied eval engineering. This hub consolidates those strands into one actionable map.</p>
-<p>A practical pattern emerges from both research and production: no single metric or benchmark is sufficient. Teams that get reliable results combine static task suites, perturbation tests, human preference data, and task-grounded execution checks—then version the entire pipeline.</p>
+<p>A practical pattern in the literature and practitioner ecosystem is that no single metric or benchmark is sufficient (e.g., <a href="https://arxiv.org/abs/2211.09110">HELM</a>, <a href="https://aclanthology.org/2021.naacl-main.324/">Dynabench</a>, <a href="https://arxiv.org/abs/2306.05685">MT-Bench/Arena</a>). More reliable workflows typically combine static task suites, perturbation tests, preference data, and task-grounded checks, with full pipeline versioning.</p>
 <p>Use this page as a “build sheet” for your evaluation stack: start with broad references, pick benchmark families by risk profile, and adopt tooling that supports reproducible reruns and regression testing.</p>
 </section>
 <section id="key-papers" class="level2">
 <h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
 <section id="foundational-survey-taxonomy-references" class="level3">
 <h3 class="anchored" data-anchor-id="foundational-survey-taxonomy-references">Foundational Survey &amp; Taxonomy References</h3>
-<p><strong>A Survey of Large Language Models</strong> (Zhao et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2303.18223">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2303.18223">A Survey of Large Language Models</a></strong> (Zhao et al., 2023) · arXiv</p>
 <blockquote class="blockquote">
 <p>Broad technical overview of LLM foundations and evaluation context.</p>
 </blockquote>
-<p><strong>A Survey of Hallucination in Natural Language Generation</strong> (Ji et al., 2023) · ACM CSUR · <a href="https://arxiv.org/abs/2202.03629">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2202.03629">A Survey of Hallucination in Natural Language Generation</a></strong> (Ji et al., 2023) · ACM CSUR</p>
 <blockquote class="blockquote">
 <p>Canonical hallucination taxonomy and mitigation map.</p>
 </blockquote>
-<p><strong>On the Evaluation of Large Language Models</strong> (Chang et al., 2024) · arXiv · <a href="https://arxiv.org/abs/2307.03109">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2307.03109">On the Evaluation of Large Language Models</a></strong> (Chang et al., 2024) · arXiv</p>
 <blockquote class="blockquote">
 <p>Comprehensive treatment of evaluation pitfalls and protocol design.</p>
 </blockquote>
-<p><strong>HELM: Holistic Evaluation of Language Models</strong> (Liang et al., 2022) · arXiv/CRFM · <a href="https://arxiv.org/abs/2211.09110">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2211.09110">HELM: Holistic Evaluation of Language Models</a></strong> (Liang et al., 2022) · arXiv/CRFM</p>
 <blockquote class="blockquote">
 <p>Landmark framework for multi-metric, scenario-specific model assessment.</p>
 </blockquote>
 </section>
 <section id="trustworthy-evaluation-frameworks" class="level3">
 <h3 class="anchored" data-anchor-id="trustworthy-evaluation-frameworks">Trustworthy Evaluation Frameworks</h3>
-<p><strong>TrustLLM</strong> (Huang et al., 2024) · arXiv · <a href="https://arxiv.org/abs/2401.05561">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2401.05561">TrustLLM</a></strong> (Huang et al., 2024) · arXiv</p>
 <blockquote class="blockquote">
 <p>Framework and benchmark for trust dimensions spanning truthfulness, robustness, safety, and fairness.</p>
 </blockquote>
-<p><strong>Dynabench</strong> (Kiela et al., 2021) · NAACL · <a href="https://aclanthology.org/2021.naacl-main.324/">link</a></p>
+<p><strong><a href="https://aclanthology.org/2021.naacl-main.324/">Dynabench</a></strong> (Kiela et al., 2021) · NAACL</p>
 <blockquote class="blockquote">
 <p>Dynamic benchmark philosophy to reduce static-test overfitting.</p>
 </blockquote>
@@ -405,17 +405,17 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="preprints-recent-work" class="level2">
 <h2 class="anchored" data-anchor-id="preprints-recent-work">Preprints &amp; Recent Work</h2>
-<p><strong>MMLU-Pro</strong> (Wang et al., 2024) · arXiv · <a href="https://arxiv.org/abs/2406.01574">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2406.01574">MMLU-Pro</a></strong> (Wang et al., 2024) · arXiv</p>
 <blockquote class="blockquote">
 <p>Harder successor benchmark motivated by saturation concerns.</p>
 </blockquote>
-<p><strong>SWE-bench</strong> (Jimenez et al., 2024) · ICLR · <a href="https://arxiv.org/abs/2310.06770">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2310.06770">SWE-bench</a></strong> (Jimenez et al., 2024) · ICLR</p>
 <blockquote class="blockquote">
 <p>Real-world software issue resolution benchmark, useful for grounded capability testing.</p>
 </blockquote>
-<p><strong>MT-Bench + Arena analysis</strong> (Zheng et al., 2023+) · <a href="https://arxiv.org/abs/2306.05685">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2306.05685">MT-Bench + Arena analysis</a></strong> (Zheng et al., 2023) · arXiv</p>
 <blockquote class="blockquote">
-<p>Evolving methodology for pairwise quality comparison and judge calibration.</p>
+<p>Pairwise quality comparison methodology and analysis of LLM-judge behavior.</p>
 </blockquote>
 </section>
 <section id="blog-posts-practitioner-resources" class="level2">

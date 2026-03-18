@@ -367,7 +367,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>Self-consistency concerns whether an LLM returns compatible answers to semantically equivalent questions, paraphrases, or repeated runs. In deployed systems this appears as answer drift: same user intent, different outputs. The issue is partly stochastic (sampling), partly representational (unstable latent beliefs), and partly prompt-induced (format sensitivity).</p>
-<p>An important distinction in this literature: <strong>self-consistency as a failure mode</strong> versus <strong>self-consistency as a decoding strategy</strong>. The Wang et al.&nbsp;method (majority vote over chains) improves outcomes, but it does not imply that the base model is internally coherent. It works precisely because the underlying model is inconsistent enough that sampling can uncover better trajectories.</p>
+<p>An important distinction in this literature: <strong>self-consistency as a failure mode</strong> versus <strong>self-consistency as a decoding strategy</strong>. The <a href="https://arxiv.org/abs/2203.11171">Wang et al.&nbsp;self-consistency method</a> (majority vote over chains) improves outcomes, but it does not imply that the base model is internally coherent. A more cautious interpretation is that performance gains come from sampling diverse reasoning paths and selecting the most common one.</p>
 <p>Self-consistency failures also connect directly to factual reliability and hallucination risk: output disagreement is often a useful uncertainty signal when internals are unavailable.</p>
 </section>
 <section id="key-papers" class="level2">
@@ -395,7 +395,7 @@ ul.task-list li input[type="checkbox"] {
 </blockquote>
 <p><strong>TruthfulQA</strong> (Lin et al., 2022) · ACL · <a href="https://aclanthology.org/2022.acl-long.229/">link</a></p>
 <blockquote class="blockquote">
-<p>Though a truthfulness benchmark, it is widely used to show model answers can shift under elicitation style.</p>
+<p>Primarily a truthfulness benchmark; in practice, researchers often pair it with prompt variants to probe answer stability under different elicitation styles.</p>
 </blockquote>
 </section>
 </section>

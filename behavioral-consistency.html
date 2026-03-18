@@ -366,9 +366,9 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>Behavioral consistency is about whether an LLM responds stably across social contexts—not just factual contexts. A model may be technically capable of a correct answer yet still shift under user pressure, framing cues, authority signals, or style biases. The most studied case is <strong>sycophancy</strong>: agreeing with users even when they are wrong.</p>
-<p>These effects are tightly linked to alignment objectives. Preference optimization can unintentionally reward agreeableness and rhetorical smoothness over truth-maintaining disagreement. In evaluation pipelines, the same problem appears as <strong>judge bias</strong>: verbosity, position, or framing can influence scores independently of content quality.</p>
-<p>As a result, behavioral consistency is both a model behavior problem and an evaluation design problem. Robust systems now treat swap-order testing, adversarial prompting, and disagreement probes as standard checks.</p>
+<p>Behavioral consistency is about whether an LLM responds stably across social contexts—not just factual contexts. A model may be technically capable of a correct answer yet still shift under user pressure, framing cues, authority signals, or style biases. The most studied case is <strong>sycophancy</strong>: agreeing with users even when they are wrong (e.g., <a href="https://arxiv.org/abs/2212.09251">Perez et al., 2022</a>).</p>
+<p>These effects are linked to alignment objectives. Preference optimization can reward agreeableness and rhetorical smoothness over truth-maintaining disagreement in some settings (background in <a href="https://arxiv.org/abs/2203.02155">Ouyang et al., 2022</a>; mitigation-oriented alternatives in <a href="https://arxiv.org/abs/2212.08073">Bai et al., 2022</a>). In evaluation pipelines, related issues appear as <strong>judge bias</strong>: verbosity, position, or framing can influence scores independently of content quality (<a href="https://arxiv.org/abs/2306.05685">Zheng et al., 2023</a>; <a href="https://arxiv.org/abs/2303.16634">Liu et al., 2023</a>).</p>
+<p>As a result, behavioral consistency is both a model behavior problem and an evaluation design problem. In practice, many evaluation stacks include swap-order testing, adversarial prompting, and disagreement probes as robustness checks.</p>
 </section>
 <section id="key-papers" class="level2">
 <h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
@@ -397,11 +397,11 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <p>Demonstrates long-context positional inconsistency, with underuse of middle-context evidence.</p>
 </blockquote>
-<p><strong>Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena</strong> (Zheng et al., 2023) · NeurIPS Datasets/Benchmarks ecosystem · <a href="https://arxiv.org/abs/2306.05685">link</a></p>
+<p><strong>Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena</strong> (Zheng et al., 2023) · arXiv / widely used evaluation reference · <a href="https://arxiv.org/abs/2306.05685">link</a></p>
 <blockquote class="blockquote">
-<p>Canonical evidence for position and verbosity bias in judge-style evaluation.</p>
+<p>Frequently cited evidence for position and verbosity bias in judge-style evaluation.</p>
 </blockquote>
-<p><strong>G-Eval</strong> (Liu et al., 2023) · EMNLP Findings-era · <a href="https://arxiv.org/abs/2303.16634">link</a></p>
+<p><strong>G-Eval</strong> (Liu et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2303.16634">link</a></p>
 <blockquote class="blockquote">
 <p>Shows strong judge-human correlation under structured prompts, while highlighting rubric and prompt sensitivity.</p>
 </blockquote>

@@ -367,49 +367,49 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>The <strong>generator-validator gap</strong> is the empirical pattern that LLMs can often evaluate candidate answers more reliably than they can produce the best answer from scratch. In practice, this appears when a model fails at one-shot generation but succeeds when selecting among candidates, verifying steps, or reranking outputs.</p>
-<p>This concept helps unify several successful techniques: best-of-N sampling, self-consistency voting, verifier reranking, and process reward models. All of them transform a hard single-pass generation task into two stages: (1) generate many imperfect candidates, then (2) apply a comparatively easier discriminative selection process.</p>
-<p>The gap also explains why intrinsic self-correction is fragile. If the same model is both generator and validator without new evidence, errors can self-reinforce. Reliable improvements usually require stronger or externalized validation signals (step labels, tools, environment feedback, or specialized verifier models).</p>
+<p>The <strong>generator-validator gap</strong> is the empirical pattern that LLMs can often evaluate candidate answers more reliably than they can produce the best answer from scratch. In practice, this appears when a model fails at one-shot generation but succeeds when selecting among candidates, verifying steps, or reranking outputs (e.g., <a href="https://arxiv.org/abs/2110.14168">Cobbe et al., 2021</a>; <a href="https://arxiv.org/abs/2305.20050">Lightman et al., 2023</a>).</p>
+<p>This concept helps unify several successful techniques: best-of-N sampling, self-consistency voting, verifier reranking, and process reward models. Many of these methods transform a hard single-pass generation task into two stages: (1) generate many imperfect candidates, then (2) apply a comparatively easier discriminative selection process.</p>
+<p>The gap also helps explain why intrinsic self-correction is often fragile. If the same model is both generator and validator without new evidence, errors can self-reinforce. Strong gains typically come from stronger or externalized validation signals (step labels, tools, environment feedback, or specialized verifier models) rather than unconstrained self-critique alone (<a href="https://arxiv.org/abs/2310.01798">Huang et al., 2023</a>; <a href="https://arxiv.org/abs/2303.11366">Shinn et al., 2023</a>).</p>
 </section>
 <section id="key-papers" class="level2">
 <h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
 <section id="core-gap-and-verification-methods" class="level3">
 <h3 class="anchored" data-anchor-id="core-gap-and-verification-methods">Core Gap and Verification Methods</h3>
-<p><strong>Training Verifiers to Solve Math Word Problems</strong> (Cobbe et al., 2021) · arXiv/OpenAI · <a href="https://arxiv.org/abs/2110.14168">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2110.14168">Training Verifiers to Solve Math Word Problems</a></strong> (Cobbe et al., 2021) · arXiv/OpenAI</p>
 <blockquote class="blockquote">
 <p>Landmark generate-then-verify pipeline: a trained verifier reranks candidate solutions and yields large gains over direct generation.</p>
 </blockquote>
-<p><strong>Let’s Verify Step by Step</strong> (Lightman et al., 2023) · arXiv/OpenAI · <a href="https://arxiv.org/abs/2305.20050">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2305.20050">Let’s Verify Step by Step</a></strong> (Lightman et al., 2023) · arXiv/OpenAI</p>
 <blockquote class="blockquote">
 <p>Step-level process supervision improves candidate selection and downstream reasoning reliability.</p>
 </blockquote>
-<p><strong>Large Language Models are Better Reasoners with Self-Verification</strong> (Weng et al., 2022) · arXiv · <a href="https://arxiv.org/abs/2212.09561">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2212.09561">Large Language Models are Better Reasoners with Self-Verification</a></strong> (Weng et al., 2022) · arXiv</p>
 <blockquote class="blockquote">
 <p>Demonstrates gains from explicit verification prompts over generated solutions.</p>
 </blockquote>
 </section>
 <section id="sampling-and-voting-as-implicit-validators" class="level3">
 <h3 class="anchored" data-anchor-id="sampling-and-voting-as-implicit-validators">Sampling and Voting as Implicit Validators</h3>
-<p><strong>Self-Consistency Improves Chain of Thought Reasoning</strong> (Wang et al., 2023) · ICLR · <a href="https://arxiv.org/abs/2203.11171">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2203.11171">Self-Consistency Improves Chain of Thought Reasoning</a></strong> (Wang et al., 2023) · ICLR</p>
 <blockquote class="blockquote">
 <p>Majority vote over sampled chains is effectively a lightweight validator layer.</p>
 </blockquote>
-<p><strong>STaR: Bootstrapping Reasoning With Reasoning</strong> (Zelikman et al., 2022) · arXiv · <a href="https://arxiv.org/abs/2203.14465">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2203.14465">STaR: Bootstrapping Reasoning With Reasoning</a></strong> (Zelikman et al., 2022) · arXiv</p>
 <blockquote class="blockquote">
 <p>Iterative rationale filtering demonstrates training-time use of evaluator-like signals.</p>
 </blockquote>
 </section>
 <section id="limits-of-intrinsic-self-correction" class="level3">
 <h3 class="anchored" data-anchor-id="limits-of-intrinsic-self-correction">Limits of Intrinsic Self-Correction</h3>
-<p><strong>Large Language Models Cannot Self-Correct Reasoning Yet</strong> (Huang et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2310.01798">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2310.01798">Large Language Models Cannot Self-Correct Reasoning Yet</a></strong> (Huang et al., 2023) · arXiv</p>
 <blockquote class="blockquote">
 <p>Strong evidence that intrinsic self-correction often fails without external feedback.</p>
 </blockquote>
-<p><strong>Self-Refine</strong> (Madaan et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2303.17651">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2303.17651">Self-Refine</a></strong> (Madaan et al., 2023) · arXiv</p>
 <blockquote class="blockquote">
 <p>Shows self-feedback can help in some settings, but gains are task- and prompt-dependent.</p>
 </blockquote>
-<p><strong>Reflexion</strong> (Shinn et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2303.11366">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2303.11366">Reflexion</a></strong> (Shinn et al., 2023) · arXiv</p>
 <blockquote class="blockquote">
 <p>Improvement is strongest with environment-grounded outcomes, supporting an extrinsic-feedback view.</p>
 </blockquote>
@@ -417,15 +417,15 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="preprints-recent-work" class="level2">
 <h2 class="anchored" data-anchor-id="preprints-recent-work">Preprints &amp; Recent Work</h2>
-<p><strong>Math-Shepherd</strong> (Wang et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2312.08935">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2312.08935">Math-Shepherd</a></strong> (Wang et al., 2023) · arXiv</p>
 <blockquote class="blockquote">
 <p>Stepwise verification/reinforcement pipeline with reduced annotation burden.</p>
 </blockquote>
-<p><strong>DeepSeekMath</strong> (DeepSeek-AI et al., 2024) · arXiv · <a href="https://arxiv.org/abs/2402.03300">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2402.03300">DeepSeekMath</a></strong> (DeepSeek-AI et al., 2024) · arXiv</p>
 <blockquote class="blockquote">
 <p>Open-model evidence for verifier/reward-guided reasoning improvements.</p>
 </blockquote>
-<p><strong>Benchmarking Foundation Models with LM-as-an-Examiner</strong> (Fu et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2306.04181">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2306.04181">Benchmarking Foundation Models with LM-as-an-Examiner</a></strong> (Fu et al., 2023) · arXiv</p>
 <blockquote class="blockquote">
 <p>Examines language-model judges as scalable evaluators, with calibration caveats.</p>
 </blockquote>
@@ -433,9 +433,9 @@ ul.task-list li input[type="checkbox"] {
 <section id="blog-posts-practitioner-resources" class="level2">
 <h2 class="anchored" data-anchor-id="blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</h2>
 <ul>
-<li><p><strong>Let’s verify step by step</strong> (OpenAI, 2023) — <a href="https://openai.com/research/lets-verify-step-by-step" class="uri">https://openai.com/research/lets-verify-step-by-step</a> Practical framing of process supervision and why verification helps.</p></li>
-<li><p><strong>Constitutional AI post</strong> (Anthropic, 2022) — <a href="https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback" class="uri">https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback</a> Structured critique/revision as an externally constrained correction loop.</p></li>
-<li><p><strong>FastChat / MT-Bench docs</strong> (LMSYS, ongoing) — <a href="https://github.com/lm-sys/FastChat" class="uri">https://github.com/lm-sys/FastChat</a> Operational judge infrastructure for pairwise evaluation settings.</p></li>
+<li><p><strong><a href="https://openai.com/research/lets-verify-step-by-step">Let’s verify step by step</a></strong> (OpenAI, 2023) Practical framing of process supervision and why verification helps.</p></li>
+<li><p><strong><a href="https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback">Constitutional AI post</a></strong> (Anthropic, 2022) Structured critique/revision as an externally constrained correction loop.</p></li>
+<li><p><strong><a href="https://github.com/lm-sys/FastChat">FastChat / MT-Bench docs</a></strong> (LMSYS, ongoing) Operational judge infrastructure for pairwise evaluation settings.</p></li>
 </ul>
 </section>
 <section id="benchmarks-datasets" class="level2">
@@ -492,10 +492,10 @@ ul.task-list li input[type="checkbox"] {
 <section id="github-repos" class="level2">
 <h2 class="anchored" data-anchor-id="github-repos">GitHub Repos</h2>
 <ul>
-<li><p><strong>openai/prm800k</strong> — <a href="https://github.com/openai/prm800k" class="uri">https://github.com/openai/prm800k</a> Process supervision resources for step-level validation.</p></li>
-<li><p><strong>openai/evals</strong> — <a href="https://github.com/openai/evals" class="uri">https://github.com/openai/evals</a> Build judge/validator pipelines and regression checks.</p></li>
-<li><p><strong>lm-sys/FastChat</strong> — <a href="https://github.com/lm-sys/FastChat" class="uri">https://github.com/lm-sys/FastChat</a> Judge and pairwise comparison infrastructure.</p></li>
-<li><p><strong>deepseek-ai/DeepSeek-Math</strong> — <a href="https://github.com/deepseek-ai/DeepSeek-Math" class="uri">https://github.com/deepseek-ai/DeepSeek-Math</a> Open reasoning stack with verifier-adjacent practices.</p></li>
+<li><p><strong><a href="https://github.com/openai/prm800k">openai/prm800k</a></strong> Process supervision resources for step-level validation.</p></li>
+<li><p><strong><a href="https://github.com/openai/evals">openai/evals</a></strong> Build judge/validator pipelines and regression checks.</p></li>
+<li><p><strong><a href="https://github.com/lm-sys/FastChat">lm-sys/FastChat</a></strong> Judge and pairwise comparison infrastructure.</p></li>
+<li><p><strong><a href="https://github.com/deepseek-ai/DeepSeek-Math">deepseek-ai/DeepSeek-Math</a></strong> Open reasoning stack with verifier-adjacent practices.</p></li>
 </ul>
 </section>
 <section id="key-takeaways" class="level2">
@@ -513,7 +513,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>Generate-then-verify is often more reliable than one-shot generation.</li>
 <li>Intrinsic self-correction is limited; externalized feedback is usually required for robust gains.</li>
-<li>Process-level validators (PRMs) generally outperform final-answer-only scoring for reasoning quality control.</li>
+<li>Process-level validators often outperform final-answer-only scoring for reasoning quality control.</li>
 </ul>
 </div>
 </div>

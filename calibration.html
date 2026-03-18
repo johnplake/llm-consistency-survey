@@ -369,7 +369,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>Calibration asks whether model confidence tracks empirical correctness. In a calibrated system, statements made with 80% confidence should be correct about 80% of the time. LLMs often fail this in practice—especially on long-tail questions, ambiguous prompts, and hallucination-prone tasks.</p>
 <p>The challenge is amplified in generation: token-level probabilities do not map cleanly to semantic correctness. This has driven work on semantic uncertainty, verbalized confidence elicitation, and selective prediction methods (including abstention). From an operational standpoint, calibration quality determines when a system should answer, hedge, cite, or decline.</p>
-<p>Calibration is also downstream-sensitive: instruction tuning and preference optimization can improve usefulness while distorting confidence behavior. Teams therefore need post-alignment calibration audits, not just pretraining-era metrics.</p>
+<p>Calibration is also downstream-sensitive: instruction tuning and preference optimization can improve usefulness while changing confidence behavior (e.g., <a href="https://arxiv.org/abs/2203.02155">InstructGPT</a>, <a href="https://arxiv.org/abs/2212.08073">Constitutional AI</a>, <a href="https://arxiv.org/abs/2305.18290">DPO</a>). Teams therefore need post-alignment calibration audits, not just pretraining-era metrics.</p>
 </section>
 <section id="key-papers" class="level2">
 <h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
@@ -403,7 +403,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="semantic-uncertainty-and-risk-control">Semantic Uncertainty and Risk Control</h3>
 <p><strong>Semantic Uncertainty</strong> (Kuhn, Gal, Farquhar, 2023) · Nature/ArXiv line · <a href="https://arxiv.org/abs/2302.09664">link</a></p>
 <blockquote class="blockquote">
-<p>Introduces semantic entropy over meaning-equivalent generations, often superior to token entropy for factual risk estimation.</p>
+<p>Introduces semantic entropy over meaning-equivalent generations, which can outperform token entropy for factual risk estimation in several settings.</p>
 </blockquote>
 <p><strong>Conformal Language Modeling</strong> (Angelopoulos et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2306.10193">link</a></p>
 <blockquote class="blockquote">

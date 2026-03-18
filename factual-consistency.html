@@ -368,8 +368,8 @@ ul.task-list li input[type="checkbox"] {
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>Factual consistency asks a basic but difficult question: when a model makes a claim, is that claim supported by reliable evidence? In modern LLM systems, failures are often <em>not</em> obvious nonsense. They are polished, plausible, and confidently delivered statements that may conflict with source documents, world facts, or both. This makes hallucination a reliability problem, not just a generation-quality problem.</p>
-<p>A useful distinction in the literature is between <strong>intrinsic hallucination</strong> (contradicting provided context) and <strong>extrinsic hallucination</strong> (introducing unsupported claims). This split matters operationally: intrinsic failures are often diagnosable with source-grounded checks, while extrinsic failures need retrieval, citation, or explicit uncertainty handling.</p>
-<p>The field has moved from coarse overlap metrics toward claim-level and evidence-aware evaluation (e.g., QA-based checks, atomic fact scoring, citation grounding). In practice, the strongest mitigation stacks combine retrieval, verification, and selective abstention rather than relying on one silver bullet.</p>
+<p>A useful distinction in the literature is between <strong>intrinsic hallucination</strong> (contradicting provided context) and <strong>extrinsic hallucination</strong> (introducing unsupported claims), as discussed in survey work such as Ji et al.&nbsp;(2023) · <a href="https://arxiv.org/abs/2202.03629">link</a>. This split matters operationally: intrinsic failures are often diagnosable with source-grounded checks, while extrinsic failures often need retrieval, citation, or explicit uncertainty handling.</p>
+<p>The field has moved from coarse overlap metrics toward claim-level and evidence-aware evaluation (e.g., QA-based checks, atomic fact scoring, citation grounding). In practice, robust mitigation stacks often combine retrieval, verification, and selective abstention rather than relying on one silver bullet.</p>
 </section>
 <section id="key-papers" class="level2">
 <h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
@@ -377,7 +377,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="faithfulness-in-summarization-and-nlg">Faithfulness in Summarization and NLG</h3>
 <p><strong>On Faithfulness and Factuality in Abstractive Summarization</strong> (Maynez et al., 2020) · ACL · <a href="https://aclanthology.org/2020.acl-main.173/">link</a></p>
 <blockquote class="blockquote">
-<p>A foundational paper showing that strong abstractive summarizers can be fluent yet factually inconsistent. It helped separate stylistic quality from factual faithfulness as distinct evaluation targets.</p>
+<p>An early influential paper showing that strong abstractive summarizers can be fluent yet factually inconsistent. It helped separate stylistic quality from factual faithfulness as distinct evaluation targets.</p>
 </blockquote>
 <p><strong>Evaluating the Factual Consistency of Abstractive Text Summarization (FactCC)</strong> (Kryściński et al., 2020) · EMNLP · <a href="https://aclanthology.org/2020.emnlp-main.750/">link</a></p>
 <blockquote class="blockquote">
@@ -385,7 +385,7 @@ ul.task-list li input[type="checkbox"] {
 </blockquote>
 <p><strong>FEQA: A Question Answering Evaluation Framework for Faithfulness Assessment in Abstractive Summarization</strong> (Durmus, He, Diab, 2020) · ACL · <a href="https://aclanthology.org/2020.acl-main.454/">link</a></p>
 <blockquote class="blockquote">
-<p>Proposed QA-based factuality scoring, moving evaluation from lexical overlap to claim verification. This heavily influenced later factuality metrics.</p>
+<p>Proposed QA-based factuality scoring, moving evaluation from lexical overlap to claim verification. This informed many later factuality metrics.</p>
 </blockquote>
 </section>
 <section id="truthfulness-and-hallucination-in-llms" class="level3">
@@ -407,7 +407,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="grounding-and-mitigation-architectures">Grounding and Mitigation Architectures</h3>
 <p><strong>RAG: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</strong> (Lewis et al., 2020) · NeurIPS · <a href="https://arxiv.org/abs/2005.11401">link</a></p>
 <blockquote class="blockquote">
-<p>The canonical generate-with-retrieval architecture that anchors responses to external evidence. It remains the backbone of many production anti-hallucination systems.</p>
+<p>A widely adopted generate-with-retrieval architecture that anchors responses to external evidence. It remains a backbone of many production anti-hallucination systems.</p>
 </blockquote>
 <p><strong>Chain-of-Verification Reduces Hallucination in Large Language Models</strong> (Dhuliawala et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2309.11495">link</a></p>
 <blockquote class="blockquote">
@@ -429,7 +429,7 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <p>Large-scale benchmark for hallucination behavior in QA/dialog settings.</p>
 </blockquote>
-<p><strong>ALCE: Enabling and Evaluating LLMs with Automatic Citations</strong> (Gao et al., 2023) · venue unconfirmed · <a href="https://arxiv.org/abs/2305.14627">link</a></p>
+<p><strong>ALCE: Enabling and Evaluating LLMs with Automatic Citations</strong> (Gao et al., 2023) · arXiv preprint · <a href="https://arxiv.org/abs/2305.14627">link</a></p>
 <blockquote class="blockquote">
 <p>Pushes factual evaluation toward explicit evidence attribution with citation-aware protocols.</p>
 </blockquote>

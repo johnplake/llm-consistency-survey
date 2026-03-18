@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -376,7 +396,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="factual-consistency-hallucination" class="level3">
 <h3 class="anchored" data-anchor-id="factual-consistency-hallucination">1. Factual Consistency &amp; Hallucination</h3>
 <p><strong>Core question</strong>: When an LLM makes a factual claim, is it accurate — and is it reliably accurate across different framings?</p>
-<p>Hallucination (generating plausible-sounding but false content) is the most-studied form of inconsistency. It has several subtypes:</p>
+<p>Hallucination (generating plausible-sounding but false content) is among the most-studied forms of inconsistency in current LLM/NLG work <span class="citation" data-cites="ji2023hallucination lin2022truthfulqa">(<a href="#ref-ji2023hallucination" role="doc-biblioref">Ji et al., 2023</a>; <a href="#ref-lin2022truthfulqa" role="doc-biblioref">Lin et al., 2022</a>)</span>. It has several subtypes:</p>
 <ul>
 <li><strong>Intrinsic hallucination</strong>: The model contradicts the source/context it was given</li>
 <li><strong>Extrinsic hallucination</strong>: The model generates claims that cannot be verified against any source</li>
@@ -397,7 +417,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Cross-session inconsistency</strong>: The same prompt gives different answers across runs</li>
 <li><strong>Belief inconsistency</strong>: The model holds “beliefs” that contradict each other when elicited in different ways</li>
 </ul>
-<p><strong>Key insight</strong>: Self-inconsistency reveals that LLMs do not have stable internal representations of facts or beliefs — they are pattern-matching systems whose outputs depend heavily on local context.</p>
+<p><strong>Key insight</strong>: Self-inconsistency suggests that LLM outputs can vary substantially with local context and elicitation strategy, rather than reflecting fully stable, globally coherent “beliefs” <span class="citation" data-cites="wang2023selfconsistency zhang2019paws ribeiro2020checklist">(<a href="#ref-ribeiro2020checklist" role="doc-biblioref">Ribeiro et al., 2020</a>; <a href="#ref-wang2023selfconsistency" role="doc-biblioref">X. Wang et al., 2023</a>; <a href="#ref-zhang2019paws" role="doc-biblioref">Zhang et al., 2019</a>)</span>.</p>
 <p>→ <a href="./self-consistency.html">Self-Consistency &amp; Contradiction</a></p>
 <hr>
 </section>
@@ -412,7 +432,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Commonsense reasoning</strong>: Are common-sense inferences stable?</li>
 <li><strong>Process-outcome mismatch</strong>: Model gives correct answer with wrong reasoning, or wrong answer with correct reasoning</li>
 </ul>
-<p><strong>Key insight</strong>: LLMs can produce correct answers for wrong reasons (and vice versa), making their reasoning unreliable as an explanation even when the conclusion is correct.</p>
+<p><strong>Key insight</strong>: LLMs can produce correct answers for wrong reasons (and vice versa), making free-form reasoning traces an imperfect proxy for underlying decision processes <span class="citation" data-cites="turpin2023unfaithful lightman2023verify">(<a href="#ref-lightman2023verify" role="doc-biblioref">Lightman et al., 2023</a>; <a href="#ref-turpin2023unfaithful" role="doc-biblioref">Turpin et al., 2023</a>)</span>.</p>
 <p>→ <a href="./reasoning-consistency.html">Reasoning Consistency</a></p>
 <hr>
 </section>
@@ -428,7 +448,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Verbosity bias</strong>: Preferring longer or more “elaborate-sounding” responses in evaluation</li>
 <li><strong>Social desirability bias</strong>: Giving answers the user seems to want to hear</li>
 </ul>
-<p><strong>Key insight</strong>: LLMs are trained to maximize human approval, which can directly undermine consistency — the model learns to agree rather than to be correct.</p>
+<p><strong>Key insight</strong>: Preference tuning can reward agreement/helpfulness signals that sometimes trade off against factual steadfastness, so social context may shift answers even when ground truth is unchanged <span class="citation" data-cites="ouyang2022instructgpt perez2022modelwritten">(<a href="#ref-ouyang2022instructgpt" role="doc-biblioref">Ouyang et al., 2022</a>; <a href="#ref-perez2022modelwritten" role="doc-biblioref">Perez et al., 2022</a>)</span>.</p>
 <p>→ <a href="./behavioral-consistency.html">Behavioral Consistency &amp; Sycophancy</a></p>
 <hr>
 </section>
@@ -443,7 +463,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Selective hedging</strong>: Hedging on easy questions, confident on hard ones</li>
 <li><strong>Epistemic vs.&nbsp;aleatoric uncertainty</strong>: Failure to distinguish “I don’t know” from “this is uncertain”</li>
 </ul>
-<p><strong>Key insight</strong>: A perfectly accurate model that never expresses uncertainty is still inconsistent in a meaningful sense — it misleads users about when to trust it.</p>
+<p><strong>Key insight</strong>: Even strong average accuracy is insufficient if confidence signals are miscalibrated; users need uncertainty estimates that track empirical correctness <span class="citation" data-cites="guo2017calibration desai2020transformer-calibration kadavath2022know">(<a href="#ref-desai2020transformer-calibration" role="doc-biblioref">Desai &amp; Durrett, 2020</a>; <a href="#ref-guo2017calibration" role="doc-biblioref">Guo et al., 2017</a>; <a href="#ref-kadavath2022know" role="doc-biblioref">Kadavath &amp; al., 2022</a>)</span>.</p>
 <p>→ <a href="./calibration.html">Calibration &amp; Uncertainty</a></p>
 <hr>
 </section>
@@ -457,7 +477,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Cross-modal consistency</strong>: Does a vision-language model give consistent answers from text vs.&nbsp;image descriptions?</li>
 <li><strong>System prompt sensitivity</strong>: Behavior changes based on system prompt framing</li>
 </ul>
-<p><strong>Key insight</strong>: If semantically equivalent inputs produce different outputs, the model is not operating on meaning — it is operating on surface form.</p>
+<p><strong>Key insight</strong>: If semantically equivalent inputs produce different outputs, behavior is at least partly driven by surface cues rather than invariant semantic representations <span class="citation" data-cites="lu2022orderedprompts sclar2023spurious liu2023lostmiddle">(<a href="#ref-liu2023lostmiddle" role="doc-biblioref">Liu et al., 2024</a>; <a href="#ref-lu2022orderedprompts" role="doc-biblioref">Lu et al., 2022</a>; <a href="#ref-sclar2023spurious" role="doc-biblioref">Sclar et al., 2023</a>)</span>.</p>
 <p>→ <a href="./cross-context.html">Cross-Context Sensitivity</a></p>
 <hr>
 </section>
@@ -472,7 +492,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Evaluation inconsistency</strong>: Different evaluators (human or LLM) disagree substantially</li>
 <li><strong>Metric inconsistency</strong>: Different metrics give contradictory rankings of models</li>
 </ul>
-<p><strong>Key insight</strong>: Many “solved” benchmarks may reflect memorization or prompt optimization rather than genuine capability. Inconsistent evaluation means we don’t know what models can actually do.</p>
+<p><strong>Key insight</strong>: Some benchmark gains can reflect prompt sensitivity, contamination risk, or evaluator effects rather than clean capability improvements, so conclusions should be interpreted with care <span class="citation" data-cites="liang2022helm kiela2021dynabench zheng2023mtbench">(<a href="#ref-kiela2021dynabench" role="doc-biblioref">Kiela et al., 2021</a>; <a href="#ref-liang2022helm" role="doc-biblioref">Liang et al., 2022</a>; <a href="#ref-zheng2023mtbench" role="doc-biblioref">Zheng et al., 2023</a>)</span>.</p>
 <p>→ <a href="./benchmark-reliability.html">Benchmark Reliability</a></p>
 <hr>
 </section>
@@ -501,11 +521,11 @@ ul.task-list li input[type="checkbox"] {
 <p>The <strong>generator-validator gap</strong> captures a pattern that spans multiple categories: models are often better at <em>judging</em> candidate answers than <em>producing</em> the best answer in one shot.</p>
 <p>This concept links:</p>
 <ul>
-<li><strong>Reasoning consistency</strong>: best-of-N sampling + verifier reranking can outperform direct generation on multi-step tasks.</li>
-<li><strong>Self-consistency</strong>: majority voting over sampled chains works because selection is often easier than generation.</li>
-<li><strong>Calibration</strong>: disagreement among candidates can serve as a practical uncertainty signal, improving abstention and risk control.</li>
+<li><strong>Reasoning consistency</strong>: best-of-<em>N</em> sampling + verifier reranking can outperform direct generation on multi-step tasks <span class="citation" data-cites="cobbe2021gsm8k lightman2023verify">(<a href="#ref-cobbe2021gsm8k" role="doc-biblioref">Cobbe et al., 2021</a>; <a href="#ref-lightman2023verify" role="doc-biblioref">Lightman et al., 2023</a>)</span>.</li>
+<li><strong>Self-consistency</strong>: majority voting over sampled chains often improves reasoning accuracy <span class="citation" data-cites="wang2023selfconsistency">(<a href="#ref-wang2023selfconsistency" role="doc-biblioref">X. Wang et al., 2023</a>)</span>.</li>
+<li><strong>Calibration</strong>: disagreement among candidates can serve as a practical uncertainty signal, improving abstention and risk control <span class="citation" data-cites="manakul2023selfcheckgpt kuhn2023semantic">(<a href="#ref-kuhn2023semantic" role="doc-biblioref">Kuhn et al., 2023</a>; <a href="#ref-manakul2023selfcheckgpt" role="doc-biblioref">Manakul et al., 2023</a>)</span>.</li>
 </ul>
-<p>In other words, many successful reliability methods convert one hard problem (single-pass generation) into two easier ones (candidate generation + discriminative validation). This is why verifier models, process reward models, and structured checking loops have become central in modern LLM reliability pipelines.</p>
+<p>In other words, many successful reliability methods convert one hard problem (single-pass generation) into two easier ones (candidate generation + discriminative validation). This is why verifier models, process-supervision methods, and structured checking loops have become central in modern LLM reliability pipelines <span class="citation" data-cites="lightman2023verify wang2023mathshepherd dhuliawala2023cove">(<a href="#ref-dhuliawala2023cove" role="doc-biblioref">Dhuliawala et al., 2023</a>; <a href="#ref-lightman2023verify" role="doc-biblioref">Lightman et al., 2023</a>; <a href="#ref-wang2023mathshepherd" role="doc-biblioref">P. Wang et al., 2023</a>)</span>.</p>
 <p>→ <a href="./generator-validator-gap.html">Generator-Validator Gap</a></p>
 </section>
 <section id="boundaries-and-scope" class="level2">
@@ -515,9 +535,80 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Intentionally excluded</strong>: Pure accuracy/knowledge (a model can be consistently wrong — that’s not a consistency issue per se), style and fluency variation (unless it correlates with factual changes)</p>
 
 
+
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-cobbe2021gsm8k" class="csl-entry" role="listitem">
+Cobbe, K., Kosaraju, V., Bavarian, M., Chen, M., Jun, H., Kaiser, L., Plappert, M., Tworek, J., Hilton, J., Nakano, R., Hesse, C., &amp; Schulman, J. (2021). Training verifiers to solve math word problems. <em>arXiv Preprint arXiv:2110.14168</em>. <a href="https://arxiv.org/abs/2110.14168">https://arxiv.org/abs/2110.14168</a>
+</div>
+<div id="ref-desai2020transformer-calibration" class="csl-entry" role="listitem">
+Desai, S., &amp; Durrett, G. (2020). Calibration of pre-trained transformers. <em>Proceedings of EMNLP</em>. <a href="https://aclanthology.org/2020.emnlp-main.21/">https://aclanthology.org/2020.emnlp-main.21/</a>
+</div>
+<div id="ref-dhuliawala2023cove" class="csl-entry" role="listitem">
+Dhuliawala, S., Komeili, M., Xu, J., Raileanu, R., Singh, N., Li, Y., Weston, J., &amp; Roller, S. (2023). Chain-of-verification reduces hallucination in large language models. <em>arXiv Preprint arXiv:2309.11495</em>. <a href="https://arxiv.org/abs/2309.11495">https://arxiv.org/abs/2309.11495</a>
+</div>
+<div id="ref-guo2017calibration" class="csl-entry" role="listitem">
+Guo, C., Pleiss, G., Sun, Y., &amp; Weinberger, K. Q. (2017). On calibration of modern neural networks. <em>Proceedings of ICML</em>. <a href="https://arxiv.org/abs/1706.04599">https://arxiv.org/abs/1706.04599</a>
+</div>
+<div id="ref-ji2023hallucination" class="csl-entry" role="listitem">
+Ji, Z., Lee, N., Frieske, R., Yu, T., Su, D., Xu, Y., Ishii, E., Bang, Y., Madotto, A., &amp; Fung, P. (2023). A survey of hallucination in natural language generation. <em>ACM Computing Surveys</em>. <a href="https://arxiv.org/abs/2202.03629">https://arxiv.org/abs/2202.03629</a>
+</div>
+<div id="ref-kadavath2022know" class="csl-entry" role="listitem">
+Kadavath, S., &amp; al., et. (2022). Language models (mostly) know what they know. <em>arXiv Preprint arXiv:2207.05221</em>. <a href="https://arxiv.org/abs/2207.05221">https://arxiv.org/abs/2207.05221</a>
+</div>
+<div id="ref-kiela2021dynabench" class="csl-entry" role="listitem">
+Kiela, D., Bartolo, M., Nie, Y., Kaushik, D., Geiger, A., Wu, Z., Hii, A., &amp; al., et. (2021). Dynabench: Rethinking benchmarking in NLP. <em>Proceedings of NAACL</em>. <a href="https://aclanthology.org/2021.naacl-main.324/">https://aclanthology.org/2021.naacl-main.324/</a>
+</div>
+<div id="ref-kuhn2023semantic" class="csl-entry" role="listitem">
+Kuhn, L., Gal, Y., &amp; Farquhar, S. (2023). Semantic uncertainty: Linguistic invariances for uncertainty estimation in natural language generation. <em>Nature</em>. <a href="https://arxiv.org/abs/2302.09664">https://arxiv.org/abs/2302.09664</a>
+</div>
+<div id="ref-liang2022helm" class="csl-entry" role="listitem">
+Liang, P., Bommasani, R., Lee, T., Tsipras, D., Soylu, D., Yasunaga, M., Zhang, Y., &amp; al., et. (2022). Holistic evaluation of language models. <em>arXiv Preprint arXiv:2211.09110</em>. <a href="https://arxiv.org/abs/2211.09110">https://arxiv.org/abs/2211.09110</a>
+</div>
+<div id="ref-lightman2023verify" class="csl-entry" role="listitem">
+Lightman, H., Kosaraju, V., Burda, Y., Edwards, H., Baker, B., Lee, T., Leike, J., Schulman, J., Sutskever, I., &amp; Cobbe, K. (2023). Let’s verify step by step. <em>arXiv Preprint arXiv:2305.20050</em>. <a href="https://arxiv.org/abs/2305.20050">https://arxiv.org/abs/2305.20050</a>
+</div>
+<div id="ref-lin2022truthfulqa" class="csl-entry" role="listitem">
+Lin, S., Hilton, J., &amp; Evans, O. (2022). TruthfulQA: Measuring how models mimic human falsehoods. <em>Proceedings of ACL</em>. <a href="https://aclanthology.org/2022.acl-long.229/">https://aclanthology.org/2022.acl-long.229/</a>
+</div>
+<div id="ref-liu2023lostmiddle" class="csl-entry" role="listitem">
+Liu, N. F., Lin, K., Hewitt, J., Paranjape, A., Bevilacqua, M., Petroni, F., &amp; Liang, P. (2024). Lost in the middle: How language models use long contexts. <em>Transactions of the Association for Computational Linguistics</em>. <a href="https://arxiv.org/abs/2307.03172">https://arxiv.org/abs/2307.03172</a>
+</div>
+<div id="ref-lu2022orderedprompts" class="csl-entry" role="listitem">
+Lu, Y., Bartolo, M., Moore, A., Riedel, S., &amp; Stenetorp, P. (2022). Fantastically ordered prompts and where to find them: Overcoming few-shot prompt order sensitivity. <em>Proceedings of ACL</em>. <a href="https://aclanthology.org/2022.acl-long.556/">https://aclanthology.org/2022.acl-long.556/</a>
+</div>
+<div id="ref-manakul2023selfcheckgpt" class="csl-entry" role="listitem">
+Manakul, P., Liusie, A., &amp; Gales, M. (2023). SelfCheckGPT: Zero-resource black-box hallucination detection for generative large language models. <em>Findings of EMNLP</em>. <a href="https://arxiv.org/abs/2303.08896">https://arxiv.org/abs/2303.08896</a>
+</div>
+<div id="ref-ouyang2022instructgpt" class="csl-entry" role="listitem">
+Ouyang, L., Wu, J., Jiang, X., Almeida, D., Wainwright, C., Mishkin, P., Zhang, C., Agarwal, S., Slama, K., Ray, A., &amp; al., et. (2022). Training language models to follow instructions with human feedback. <em>Advances in Neural Information Processing Systems</em>. <a href="https://arxiv.org/abs/2203.02155">https://arxiv.org/abs/2203.02155</a>
+</div>
+<div id="ref-perez2022modelwritten" class="csl-entry" role="listitem">
+Perez, E., Huang, S., Song, F., Cai, T., Ring, R., Aslanides, J., Glaese, A., McAleese, N., Irving, G., Foulkes, A., &amp; al., et. (2022). Discovering language model behaviors with model-written evaluations. <em>arXiv Preprint arXiv:2212.09251</em>. <a href="https://arxiv.org/abs/2212.09251">https://arxiv.org/abs/2212.09251</a>
+</div>
+<div id="ref-ribeiro2020checklist" class="csl-entry" role="listitem">
+Ribeiro, M. T., Wu, T., Guestrin, C., &amp; Singh, S. (2020). Beyond accuracy: Behavioral testing of NLP models with CheckList. <em>Proceedings of ACL</em>. <a href="https://aclanthology.org/2020.acl-main.442/">https://aclanthology.org/2020.acl-main.442/</a>
+</div>
+<div id="ref-sclar2023spurious" class="csl-entry" role="listitem">
+Sclar, T., Choi, Y., Tsvetkov, Y., &amp; Smith, N. A. (2023). Quantifying language models’ sensitivity to spurious features in prompt design. <em>arXiv Preprint arXiv:2310.11324</em>. <a href="https://arxiv.org/abs/2310.11324">https://arxiv.org/abs/2310.11324</a>
+</div>
+<div id="ref-turpin2023unfaithful" class="csl-entry" role="listitem">
+Turpin, M., Michael, J., Perez, E., &amp; Bowman, S. R. (2023). Language models don’t always say what they think: Unfaithful explanations in chain-of-thought prompting. <em>arXiv Preprint arXiv:2305.04388</em>. <a href="https://arxiv.org/abs/2305.04388">https://arxiv.org/abs/2305.04388</a>
+</div>
+<div id="ref-wang2023mathshepherd" class="csl-entry" role="listitem">
+Wang, P., Li, L., Qi, Z., &amp; al., et. (2023). Math-shepherd: Verify and reinforce LLMs step-by-step without human annotations. <em>arXiv Preprint arXiv:2312.08935</em>. <a href="https://arxiv.org/abs/2312.08935">https://arxiv.org/abs/2312.08935</a>
+</div>
+<div id="ref-wang2023selfconsistency" class="csl-entry" role="listitem">
+Wang, X., Wei, J., Schuurmans, D., Le, Q., Chi, E., Narang, S., Chowdhery, A., &amp; Zhou, D. (2023). Self-consistency improves chain of thought reasoning in language models. <em>International Conference on Learning Representations</em>. <a href="https://arxiv.org/abs/2203.11171">https://arxiv.org/abs/2203.11171</a>
+</div>
+<div id="ref-zhang2019paws" class="csl-entry" role="listitem">
+Zhang, Y., Baldridge, J., &amp; He, L. (2019). PAWS: Paraphrase adversaries from word scrambling. <em>Proceedings of NAACL</em>. <a href="https://aclanthology.org/N19-1382/">https://aclanthology.org/N19-1382/</a>
+</div>
+<div id="ref-zheng2023mtbench" class="csl-entry" role="listitem">
+Zheng, L., Chiang, W.-L., Sheng, Y., Li, T., Zhuang, Y., Wu, Z., Zhuang, S., Lin, Z., Li, E., Xing, E. P., Zhang, H., Gonzalez, J. E., &amp; Stoica, I. (2023). Judging LLM-as-a-judge with MT-bench and chatbot arena. <em>arXiv Preprint arXiv:2306.05685</em>. <a href="https://arxiv.org/abs/2306.05685">https://arxiv.org/abs/2306.05685</a>
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

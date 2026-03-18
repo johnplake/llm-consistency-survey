@@ -367,9 +367,9 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>Benchmark reliability is the meta-consistency problem: can we trust our measurements of model capability? Leaderboard scores are often treated as objective progress, but in LLM evaluation they are highly sensitive to prompt templates, contamination, grading method, and benchmark saturation.</p>
-<p>Three recurring threats dominate this area. First, <strong>data contamination</strong> inflates apparent performance when benchmark-like content appears in training corpora. Second, <strong>format and prompt sensitivity</strong> can change absolute scores—and sometimes rankings—without model changes. Third, <strong>LLM-as-judge biases</strong> (position, verbosity, style preference) can inject systematic artifacts into automatic evaluation.</p>
-<p>As a result, reliable assessment increasingly uses portfolio evaluation: static benchmarks + dynamic human preference + execution-grounded tasks, with strict metadata and reproducibility controls.</p>
+<p>Benchmark reliability is the meta-consistency problem: can we trust our measurements of model capability? Leaderboard scores are often treated as objective progress, but in LLM evaluation they can be highly sensitive to prompt templates, contamination, grading method, and benchmark saturation.</p>
+<p>Three recurring threats are repeatedly documented in this area. First, <strong>data contamination</strong> can inflate apparent performance when benchmark-like content appears in training corpora. Second, <strong>format and prompt sensitivity</strong> can change absolute scores—and sometimes rankings—without model changes. Third, <strong>LLM-as-judge biases</strong> (position, verbosity, style preference) can inject systematic artifacts into automatic evaluation.</p>
+<p>As a result, reliable assessment increasingly uses portfolio evaluation: static benchmarks + dynamic human preference + execution-grounded tasks, with stronger metadata and reproducibility controls.</p>
 </section>
 <section id="key-papers" class="level2">
 <h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
@@ -405,11 +405,11 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="llm-as-judge-artifacts" class="level3">
 <h3 class="anchored" data-anchor-id="llm-as-judge-artifacts">LLM-as-Judge Artifacts</h3>
-<p><strong>Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena</strong> (Zheng et al., 2023) · NeurIPS Datasets/Benchmarks ecosystem · <a href="https://arxiv.org/abs/2306.05685">link</a></p>
+<p><strong>Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena</strong> (Zheng et al., 2023) · arXiv (LMSYS) · <a href="https://arxiv.org/abs/2306.05685">link</a></p>
 <blockquote class="blockquote">
 <p>Foundational modern judge framework plus explicit bias caveats.</p>
 </blockquote>
-<p><strong>G-Eval</strong> (Liu et al., 2023) · EMNLP line · <a href="https://arxiv.org/abs/2303.16634">link</a></p>
+<p><strong>G-Eval</strong> (Liu et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2303.16634">link</a></p>
 <blockquote class="blockquote">
 <p>Strong correlation to human judgments in some settings, but sensitive to rubric/prompt design.</p>
 </blockquote>

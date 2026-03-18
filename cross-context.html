@@ -367,41 +367,41 @@ ul.task-list li input[type="checkbox"] {
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>Cross-context consistency measures whether LLM outputs remain stable when semantics are held constant but context form changes: language, template, ordering, punctuation, answer format, or modality. Failures here are especially costly because they make system behavior difficult to predict and replicate.</p>
-<p>The literature consistently shows that prompt and template details can produce large swings in performance. Demonstration order, label token choices, and small textual artifacts can alter outcomes independent of underlying problem difficulty. Multilingual settings add another layer: the same factual query can yield different answers and confidence levels across languages.</p>
-<p>In short, many models remain highly sensitive to surface form. Robust deployment therefore requires perturbation testing as a default QA practice, not a niche robustness exercise.</p>
+<p>A broad body of work shows that prompt and template details can produce large swings in performance (e.g., <a href="https://arxiv.org/abs/2102.09690">Zhao et al., 2021</a>; <a href="https://aclanthology.org/2022.acl-long.556/">Lu et al., 2022</a>; <a href="https://arxiv.org/abs/2310.11324">Sclar et al., 2023</a>). Demonstration order, label token choices, and small textual artifacts can alter outcomes independent of underlying problem difficulty. Multilingual settings add another layer: equivalent factual queries can yield different answers and confidence levels across languages (<a href="https://arxiv.org/abs/2310.10378">Wang et al., 2023</a>).</p>
+<p>In short, many models remain sensitive to surface form. Robust deployment therefore benefits from perturbation testing as a default QA practice rather than a niche robustness exercise.</p>
 </section>
 <section id="key-papers" class="level2">
 <h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
 <section id="prompt-and-demonstration-sensitivity" class="level3">
 <h3 class="anchored" data-anchor-id="prompt-and-demonstration-sensitivity">Prompt and Demonstration Sensitivity</h3>
-<p><strong>Calibrate Before Use</strong> (Zhao et al., 2021) · ICML · <a href="https://arxiv.org/abs/2102.09690">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2102.09690">Calibrate Before Use</a></strong> (Zhao et al., 2021) · ICML</p>
 <blockquote class="blockquote">
 <p>Landmark paper on contextual calibration and few-shot prompt sensitivity.</p>
 </blockquote>
-<p><strong>Fantastically Ordered Prompts</strong> (Lu et al., 2022) · ACL · <a href="https://aclanthology.org/2022.acl-long.556/">link</a></p>
+<p><strong><a href="https://aclanthology.org/2022.acl-long.556/">Fantastically Ordered Prompts</a></strong> (Lu et al., 2022) · ACL</p>
 <blockquote class="blockquote">
 <p>Demonstration order alone can strongly affect in-context learning outcomes.</p>
 </blockquote>
-<p><strong>Rethinking the Role of Demonstrations</strong> (Min et al., 2022) · EMNLP · <a href="https://arxiv.org/abs/2202.12837">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2202.12837">Rethinking the Role of Demonstrations</a></strong> (Min et al., 2022) · EMNLP</p>
 <blockquote class="blockquote">
 <p>Shows superficial format cues can matter more than semantic relevance in ICL.</p>
 </blockquote>
-<p><strong>Quantifying Sensitivity to Spurious Prompt Features</strong> (Sclar et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2310.11324">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2310.11324">Quantifying Sensitivity to Spurious Prompt Features</a></strong> (Sclar et al., 2023) · arXiv</p>
 <blockquote class="blockquote">
 <p>Capitalization, punctuation, and label tokens can materially shift model behavior.</p>
 </blockquote>
 </section>
 <section id="cross-lingual-and-multimodal-consistency" class="level3">
 <h3 class="anchored" data-anchor-id="cross-lingual-and-multimodal-consistency">Cross-Lingual and Multimodal Consistency</h3>
-<p><strong>Cross-Lingual Consistency of Factual Knowledge in Multilingual LMs</strong> (Wang et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2310.10378">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2310.10378">Cross-Lingual Consistency of Factual Knowledge in Multilingual LMs</a></strong> (Wang et al., 2023) · arXiv</p>
 <blockquote class="blockquote">
 <p>Direct evidence that factual outputs can diverge by language for equivalent questions.</p>
 </blockquote>
-<p><strong>Language Models are Multilingual Chain-of-Thought Reasoners</strong> (Shi et al., 2023) · ICLR line · <a href="https://arxiv.org/abs/2210.03057">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2210.03057">Language Models are Multilingual Chain-of-Thought Reasoners</a></strong> (Shi et al., 2023) · ICLR</p>
 <blockquote class="blockquote">
 <p>CoT transfer exists but is uneven across language-resource conditions.</p>
 </blockquote>
-<p><strong>MMBench</strong> (Liu et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2307.06281">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2307.06281">MMBench</a></strong> (Liu et al., 2023) · arXiv</p>
 <blockquote class="blockquote">
 <p>Multimodal benchmark exposing prompt/format brittleness in VLM evaluation.</p>
 </blockquote>
@@ -409,15 +409,15 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="preprints-recent-work" class="level2">
 <h2 class="anchored" data-anchor-id="preprints-recent-work">Preprints &amp; Recent Work</h2>
-<p><strong>PromptBench</strong> (Zhu et al., 2023) · NeurIPS Datasets/Benchmarks track · <a href="https://arxiv.org/abs/2306.04528">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2306.04528">PromptBench</a></strong> (Zhu et al., 2023) · NeurIPS Datasets/Benchmarks track</p>
 <blockquote class="blockquote">
 <p>Standardized stress testing for adversarial and perturbed prompts.</p>
 </blockquote>
-<p><strong>Look at the Labels</strong> (Sahay et al., 2024) · arXiv · <a href="https://arxiv.org/abs/2402.09309">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2402.09309">Look at the Labels</a></strong> (Sahay et al., 2024) · arXiv</p>
 <blockquote class="blockquote">
 <p>Classifier-free metric for prompt sensitivity and output instability.</p>
 </blockquote>
-<p><strong>MMMU</strong> (Fu et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2311.16502">link</a></p>
+<p><strong><a href="https://arxiv.org/abs/2311.16502">MMMU</a></strong> (Fu et al., 2023) · arXiv</p>
 <blockquote class="blockquote">
 <p>Broad multimodal reasoning benchmark useful for cross-format consistency studies.</p>
 </blockquote>
@@ -425,9 +425,9 @@ ul.task-list li input[type="checkbox"] {
 <section id="blog-posts-practitioner-resources" class="level2">
 <h2 class="anchored" data-anchor-id="blog-posts-practitioner-resources">Blog Posts &amp; Practitioner Resources</h2>
 <ul>
-<li><p><strong>Hugging Face evaluation/robustness guides</strong> (HF, ongoing) — <a href="https://huggingface.co/blog" class="uri">https://huggingface.co/blog</a> Practical tutorials on prompt robustness and multilingual evaluation.</p></li>
-<li><p><strong>OpenAI Cookbook</strong> (OpenAI, ongoing) — <a href="https://cookbook.openai.com/" class="uri">https://cookbook.openai.com/</a> Prompt/format testing patterns and reproducibility practices.</p></li>
-<li><p><strong>CRFM/HELM docs</strong> (Stanford CRFM, ongoing) — <a href="https://crfm.stanford.edu/helm/latest/" class="uri">https://crfm.stanford.edu/helm/latest/</a> Multi-scenario framework that encourages robust cross-context reporting.</p></li>
+<li><p><strong><a href="https://huggingface.co/blog">Hugging Face evaluation/robustness guides</a></strong> (HF, ongoing) Practical tutorials on prompt robustness and multilingual evaluation.</p></li>
+<li><p><strong><a href="https://cookbook.openai.com/">OpenAI Cookbook</a></strong> (OpenAI, ongoing) Prompt/format testing patterns and reproducibility practices.</p></li>
+<li><p><strong><a href="https://crfm.stanford.edu/helm/latest/">CRFM/HELM docs</a></strong> (Stanford CRFM, ongoing) Multi-scenario framework that encourages robust cross-context reporting.</p></li>
 </ul>
 </section>
 <section id="benchmarks-datasets" class="level2">
@@ -443,43 +443,43 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td>PromptBench</td>
+<td><a href="https://arxiv.org/abs/2306.04528">PromptBench</a></td>
 <td>2023</td>
 <td>Adversarial and perturbed prompt robustness</td>
 <td><a href="https://arxiv.org/abs/2306.04528" class="uri">https://arxiv.org/abs/2306.04528</a></td>
 </tr>
 <tr class="even">
-<td>CheckList</td>
+<td><a href="https://aclanthology.org/2020.acl-main.442/">CheckList</a></td>
 <td>2020</td>
 <td>Invariance and directional expectation tests</td>
 <td><a href="https://aclanthology.org/2020.acl-main.442/" class="uri">https://aclanthology.org/2020.acl-main.442/</a></td>
 </tr>
 <tr class="odd">
-<td>MGSM</td>
+<td><a href="https://arxiv.org/abs/2210.03057">MGSM</a></td>
 <td>2023</td>
 <td>Multilingual grade-school math consistency</td>
 <td><a href="https://arxiv.org/abs/2210.03057" class="uri">https://arxiv.org/abs/2210.03057</a></td>
 </tr>
 <tr class="even">
-<td>XCOPA</td>
+<td><a href="https://aclanthology.org/2020.findings-emnlp.240/">XCOPA</a></td>
 <td>2020</td>
 <td>Cross-lingual causal commonsense</td>
 <td><a href="https://aclanthology.org/2020.findings-emnlp.240/" class="uri">https://aclanthology.org/2020.findings-emnlp.240/</a></td>
 </tr>
 <tr class="odd">
-<td>Belebele</td>
+<td><a href="https://arxiv.org/abs/2308.16884">Belebele</a></td>
 <td>2023</td>
 <td>Massively multilingual reading comprehension</td>
 <td><a href="https://arxiv.org/abs/2308.16884" class="uri">https://arxiv.org/abs/2308.16884</a></td>
 </tr>
 <tr class="even">
-<td>MMBench</td>
+<td><a href="https://arxiv.org/abs/2307.06281">MMBench</a></td>
 <td>2023</td>
 <td>Multimodal prompt/format robustness</td>
 <td><a href="https://arxiv.org/abs/2307.06281" class="uri">https://arxiv.org/abs/2307.06281</a></td>
 </tr>
 <tr class="odd">
-<td>MMMU</td>
+<td><a href="https://arxiv.org/abs/2311.16502">MMMU</a></td>
 <td>2023</td>
 <td>Multi-discipline multimodal reasoning</td>
 <td><a href="https://arxiv.org/abs/2311.16502" class="uri">https://arxiv.org/abs/2311.16502</a></td>
@@ -490,9 +490,9 @@ ul.task-list li input[type="checkbox"] {
 <section id="github-repos" class="level2">
 <h2 class="anchored" data-anchor-id="github-repos">GitHub Repos</h2>
 <ul>
-<li><p><strong>microsoft/promptbench</strong> — <a href="https://github.com/microsoft/promptbench" class="uri">https://github.com/microsoft/promptbench</a> Core benchmark implementation for prompt perturbation testing.</p></li>
-<li><p><strong>EleutherAI/lm-evaluation-harness</strong> — <a href="https://github.com/EleutherAI/lm-evaluation-harness" class="uri">https://github.com/EleutherAI/lm-evaluation-harness</a> Reproducible multi-task framework for prompt-format comparisons.</p></li>
-<li><p><strong>openai/evals</strong> — <a href="https://github.com/openai/evals" class="uri">https://github.com/openai/evals</a> Custom format-variant eval authoring.</p></li>
+<li><p><strong><a href="https://github.com/microsoft/promptbench">microsoft/promptbench</a></strong> Core benchmark implementation for prompt perturbation testing.</p></li>
+<li><p><strong><a href="https://github.com/EleutherAI/lm-evaluation-harness">EleutherAI/lm-evaluation-harness</a></strong> Reproducible multi-task framework for prompt-format comparisons.</p></li>
+<li><p><strong><a href="https://github.com/openai/evals">openai/evals</a></strong> Custom format-variant eval authoring.</p></li>
 </ul>
 </section>
 <section id="key-takeaways" class="level2">

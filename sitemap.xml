@@ -2,46 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://johnplake.github.io/llm-consistency-survey/resources.html</loc>
-    <lastmod>2026-03-18T20:07:34.479Z</lastmod>
+    <lastmod>2026-03-18T20:40:08.107Z</lastmod>
   </url>
   <url>
     <loc>https://johnplake.github.io/llm-consistency-survey/benchmark-reliability.html</loc>
-    <lastmod>2026-03-18T20:06:58.228Z</lastmod>
+    <lastmod>2026-03-18T20:40:03.274Z</lastmod>
   </url>
   <url>
     <loc>https://johnplake.github.io/llm-consistency-survey/calibration.html</loc>
-    <lastmod>2026-03-18T20:05:57.597Z</lastmod>
+    <lastmod>2026-03-18T20:39:17.220Z</lastmod>
   </url>
   <url>
     <loc>https://johnplake.github.io/llm-consistency-survey/reasoning-consistency.html</loc>
-    <lastmod>2026-03-18T20:04:54.785Z</lastmod>
+    <lastmod>2026-03-18T20:38:10.723Z</lastmod>
   </url>
   <url>
     <loc>https://johnplake.github.io/llm-consistency-survey/factual-consistency.html</loc>
-    <lastmod>2026-03-18T20:03:56.601Z</lastmod>
+    <lastmod>2026-03-18T20:38:08.701Z</lastmod>
   </url>
   <url>
     <loc>https://johnplake.github.io/llm-consistency-survey/index.html</loc>
-    <lastmod>2026-03-18T19:23:04.227Z</lastmod>
+    <lastmod>2026-03-18T20:37:44.776Z</lastmod>
   </url>
   <url>
     <loc>https://johnplake.github.io/llm-consistency-survey/taxonomy.html</loc>
-    <lastmod>2026-03-18T20:08:26.041Z</lastmod>
+    <lastmod>2026-03-18T20:38:13.797Z</lastmod>
   </url>
   <url>
     <loc>https://johnplake.github.io/llm-consistency-survey/self-consistency.html</loc>
-    <lastmod>2026-03-18T20:04:25.380Z</lastmod>
+    <lastmod>2026-03-18T20:37:58.022Z</lastmod>
   </url>
   <url>
     <loc>https://johnplake.github.io/llm-consistency-survey/behavioral-consistency.html</loc>
-    <lastmod>2026-03-18T20:05:27.357Z</lastmod>
+    <lastmod>2026-03-18T20:38:59.815Z</lastmod>
   </url>
   <url>
     <loc>https://johnplake.github.io/llm-consistency-survey/cross-context.html</loc>
-    <lastmod>2026-03-18T20:06:25.477Z</lastmod>
+    <lastmod>2026-03-18T20:40:45.390Z</lastmod>
   </url>
   <url>
     <loc>https://johnplake.github.io/llm-consistency-survey/generator-validator-gap.html</loc>
-    <lastmod>2026-03-18T20:08:05.415Z</lastmod>
+    <lastmod>2026-03-18T20:40:45.734Z</lastmod>
   </url>
 </urlset>

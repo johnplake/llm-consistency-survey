@@ -367,9 +367,9 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>Reasoning consistency asks whether an LLM’s multi-step reasoning is stable, valid, and faithful—not just whether it occasionally lands on the right final answer. A recurring finding is <strong>process-outcome mismatch</strong>: models can produce correct answers with weak rationales, and persuasive rationales with incorrect conclusions.</p>
-<p>Chain-of-thought prompting dramatically improved benchmark performance, but it also exposed faithfulness problems. Generated rationales are often post-hoc narratives rather than transparent traces of computation. This matters for safety and auditability: if the rationale is unreliable, it cannot be treated as a trustworthy explanation.</p>
-<p>The field is moving toward verifier-centric and process-supervised methods (step-level checks, process reward models, search over candidate traces). These methods implicitly treat reasoning reliability as a generate-then-validate problem.</p>
+<p>Reasoning consistency asks whether an LLM’s multi-step reasoning is stable, valid, and faithful—not just whether it occasionally lands on the right final answer. A recurring finding is <strong>process-outcome mismatch</strong>: models can produce correct answers with weak rationales, and persuasive rationales with incorrect conclusions (e.g., <a href="https://arxiv.org/abs/2305.04388">Turpin et al., 2023</a>).</p>
+<p>Chain-of-thought prompting improved benchmark performance (<a href="https://arxiv.org/abs/2201.11903">Wei et al., 2022</a>; <a href="https://arxiv.org/abs/2205.11916">Kojima et al., 2022</a>), but it also exposed faithfulness problems. Generated rationales are often post-hoc narratives rather than transparent traces of computation (<a href="https://arxiv.org/abs/2305.04388">Turpin et al., 2023</a>). This matters for safety and auditability: if the rationale is unreliable, it cannot be treated as a trustworthy explanation.</p>
+<p>Much recent work emphasizes verifier-centric and process-supervised methods (step-level checks, process reward models, search over candidate traces), including <a href="https://arxiv.org/abs/2110.14168">Cobbe et al., 2021</a>, <a href="https://arxiv.org/abs/2305.20050">Lightman et al., 2023</a>, and search-style prompting such as <a href="https://arxiv.org/abs/2305.10601">Tree of Thoughts</a>. These methods treat reasoning reliability as a generate-then-validate problem.</p>
 </section>
 <section id="key-papers" class="level2">
 <h2 class="anchored" data-anchor-id="key-papers">Key Papers</h2>
@@ -411,7 +411,7 @@ ul.task-list li input[type="checkbox"] {
 </blockquote>
 <p><strong>ReAct</strong> (Yao et al., 2023) · ICLR · <a href="https://arxiv.org/abs/2210.03629">link</a></p>
 <blockquote class="blockquote">
-<p>Integrates reasoning with tool interaction, improving verifiability and reducing unsupported internal speculation.</p>
+<p>Integrates reasoning with tool interaction, which can improve traceability and reduce purely implicit reasoning steps on tool-using tasks.</p>
 </blockquote>
 </section>
 </section>
@@ -423,7 +423,7 @@ ul.task-list li input[type="checkbox"] {
 </blockquote>
 <p><strong>Reflexion</strong> (Shinn et al., 2023) · NeurIPS-era preprint · <a href="https://arxiv.org/abs/2303.11366">link</a></p>
 <blockquote class="blockquote">
-<p>Iterative self-improvement with feedback memory; works best with external success signals.</p>
+<p>Iterative self-improvement with feedback memory, typically paired with external task feedback/signals.</p>
 </blockquote>
 <p><strong>Large Language Models Cannot Self-Correct Reasoning Yet</strong> (Huang et al., 2023) · arXiv · <a href="https://arxiv.org/abs/2310.01798">link</a></p>
 <blockquote class="blockquote">

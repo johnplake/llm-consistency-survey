@@ -22,7 +22,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -374,7 +394,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="what-is-this-survey-about" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-this-survey-about">What Is This Survey About?</h2>
-<p>Large language models (LLMs) exhibit a troubling pattern: ask the same question twice and you may get different answers. Rephrase the question slightly and the answer changes. Push back on a response and the model capitulates. Provide misleading context and the model abandons what it “knows.” These are all manifestations of <strong>LLM inconsistency</strong>.</p>
+<p>Large language models (LLMs) exhibit a troubling pattern: ask the same question twice and you may get different answers. Rephrase the question slightly and the answer changes <span class="citation" data-cites="lu2022orderedprompts sclar2023spurious">(<a href="#ref-lu2022orderedprompts" role="doc-biblioref">Lu et al., 2022</a>; <a href="#ref-sclar2023spurious" role="doc-biblioref">Sclar et al., 2023</a>)</span>. Push back on a response and the model may shift its answer to match user cues <span class="citation" data-cites="perez2022modelwritten">(<a href="#ref-perez2022modelwritten" role="doc-biblioref">Perez et al., 2022</a>)</span>. Provide misleading context and the model can abandon prior claims. These are all manifestations of <strong>LLM inconsistency</strong>.</p>
 <p>This survey maps the landscape of LLM consistency issues comprehensively — covering academic papers, preprints, blog posts, and practical resources. The goal is to provide both an <strong>overview</strong> and a <strong>navigable map</strong>: a guide for researchers, practitioners, and curious minds trying to understand this fragmented problem space.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -394,11 +414,11 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="why-this-matters">Why This Matters</h2>
 <p>Inconsistency is not just an academic curiosity. It affects:</p>
 <ul>
-<li><strong>Scientific reproducibility</strong>: Research using LLMs may not replicate even with the same prompts</li>
-<li><strong>Deployed applications</strong>: Chatbots, coding assistants, and decision-support tools give different answers on different runs</li>
-<li><strong>Trust calibration</strong>: Users cannot know when to trust a model’s output</li>
-<li><strong>Evaluation validity</strong>: Benchmarks may measure prompt sensitivity rather than capability</li>
-<li><strong>Safety and alignment</strong>: Inconsistent models are harder to audit and align</li>
+<li><strong>Scientific reproducibility</strong>: Research using LLMs can be sensitive to prompt phrasing and setup details, making exact replication harder <span class="citation" data-cites="lu2022orderedprompts liang2022helm">(<a href="#ref-liang2022helm" role="doc-biblioref">Liang et al., 2022</a>; <a href="#ref-lu2022orderedprompts" role="doc-biblioref">Lu et al., 2022</a>)</span></li>
+<li><strong>Deployed applications</strong>: Chatbots and assistants can produce materially different outputs across runs or prompt variants <span class="citation" data-cites="zhu2023promptbench sclar2023spurious">(<a href="#ref-sclar2023spurious" role="doc-biblioref">Sclar et al., 2023</a>; <a href="#ref-zhu2023promptbench" role="doc-biblioref">Zhu &amp; al., 2023</a>)</span></li>
+<li><strong>Trust calibration</strong>: Users may struggle to calibrate trust when confidence and correctness are weakly coupled <span class="citation" data-cites="kadavath2022know xiong2023express">(<a href="#ref-kadavath2022know" role="doc-biblioref">Kadavath &amp; al., 2022</a>; <a href="#ref-xiong2023express" role="doc-biblioref">Xiong &amp; al., 2023</a>)</span></li>
+<li><strong>Evaluation validity</strong>: Benchmark scores can partly reflect prompt/template sensitivity rather than underlying capability <span class="citation" data-cites="lu2022orderedprompts liang2022helm">(<a href="#ref-liang2022helm" role="doc-biblioref">Liang et al., 2022</a>; <a href="#ref-lu2022orderedprompts" role="doc-biblioref">Lu et al., 2022</a>)</span></li>
+<li><strong>Safety and alignment</strong>: Inconsistent behavior complicates auditing and reliability efforts in aligned assistants <span class="citation" data-cites="ouyang2022instructgpt bai2022constitutional">(<a href="#ref-bai2022constitutional" role="doc-biblioref">Bai et al., 2022</a>; <a href="#ref-ouyang2022instructgpt" role="doc-biblioref">Ouyang et al., 2022</a>)</span></li>
 </ul>
 </section>
 <section id="taxonomy-overview" class="level2">
@@ -472,9 +492,38 @@ ul.task-list li input[type="checkbox"] {
 <p><a href="https://github.com/johnplake/llm-consistency-survey" class="btn btn-outline-secondary btn-sm">View on GitHub</a></p>
 
 
+
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-bai2022constitutional" class="csl-entry" role="listitem">
+Bai, Y., Kadavath, S., Kundu, S., Askell, A., Kernion, J., Jones, A., Chen, A., Goldie, A., Mirhoseini, A., McKinnon, C., &amp; al., et. (2022). Constitutional AI: Harmlessness from AI feedback. <em>arXiv Preprint arXiv:2212.08073</em>. <a href="https://arxiv.org/abs/2212.08073">https://arxiv.org/abs/2212.08073</a>
+</div>
+<div id="ref-kadavath2022know" class="csl-entry" role="listitem">
+Kadavath, S., &amp; al., et. (2022). Language models (mostly) know what they know. <em>arXiv Preprint arXiv:2207.05221</em>. <a href="https://arxiv.org/abs/2207.05221">https://arxiv.org/abs/2207.05221</a>
+</div>
+<div id="ref-liang2022helm" class="csl-entry" role="listitem">
+Liang, P., Bommasani, R., Lee, T., Tsipras, D., Soylu, D., Yasunaga, M., Zhang, Y., &amp; al., et. (2022). Holistic evaluation of language models. <em>arXiv Preprint arXiv:2211.09110</em>. <a href="https://arxiv.org/abs/2211.09110">https://arxiv.org/abs/2211.09110</a>
+</div>
+<div id="ref-lu2022orderedprompts" class="csl-entry" role="listitem">
+Lu, Y., Bartolo, M., Moore, A., Riedel, S., &amp; Stenetorp, P. (2022). Fantastically ordered prompts and where to find them: Overcoming few-shot prompt order sensitivity. <em>Proceedings of ACL</em>. <a href="https://aclanthology.org/2022.acl-long.556/">https://aclanthology.org/2022.acl-long.556/</a>
+</div>
+<div id="ref-ouyang2022instructgpt" class="csl-entry" role="listitem">
+Ouyang, L., Wu, J., Jiang, X., Almeida, D., Wainwright, C., Mishkin, P., Zhang, C., Agarwal, S., Slama, K., Ray, A., &amp; al., et. (2022). Training language models to follow instructions with human feedback. <em>Advances in Neural Information Processing Systems</em>. <a href="https://arxiv.org/abs/2203.02155">https://arxiv.org/abs/2203.02155</a>
+</div>
+<div id="ref-perez2022modelwritten" class="csl-entry" role="listitem">
+Perez, E., Huang, S., Song, F., Cai, T., Ring, R., Aslanides, J., Glaese, A., McAleese, N., Irving, G., Foulkes, A., &amp; al., et. (2022). Discovering language model behaviors with model-written evaluations. <em>arXiv Preprint arXiv:2212.09251</em>. <a href="https://arxiv.org/abs/2212.09251">https://arxiv.org/abs/2212.09251</a>
+</div>
+<div id="ref-sclar2023spurious" class="csl-entry" role="listitem">
+Sclar, T., Choi, Y., Tsvetkov, Y., &amp; Smith, N. A. (2023). Quantifying language models’ sensitivity to spurious features in prompt design. <em>arXiv Preprint arXiv:2310.11324</em>. <a href="https://arxiv.org/abs/2310.11324">https://arxiv.org/abs/2310.11324</a>
+</div>
+<div id="ref-xiong2023express" class="csl-entry" role="listitem">
+Xiong, Z., &amp; al., et. (2023). Can LLMs express their uncertainty? An empirical evaluation of confidence elicitation in LLMs. <em>arXiv Preprint arXiv:2306.13063</em>. <a href="https://arxiv.org/abs/2306.13063">https://arxiv.org/abs/2306.13063</a>
+</div>
+<div id="ref-zhu2023promptbench" class="csl-entry" role="listitem">
+Zhu, X., &amp; al., et. (2023). PromptBench: Towards evaluating the robustness of large language models on adversarial prompts. <em>arXiv Preprint arXiv:2306.04528</em>. <a href="https://arxiv.org/abs/2306.04528">https://arxiv.org/abs/2306.04528</a>
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
