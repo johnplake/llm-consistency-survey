@@ -1,171 +1,253 @@
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{parskip}
+\usepackage{microtype}
+\hypersetup{colorlinks=true, urlcolor=blue, linkcolor=black, citecolor=black}
 
-\title{Generator--Validator Gap in LLMs: A Concise Survey and Reading Roadmap}
+\title{Generator--Validator Gap in LLMs:\\A Survey and Reading Roadmap}
 \author{John P. Lake}
 \date{2026-03-18}
 
 \begin{document}
 \maketitle
+\tableofcontents
+\clearpage
 
+% ─────────────────────────────────────────────────────────────────────────────
 \section{Scope and Method}
-This report synthesizes papers curated into ten Zotero subcollections under \texttt{LLM-inconsistency}. For each topic, papers were retained only if they directly answered the collection question. Marginally related items were removed.
+% ─────────────────────────────────────────────────────────────────────────────
 
-\textbf{Revision note (2026-03-18, late pass).}
-After initial drafting, a quality pass added (i) detailed per-paper notes in Zotero, (ii) formatting normalization for Zotero note readability, and (iii) an expanded dossier for Q1 (generator-improvement-via-validator) at \texttt{research/gv-q1-detailed-dossier.md}. This PDF remains a concise synthesis, while detailed evidence is in the per-question dossiers.
+This report covers the \textbf{generator--validator (GV) gap} in large language models: the asymmetry between a model's ability to \emph{generate} correct outputs and its (typically superior) ability to \emph{validate or discriminate} among candidate outputs. We organized the literature into ten focused Zotero subcollections under \texttt{LLM-inconsistency}, each targeting a specific research question. Papers were retained only when directly relevant; marginal items were removed after a relevance audit. Detailed per-paper notes are attached as child notes in Zotero and in \texttt{gv-q1-detailed-dossier.md} and the per-question \texttt{gv-q*.md} files.
 
-\section{1) Improving the Generator Using the Validator}
-\textbf{Core contribution of this line:} use verifier/judge/ranker signal to improve generation quality beyond plain supervised finetuning (SFT), either via training objectives or inference-time reranking.
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Q1: Improving the Generator Using the Validator}
+% ─────────────────────────────────────────────────────────────────────────────
 
-\textbf{Key papers and relevance.}
+This section covers methods that use verifier, judge, or ranking signal to improve generation quality, either at training time or through inference-time reranking. The central question is whether and how the model's better-calibrated discriminative ability can be fed back to improve its weaker generative behavior.
+
+\paragraph{Training Verifiers to Solve Math Word Problems (Cobbe et al., 2021).}
+This paper introduces GSM8K (8.5K grade-school math problems) and proposes training a separate learned verifier to score candidate solutions sampled from a generator; the highest-scoring candidate is selected. The key empirical claim is that adding a verifier at reranking time can yield gains comparable to roughly a 30$\times$ increase in model size. The paper establishes that candidate diversity combined with a quality filter is a practically viable lever for boosting generation quality without changing the generator's weights. The main caveat is domain specificity: the verifier is trained on math and needs re-training or re-calibration for other domains. The central open question is how verifier quality and candidate sample count trade off at fixed compute budget.
+
+\paragraph{Solving Math Word Problems With Process- and Outcome-Based Feedback (Uesato et al., 2022).}
+This paper makes the first rigorous comparison of \emph{process-based} versus \emph{outcome-based} feedback signals for math reasoning (GSM8K). Using Chinchilla-family models, they study SFT, outcome reward modeling (ORM), process reward modeling (PRM), and expert-iteration-style RL variants. Key reported numbers: final-answer error falls from 16.8\% to 12.7\%, trace error from 14.0\% to 3.4\% (best models), and with 30\% abstention, final-answer error reaches 2.7\%. Process-aware validators improve both final-answer correctness and reasoning trace quality; outcome-only supervision is consistently inferior (23.5\% vs 22.3\% error, without reward models; 16.6\% vs 14.8\%, with). This paper directly shows that validator \emph{design} matters: a step-level critic improves generator outputs beyond what a final-answer judge can. The main limitation is annotation cost for step-level labels.
+
+\paragraph{Let's Verify Step by Step (Lightman et al., 2023).}
+This paper scales process supervision with PRM800K, a dataset of 800,000 human step-level labels for math reasoning (MATH benchmark). They compare outcome-supervised reward models (ORMs) versus process-supervised reward models (PRMs), and show that step-level supervision outperforms outcome-level. Best reported accuracy: approximately 78.2\% on a MATH test subset with PRM-guided best-of-N selection. Active learning gives a 2.6$\times$ data efficiency gain for collecting process labels. This is the strongest evidence that a high-quality step-level validator materially improves generation selection. The main limitation is the high annotation cost and domain concentration in math; open questions concern whether synthetic step labels can replace part of PRM800K.
+
+\paragraph{Constitutional AI (Bai et al., 2022).}
+This paper introduces a two-stage training pipeline: (1) SFT with self-critique and revision under a written constitution of normative principles, and (2) RL from AI-generated pairwise feedback (RLAIF). The goal is to improve harmlessness while maintaining helpfulness, with substantially reduced human preference labeling. Human evaluations report improved harmlessness/helpfulness trade-off versus RLHF baselines. The key idea is that a model can serve as its own validator under structured principle prompting, producing useful training signal at scale. Caveats: constitution quality is a bottleneck; biased principles propagate into training; quantitative deltas on specific evaluations are not independently verified in this note. Open question: which constitutional principles drive the most behavior change?
+
+\paragraph{ReST: Reinforced Self-Training (Gulcehre et al., 2023).}
+ReST proposes an offline iterative alternative to online PPO: alternating \emph{Grow} steps (sample data from current policy) with \emph{Improve} steps (filter with reward model, then do offline RL). The paper is instantiated primarily for machine translation (IWSLT14 De-En: +5.3 BLEU; Web Domain En-Zh: +0.8 BLEU) with human preference gains reported alongside. The key contribution is demonstrating that a validator (reward model) can structure iterative data curation without online rollouts, making the generator-improvement-from-validator loop more compute-stable. The limitation is that evidence is mostly translation-centric; generalization to open-ended instruction following is not the primary contribution.
+
+\paragraph{RRHF: Rank Responses to Align Language Models with Human Feedback (Yuan et al., 2023).}
+RRHF replaces PPO-style RL with a ranking-based loss over responses from mixed sources (model, other LMs, human demonstrations). By optimizing log-probability-based ranking constraints, it aligns the generator toward judge-preferred outputs without a separate RL inner loop. The paper reports comparable alignment to PPO on reward-model and human evaluations in Helpful-Harmless settings (reward-model accuracy examples around 68.49\%). The main limitation is strong sensitivity to candidate sampling quality: weak candidate diversity degrades the ranking signal. The approach is simpler to tune than PPO while preserving the ``judge improves generator'' mechanism.
+
+\paragraph{Direct Preference Optimization (Rafailov et al., 2023).}
+DPO reparameterizes the RLHF objective to eliminate the separate reward-model training step and RL rollouts, instead deriving a direct binary cross-entropy objective over preference pairs. If a validator (judge or human) can produce pairwise preferences, DPO turns those signals directly into generator weight updates without online sampling. The paper reports win rates of approximately 61\% at temperature 0 versus PPO's ~57\% on summarization/dialogue tasks. The key practical value: any judge or verifier that emits pairwise preferences can now be used to train generators with much less infrastructure. Caveats: quality is bounded by preference data quality and judge reliability.
+
+\paragraph{Self-Refine: Iterative Refinement with Self-Feedback (Madaan et al., 2023).}
+Self-Refine uses the same LLM in three prompt-structured roles: generator, critic, and refiner, iterating without any weight updates. The paper evaluates on 7 tasks (dialog, constrained generation, code optimization, math reasoning) and reports roughly 20\% average absolute improvement versus one-shot generation, with task-specific ranges from roughly 5 to 40\%. For code optimization (GPT-4), accuracy improves from 27.3\% to 36.0\%. The key insight is that the model's better discriminative/evaluative ability can be operationalized at inference time without retraining, though self-feedback can be wrong and gains plateau. This is a practical drop-in quality layer when retraining is not feasible.
+
+\paragraph{Self-Rewarding Language Models (Yuan et al., 2024).}
+This paper trains Llama-2-70B iteratively using the model's own LLM-as-a-Judge scores as reward signal: the model generates candidates, judges them pairwise, selects preferences, and runs DPO---repeating for multiple rounds. Reported AlpacaEval-over-GPT-4-Turbo win rates improve across iterations: 9.94\% (M1) $\to$ 15.38\% (M2) $\to$ 20.44\% (M3). Head-to-head: M3 wins 62.5\% vs 9.8\% over SFT baseline. The key idea is that the generator and validator can be unified and co-improved in a scalable closed loop. The risk is self-reinforcing judge bias: if the model's evaluative ability drifts, its self-reward is unreliable. Open question: does iterative self-rewarding converge stably over many more rounds?
+
+\paragraph{LLM-Blender (Jiang et al., 2023).}
+LLM-Blender introduces PairRank (pairwise ranker over candidates from multiple source LMs) and GenFuser (a generator that fuses the top-ranked candidates). The paper introduces MixInstruct as a large-scale benchmark. The motivating finding: no single model is best on more than 21\% of examples; per-example routing and fusion beats any individual model. PairRank-selected outputs average GPT-rank 3.20, approximately 18\% relative improvement over the best single model. This demonstrates that a dedicated ranking validator can extract quality from ensemble diversity that no individual generator provides alone. Limitation: requires multiple candidate generators and adds latency.
+
+\paragraph{Open questions for Q1.}
+Under what conditions does validator-guided generator training outperform investing the same compute in larger/better SFT data? How do we prevent reward hacking against a fixed validator, especially under repeated iterations? Can process-level validators be ported beyond math/coding to open-ended generation?
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Q2: Applications of Closing the GV Gap}
+% ─────────────────────────────────────────────────────────────────────────────
+
+Closing the GV gap has practical downstream consequences. The papers below identify concrete domains where better generator--validator alignment produces measurable improvements.
+
+\paragraph{MT-Bench and Chatbot Arena (Zheng et al., 2023).}
+This paper introduces MT-Bench (multi-turn instruction-following evaluation) and Chatbot Arena (crowd-sourced Elo-based comparison) and uses GPT-4 as a pairwise judge. The key result is that GPT-4-as-judge achieves $>$80\% agreement with human preferences, comparable to inter-human agreement. This validates the LLM-as-judge paradigm as a scalable alternative to human evaluation, with implications for any application where a validator is used to score or rank generator outputs at deployment scale. Limitations: judge quality is model-family-specific; position and verbosity biases are documented.
+
+\paragraph{G-Eval (Liu et al., 2023).}
+G-Eval uses GPT-4 with structured rubrics and chain-of-thought scoring for NLG evaluation (summarization, dialog). The key improvement over prior automatic metrics is Spearman correlation of 0.514 with human judgments on summarization tasks. The paper makes explicit that \emph{how} you prompt the validator matters: structured rubrics outperform unstructured scoring. This has direct application to using LLM judges in generator training loops---validator signal quality is upstream of training quality.
+
+\paragraph{Prometheus (Kim et al., 2023).}
+Prometheus fine-tunes a judge model (from Llama-based models) specifically for rubric-guided, fine-grained evaluation. The result is a smaller, open, customizable judge that matches GPT-4-level correlation on specific rubric settings without GPT-4 API costs. For applications requiring fine-grained feedback (e.g., educational writing, code, instruction-following at specific qualities), Prometheus shows that validator quality can be specialized and improved beyond general-purpose judges.
+
+\paragraph{SelfCheckGPT (Manakul et al., 2023).}
+SelfCheckGPT detects hallucinations in generated passages by checking consistency across multiple independent samples from the same model---no external ground truth required. It achieves stronger sentence-level hallucination detection (AUC-PR) than prior baselines. The application: generated content can be validated and filtered/flagged post-generation without explicit knowledge base access, enabling hallucination-aware deployment. Limitation: requires multiple samples and thus higher inference cost.
+
+\paragraph{RARR (Gao et al., 2022).}
+RARR (Researching and Revising) retrieves external evidence and uses it to identify and fix unsupported claims in generated text. Human evaluations show improved factual attribution with limited degradation in fluency. The application is factuality correction: a retrieval-grounded validator can post-edit generator outputs to close the gap between what the model says and what is externally verifiable. Limitation: depends on retrieval quality and coverage.
+
+\paragraph{RankGen (Krishna et al., 2023).}
+RankGen trains a large encoder to rank text generation candidates by quality, outperforming likelihood-based decoding by human preference metrics. The approach directly instantiates generator--ranker decomposition: generation produces diversity, and the ranker (validator) selects quality. The paper demonstrates that separate ranking models trained for quality provide complementary signal to generation likelihood, which tends to favor plausible but possibly lower-quality completions.
+
+\paragraph{Open questions for Q2.}
+Which application domains require strict GV consistency versus calibrated uncertainty in the validator? How much human oversight remains necessary at deployment for judge-mediated decisions?
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Q3: Mechanism---Why Disagreement Occurs}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\paragraph{Language Models (Mostly) Know What They Know (Kadavath et al., 2022).}
+This paper probes whether LLMs have reliable metacognitive signals about their own correctness. Using P(True)-style elicitation (prompting the model to judge whether its answer is correct), it finds that confidence estimates are \emph{substantially more accurate than first-pass generation suggests}: the model's hidden states carry useful truth-tracking information that free generation does not consistently surface. This is a core mechanism paper for the GV gap: the latent belief is present, but the readout (generation) is imperfect.
+
+\paragraph{Discovering Latent Knowledge in Language Models Without Supervision (Burns et al., 2022).}
+Burns et al.\ show that \emph{unsupervised} linear probes on LLM hidden states can recover truth-tracking signals even when the model's generated output is wrong or deceptive. This extends the Kadavath result: not only does the model have some metacognitive capacity, but the truth signal is geometrically accessible from representations without any task-specific supervision. This provides mechanistic support for the idea that GV gap is partly a \emph{readout/decoding problem}, not purely a knowledge deficit.
+
+\paragraph{The Internal State of an LLM Knows When It's Lying (Azaria and Mitchell, 2023).}
+This paper trains a lightweight classifier on LLM hidden states to detect deceptive or incorrect statements. Even when the model's output is wrong, the internal state carries reliable ``lying vs truth'' cues. The implication for GV gap is that discriminative tasks (validation) may better exploit these internal signals than generation tasks, which commit to a sequential output before the signal can influence selection.
+
+\paragraph{Unfaithful Explanations in Chain-of-Thought Prompting (Turpin et al., 2023).}
+This paper shows that CoT-generated rationales can be systematically unfaithful to underlying model decisions: adding biasing context (e.g., a wrong answer hint) changes the stated reasoning while the final answer flips accordingly, but the stated chain does not reflect that the decision changed. This reveals that \emph{generated explanations are not a transparent window into model computation}---free generation can produce high-confidence but process-inaccurate text, which validators may catch when comparing against alternative candidates.
+
+\paragraph{Towards Understanding Sycophancy in Language Models (Anthropic, 2023).}
+Sycophancy---where a model changes its stated position to match user-expressed preferences---is a direct mechanism for GV gap: the generator produces preference-aligned but not truth-aligned outputs. This paper shows that user-opinion framing systematically shifts outputs toward social agreement over accuracy, implying a representation-level effect where the prompt activates an ``agreeableness'' trajectory rather than a ``correctness'' one. Validators comparing candidates can detect this because they are less subject to social continuation pressure.
+
+\paragraph{DoLa: Decoding by Contrasting Layers (Chuang et al., 2023).}
+DoLa improves factuality by contrasting final-layer token distributions against distributions from an earlier layer during decoding. The empirical result is improved factual accuracy (e.g., on TruthfulQA and StrategyQA) without any fine-tuning. The mechanistic insight is that useful factual signal exists in intermediate layers but standard final-layer sampling discards it. This directly implies that the GV gap is partly a \emph{decoding path artifact}---better readout of existing representations can partially close the gap.
+
+\paragraph{Open questions for Q3.}
+Are generator and validator decisions linearly decodable from the same latent truth direction, or from partially disjoint directions? Does alignment training (e.g., RankAlign-style) increase representational overlap? At which layer does disagreement emerge most strongly?
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Q4: Directionality---Generator$\to$Validator or Validator$\to$Generator?}
+% ─────────────────────────────────────────────────────────────────────────────
+
+Based on the collected evidence, the direction choice depends on the data regime and task structure. \textbf{Validator-first (V$\to$G)} is best when reliable step-level signals are available (Cobbe; Lightman; Uesato): verifier-guided reranking gives large gains in reasoning and math settings. \textbf{Generator-first (G$\to$V)} is best in preference-implicit settings where supervision quality is bottlenecked by poor training distributions: Constitutional AI, RLAIF, and iterative self-reward loops (Yuan 2024) show that stronger generations produce better contrastive supervision. DPO and RRHF occupy a middle ground, absorbing preference signal directly into policy optimization without needing a cleanly disentangled validator. The literature broadly supports alternating schedules with calibration checkpoints as the best long-run recipe. Full decision framework is in \texttt{gv-q4-directionality.md}.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Q5: Generalization}
+% ─────────────────────────────────────────────────────────────────────────────
+
+Inference-time selection heuristics (self-consistency, reranking, ensembling) transfer across related tasks without retraining. Process-aware validation tends to generalize better than outcome-only scoring in reasoning. However, transfer breaks down under domain shift (math$\to$factual QA$\to$open-ended), scale mismatch between validator and generator, shared-model bias in self-verification, and interface/prompt artifacts. The strongest out-of-distribution robustness comes from externally grounded or architecturally decoupled validators combined with diverse candidate pools. Detailed method$\times$task$\times$outcome table in \texttt{gv-q5-generalization.md}.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Q6: Evaluation Design---Artifact vs True Inconsistency}
+% ─────────────────────────────────────────────────────────────────────────────
+
+A large fraction of reported GV inconsistency can be reclassified as evaluation-design sensitivity. The key papers are:
+
+\paragraph{Fantastically Ordered Prompts (Lu et al., 2022).}
+This paper demonstrates that few-shot exemplar order dramatically changes LLM accuracy on classification tasks, with variance across orderings sometimes exceeding 30 percentage points. The core finding is that observed ``model capability'' is partly a function of prompt construction, not just latent ability. For GV gap studies, this means that measured inconsistency can reflect order sensitivity rather than deep generation--validation disagreement.
+
+\paragraph{PromptBench (Zhu et al., 2023).}
+PromptBench systematically evaluates LLM robustness to adversarial prompt perturbations (misspellings, paraphrases, character insertions). Even small surface-level perturbations can drop performance substantially. The practical implication: any consistency study must control for prompt surface form before attributing variance to GV mismatch.
+
+\paragraph{POSIX (Sclar et al., 2024).}
+POSIX defines a Prompt Sensitivity Index that quantifies how sensitively an LLM's output distribution responds to semantically equivalent prompt variants. This provides a calibrated, task-agnostic measurement of protocol-induced variance, directly enabling separation of artifact from true inconsistency.
+
+\paragraph{Lost in the Middle (Liu et al., 2023).}
+This paper shows that LLMs use information at the start and end of long contexts more than the middle, introducing positional artifacts in any evaluation using long-context layouts. For GV studies, this means that validator behavior may change based on where candidates appear in the prompt, independently of quality.
+
+The recommended minimal diagnostic battery: template perturbation over K semantically equivalent variants; order randomization; interface triangulation (MCQ vs pairwise vs free generation); variance decomposition by seed, template, position, and judge identity.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Q7: Training Targets}
+% ─────────────────────────────────────────────────────────────────────────────
+
+Pairwise ranking objectives (RLHF, DPO, RRHF, RLAIF) are scalable and useful for style/preference alignment, but have three documented failure modes: underspecification (many chains can produce the same preference-winning output), credit assignment collapse (supervision lands on the whole response), and reward hacking (length/style exploitation). Outcome supervision adds verifiable correctness but remains coarse. Process supervision (Uesato et al.; Lightman et al.; Math-Shepherd) provides finer-grained credit assignment and is consistently superior for hard reasoning tasks. Hybrid objectives (Constitutional AI, Self-Rewarding LMs) partially recover process benefits when dense step labels are unavailable. Practical recommendation: progressive hybridization---start pairwise, add outcome checks, then layer targeted process supervision where error costs are highest. See \texttt{gv-q7-training-targets.md} for per-data-regime recommendations.
+
+\paragraph{Deep RL from Human Preferences (Christiano et al., 2017).}
+This founding paper shows that human preferences over short trajectory clips can be used to train reward models that then drive RL policy improvement, without any task-specific reward engineering. The seminal finding is that roughly 1,300 human comparisons suffice to teach a simulated locomotion policy that performs comparably to a hand-crafted reward. This establishes the basic \emph{validator-as-reward-model} paradigm that all subsequent RLHF work inherits.
+
+\paragraph{InstructGPT (Ouyang et al., 2022).}
+InstructGPT applies the RLHF pipeline at scale to instruction-following. The key result: a 1.3B parameter RLHF-tuned model is preferred by human evaluators over a 175B base GPT-3 model on most instructions. This makes clear that \emph{preference-based validation signal can compensate for model scale}---the gap between base generation quality and human-judged output quality is substantial, and validator-guided training can largely close it.
+
+\paragraph{Math-Shepherd (Wang et al., 2023).}
+Math-Shepherd trains step-level verifiers using automatically generated process labels (without full human annotation) by running many solution completions and checking which step-level prefixes lead to correct final answers. This provides a practical, scalable route to process supervision when human step labels are too expensive. The paper demonstrates that automatic step labels still outperform outcome-only supervision on math benchmarks, making process-aware training accessible at lower cost.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Q8: Inference-Time Compute}
+% ─────────────────────────────────────────────────────────────────────────────
+
+Inference-time compute can close a substantial portion of the GV gap on reasoning tasks without any retraining. Key results:
+
+\paragraph{Self-Consistency (Wang et al., 2022).}
+Generate diverse reasoning chains via temperature sampling, then take a majority vote over final answers. Headline gains: approximately +18 percentage points on GSM8K and consistent improvements across SVAMP, AQuA, StrategyQA, and ARC-type benchmarks versus greedy CoT decoding. The mechanism: when generator errors are random and diverse, majority voting exploits the model's better-than-chance validation capacity implicitly.
+
+\paragraph{Tree of Thoughts (Yao et al., 2023).}
+ToT frames reasoning as a search problem: the model generates, evaluates, and selects intermediate thought states via a tree structure. On Game of 24, performance jumps from near-zero with standard prompting to much higher success rates (near order-of-magnitude relative gain) with branching and value-guided search. The key insight: externalizing validation at intermediate steps via search prevents commitment to early wrong branches.
+
+\paragraph{Language Agent Tree Search / LATS (Zhou et al., 2023).}
+LATS applies MCTS-style search to agent trajectories, combining generation, evaluation, and backtracking. Improvements on programming and WebArena-style tasks demonstrate that systematic search with explicit value functions outperforms linear chain approaches. The method exemplifies how allocating more inference compute to validator-guided exploration narrows the GV gap.
+
+\paragraph{Multiagent Debate (Du et al., 2023).}
+Multiple independent LLM agents propose and critique each other's answers across rounds, then aggregate. The paper reports improved factuality and reasoning quality compared to single-agent generation on math and factual QA tasks. The key mechanism: agents act as mutual validators, and repeated exposure to alternative perspectives and critiques forces convergence toward more consistent outputs.
+
+\paragraph{Large Language Monkeys (Brown et al., 2024).}
+This paper characterizes scaling laws for repeated sampling: more samples predictably improve task success rates, following a power-law relationship between sample count and performance. This supports a \emph{compute--quality frontier} view: mismatch can be partially ``bought down'' by inference compute up to a limit set by validator quality.
+
+\paragraph{Open questions for Q8.}
+How does the compute--quality frontier interact with validator calibration? At what point does extra inference compute produce diminishing returns for GV closure? How do these methods behave under distribution shift?
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Q9: Judge Reliability}
+% ─────────────────────────────────────────────────────────────────────────────
+
+LLM validators/judges are useful and often correlate reasonably with human preferences in-distribution, but reliability is fragile. This section summarizes the key failure modes.
+
+\paragraph{Large Language Models are not Fair Evaluators (Wang et al., 2024).}
+This paper documents that pairwise LLM judge outcomes change substantially depending on which answer appears first (position bias) and that model scoring differs across social and stylistic correlates. Even when aggregate correlation with human preferences is high, these biases can reverse individual comparisons. The paper establishes that position randomization and bidirectional scoring are necessary minimum controls.
+
+\paragraph{Judging the Judges (Shi et al., 2024) and Split and Merge (Li et al., 2024).}
+Judging the Judges systematically maps position bias across judge models and evaluation protocols. Split and Merge proposes splitting the evaluation in two (A vs B; B vs A) and merging scores to cancel positional effects, showing this reduces bias without eliminating judge utility. Together these papers provide practical debiasing protocols for pairwise evaluation.
+
+\paragraph{CalibraEval (Li et al., 2024) and AlpacaEval (Dubois et al., 2024).}
+Both address calibration of predicted win probabilities. LLM judges are often miscalibrated: their stated confidence over preference outcomes does not match empirical accuracy. CalibraEval proposes calibration techniques for predicted distributions; AlpacaEval introduces length-controlled debiasing. Calibrated validators are necessary for their scores to serve as trustworthy training signals.
+
+\paragraph{Replacing Judges with Juries (Chan et al., 2024).}
+Rather than a single judge, this paper uses a panel of diverse models and aggregates their judgments. The result is stronger rank stability and lower sensitivity to individual judge biases. The key practical implication: for high-stakes evaluation or training, multi-judge ensembles with disagreement reporting are more reliable than any single judge.
+
+\paragraph{Prometheus (Kim et al., 2023).}
+Prometheus shows that \emph{fine-tuned, rubric-following judge models} can achieve GPT-4-level human correlation on specific domains while being openly available and customizable. The key result is that validator quality can be deliberately improved and specialized, reducing dependence on proprietary general-purpose judges.
+
+\paragraph{Open questions for Q9.}
+How do we define and measure judge reliability envelopes for deployment? What triggers should escalate to human review? Can we build reliable validators for open-ended creative or values-laden tasks?
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Q10: Origin of the GV Gap and Post-Training Effects}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\paragraph{TruthfulQA (Lin et al., 2022).}
+TruthfulQA provides 817 questions that humans often answer incorrectly due to common misconceptions, and evaluates models on whether they imitate the misconception or give the true answer. GPT-3 answers truthfully on only 58\% of questions, while larger models are sometimes \emph{less} truthful (imitative behavior scales). This directly implicates pretraining as an origin of GV gap: next-token imitation reproduces human falsehoods, while discriminative tasks may partially bypass this.
+
+\paragraph{Language Models (Mostly) Know What They Know (Kadavath et al., 2022).}
+Described in Section 3 above. Relevant to origin: the latent truth signal is present in the pretrained model; what shifts with post-training is which signals are surfaced in free generation vs comparative settings.
+
+\paragraph{Semantic Uncertainty (Kuhn et al., 2023).}
+Kuhn et al.\ show that uncertainty estimates derived from semantic clustering of sampled outputs (semantic entropy) are better calibrated than standard token-probability-based measures. The key implication is that the way you elicit uncertainty signals from a model changes what consistency you observe---uncertainty is partly a readout problem, not only a model capability problem.
+
+\paragraph{Benchmarking and Improving Generator--Validator Consistency (Li et al., 2023).}
+This Stanford paper directly measures and frames the GV gap. They evaluate models across tasks on generation accuracy versus discrimination/validation accuracy and show a persistent gap: models validate better than they generate. They propose training interventions that improve consistency. This is the paper that most directly names and quantifies the problem this survey is organized around.
+
+\paragraph{RankAlign (Rodriguez et al., 2025).}
+RankAlign explicitly addresses the GV gap from a ranking perspective: generator and validator produce different orderings over candidate responses, and the paper trains toward agreement between them. Empirical results show reduced measured gap across multiple benchmarks. As the central anchor paper for this literature survey, it provides both diagnostic tooling and a training-level intervention.
+
+\paragraph{Post-training effects: InstructGPT, Constitutional AI, DPO.}
+Post-training shifts model behavior in ways that both help and potentially distort GV consistency. InstructGPT (Ouyang et al.) shows preference tuning narrows the gap between model output and human expectations, but introduces mode shifts (verbosity, agreeableness) that can decouple fluency from factual correctness. DPO (Rafailov et al.) makes the same tradeoff more efficient. Constitutional AI adds a second-order validator-through-critique loop that can partially correct for the agreeableness problem. The clearest path to origin-consistent post-training: process/verifier supervision (Cobbe; Uesato; Lightman) that provides explicit credit assignment at the step level.
+
+\paragraph{Open questions for Q10.}
+How much of the gap is pretraining-irreducible versus addressable through post-training? Can we run controlled base-vs-post-trained comparisons on shared GV metrics to quantify the contribution of each post-training stage?
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Cross-Topic Open Questions}
+% ─────────────────────────────────────────────────────────────────────────────
+
 \begin{itemize}
-  \item \textit{Training Verifiers to Solve Math Word Problems} (Cobbe et al., 2021): foundational verifier-reranking evidence.
-  \item \textit{Let’s Verify Step by Step} (Lightman et al., 2023): process-level validator supervision with substantial gains on math reasoning.
-  \item \textit{DPO} (Rafailov et al., 2023), \textit{RRHF} (Yuan et al., 2023), \textit{ReST} (Gulcehre et al., 2023): converting ranking/preference signal into generator improvements.
-  \item \textit{LLM-Blender} (Jiang et al., 2023): pairwise ranking + fusion for better outputs.
+  \item A unified benchmark suite that separates true GV inconsistency from protocol/interface artifact does not yet exist.
+  \item The principled joint training objective for generator and validator that avoids reward hacking, calibration drift, and mode collapse is an open problem.
+  \item Mechanistic tests for representational overlap between generation and validation circuits (e.g., shared subspace analysis) have not been applied systematically to alignment interventions.
+  \item Reliable, calibrated, adversarially robust validator standards for deployment remain to be established.
+  \item The scaling behavior of GV gap across model families and sizes is not well characterized.
 \end{itemize}
 
-\textbf{Reading roadmap.} Cobbe $\rightarrow$ Lightman $\rightarrow$ Uesato (process vs outcome) $\rightarrow$ DPO/RRHF $\rightarrow$ LLM-Blender.
+% ─────────────────────────────────────────────────────────────────────────────
+\section*{Appendix: Collections and Method}
+% ─────────────────────────────────────────────────────────────────────────────
 
-\textbf{Open questions.} When does validator-driven tuning beat stronger SFT data curation? How to prevent reward hacking against a fixed validator?
-
-\section{2) Applications of Closing the Gap}
-\textbf{Core contribution of this line:} practical systems where generator--validator consistency improves utility and reliability.
-
-\textbf{Key applications with concrete evidence.}
-\begin{itemize}
-  \item \textbf{LLM-as-judge:} MT-Bench/Arena (Zheng et al., 2023), G-Eval (Liu et al., 2023), PandaLM/Prometheus.
-  \item \textbf{Revision and factuality:} RARR, SelfCheckGPT, Chain-of-Verification.
-  \item \textbf{Ranking and output selection:} RankGen, LLM-Blender.
-  \item \textbf{Alignment/reward pipelines:} DPO, Constitutional AI.
-\end{itemize}
-
-\textbf{Reading roadmap.} MT-Bench $\rightarrow$ G-Eval/Prometheus $\rightarrow$ SelfCheckGPT/RARR $\rightarrow$ RankGen/Blender.
-
-\textbf{Open questions.} Which applications require strict consistency vs calibrated uncertainty? How much human oversight remains necessary at deployment?
-
-\section{3) Mechanism: Why Disagreement Happens}
-\textbf{Core contribution of this line:} mismatch between latent knowledge, readout, and prompting interface can produce generation--validation disagreement.
-
-\textbf{Key papers and relevance.}
-\begin{itemize}
-  \item \textit{Language Models (Mostly) Know What They Know} (Kadavath et al., 2022): latent-knowledge vs expression gap.
-  \item \textit{Discovering Latent Knowledge Without Supervision} (Burns et al., 2022): latent truth signals can exist despite poor surface answers.
-  \item \textit{Unfaithful Explanations in CoT} (Turpin et al., 2023): generated rationales may not track true computation.
-  \item \textit{DoLa}, \textit{Tuned Lens}, \textit{Representation Engineering}: evidence that layer-level readout choices matter.
-\end{itemize}
-
-\textbf{Reading roadmap.} Kadavath/Burns $\rightarrow$ Turpin $\rightarrow$ Tuned Lens/DoLa $\rightarrow$ RankAlign.
-
-\textbf{Open questions.} Do alignment methods increase shared generator--validator mechanisms, or only output-level agreement?
-
-\section{4) Directionality: Generator$\rightarrow$Validator vs Validator$\rightarrow$Generator}
-\textbf{Core contribution of this line:} direction choice should depend on data regime and validator quality.
-
-\textbf{Empirical pattern.}
-\begin{itemize}
-  \item Validator-first is strong when decomposable checks and process labels are available (Cobbe, Lightman, Uesato).
-  \item Generator-first is often used in preference-alignment regimes (RLHF/RLAIF/DPO/RRHF), then validator quality is improved iteratively.
-\end{itemize}
-
-\textbf{Reading roadmap.} Cobbe/Lightman/Uesato $\rightarrow$ RLHF/RLAIF/DPO/RRHF $\rightarrow$ Self-rewarding models.
-
-\textbf{Open questions.} Can alternating co-training avoid evaluator gaming and collapse? Which diagnostics should gate direction switches?
-
-\section{5) Generalization Across Tasks/Domains/Scales}
-\textbf{Core contribution of this line:} test whether gains transfer beyond one benchmark.
-
-\textbf{Key observations.}
-\begin{itemize}
-  \item RankAlign and Li et al. report cross-task effects but with remaining domain gaps.
-  \item Verifier/process methods generalize best within reasoning-heavy domains, less reliably across distant tasks.
-  \item Reranking/fusion methods transfer partially but depend on candidate diversity and score calibration.
-\end{itemize}
-
-\textbf{Reading roadmap.} RankAlign $\rightarrow$ Li et al. $\rightarrow$ verifier/process papers $\rightarrow$ ranker-fusion papers.
-
-\textbf{Open questions.} What are robust OOD stress tests for consistency transfer?
-
-\section{6) Evaluation Design: Artifact vs True Inconsistency}
-\textbf{Core contribution of this line:} measured inconsistency can be inflated by evaluation protocol choices.
-
-\textbf{Key papers and relevance.}
-\begin{itemize}
-  \item \textit{PromptBench} and \textit{Fantastically Ordered Prompts}: prompt-ordering and formatting effects.
-  \item \textit{Lost in the Middle}: context position effects.
-  \item \textit{POSIX}: prompt sensitivity index for controlled robustness measurement.
-  \item Evaluator-bias papers (G-Eval, fairness/position-bias studies): protocol-induced judge instability.
-\end{itemize}
-
-\textbf{Reading roadmap.} PromptBench/POSIX $\rightarrow$ Lost in the Middle $\rightarrow$ judge-bias studies.
-
-\textbf{Open questions.} Standardized artifact-adjusted metrics for GV gap remain underdeveloped.
-
-\section{7) Training Targets: Pairwise Ranking vs Process Supervision}
-\textbf{Core contribution of this line:} pairwise preference objectives are useful but often insufficient for hard reasoning without process traces.
-
-\textbf{Key evidence.}
-\begin{itemize}
-  \item Pairwise/preference: RLHF, RLAIF, DPO, RRHF.
-  \item Process/outcome split: Uesato et al.
-  \item Process-supervised verifiers: Let’s Verify Step by Step, Math-Shepherd.
-\end{itemize}
-
-\textbf{Reading roadmap.} RLHF $\rightarrow$ DPO/RRHF $\rightarrow$ Uesato $\rightarrow$ Lightman/Math-Shepherd.
-
-\textbf{Open questions.} Cost-effective process labels; hybrid objectives that preserve diversity without sacrificing correctness.
-
-\section{8) Inference-Time Compute}
-\textbf{Core contribution of this line:} substantial gap reduction can be achieved without retraining via sampling, voting, reranking, and search.
-
-\textbf{Key papers and relevance.}
-\begin{itemize}
-  \item \textit{Self-Consistency} (Wang et al., 2022): majority over sampled traces.
-  \item \textit{Tree of Thoughts}, \textit{LATS}: explicit search/planning at inference time.
-  \item Verifier reranking (Cobbe, Lightman) and iterative critique (Self-Refine, Reflexion).
-\end{itemize}
-
-\textbf{Reading roadmap.} Self-Consistency $\rightarrow$ verifier reranking $\rightarrow$ ToT/LATS $\rightarrow$ iterative critique.
-
-\textbf{Open questions.} Compute--quality frontiers, diminishing returns, and robustness under distribution shift.
-
-\section{9) Judge Reliability and Calibration}
-\textbf{Core contribution of this line:} validators are useful but fragile; reliability is conditional.
-
-\textbf{Key papers and relevance.}
-\begin{itemize}
-  \item MT-Bench/Arena, G-Eval, PandaLM, JudgeLM, Prometheus: judge capability baselines.
-  \item Fairness/position-bias and calibration works (Judging the Judges, Split and Merge, CalibraEval, Juries): identify systematic judge failure modes.
-\end{itemize}
-
-\textbf{Reading roadmap.} MT-Bench/G-Eval $\rightarrow$ JudgeLM/Prometheus $\rightarrow$ bias/calibration papers.
-
-\textbf{Open questions.} Robust calibration standards for judges and trigger conditions for human escalation.
-
-\section{10) Origin of the Gap and Post-Training Effects}
-\textbf{Core contribution of this line:} gap appears to arise from a combination of pretraining objective/readout mismatch and post-training objective shifts.
-
-\textbf{Key evidence.}
-\begin{itemize}
-  \item Knowledge/calibration line: Kadavath papers, semantic uncertainty, TruthfulQA.
-  \item Post-training effects: InstructGPT, Constitutional AI, DPO alter response style and confidence behavior.
-  \item RankAlign/Li et al. directly quantify and reduce generator--validator discrepancy.
-\end{itemize}
-
-\textbf{Reading roadmap.} Kadavath/TruthfulQA $\rightarrow$ InstructGPT/Constitutional/DPO $\rightarrow$ Li et al./RankAlign.
-
-\textbf{Open questions.} How much of the residual gap is representational vs purely decoding/protocol-induced?
-
-\section{Cross-Topic Unresolved Questions}
-\begin{itemize}
-  \item Unified benchmark suite that separates true inconsistency from protocol artifact.
-  \item Principled objective for jointly training generator and validator without collapse or gaming.
-  \item Mechanistic overlap metrics to test whether alignment changes internal computation or only outputs.
-  \item Reliable, calibrated, adversarially robust validator standards for deployment.
-\end{itemize}
-
-\section*{Appendix: Collection Audit}
-All ten collections were audited for relevance. Child relevance notes were added to included papers, and a standalone collection note (question, criteria, search terms) was added to each Zotero collection.
+All papers are organized in Zotero group library \texttt{blazing-worlds} under \texttt{LLM-inconsistency}. Ten subcollections cover the questions above. Each paper has a child note with detailed fields (contribution, setup, data, results, relevance, caveats, follow-ups) and each collection has a standalone note with the question, inclusion criteria, and search terms used. Marginal items were removed after a relevance audit. See \texttt{research/gv-collection-audit-summary.md} for collection keys and audit notes.
 
 \end{document}
