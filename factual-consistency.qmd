@@ -1,0 +1,37 @@
+---
+title: "Factual Consistency & Hallucination"
+subtitle: "When LLMs make things up — and when they don't know they're making things up"
+---
+
+::: {.callout-note}
+## Section Status
+This section is being populated by literature research. Content will be updated.
+:::
+
+## Overview
+
+*[Research in progress — will be populated with papers, preprints, blog posts, and resources on hallucination, factual consistency, and knowledge reliability in LLMs.]*
+
+## Key Papers
+
+*[To be populated]*
+
+## Preprints & Emerging Work
+
+*[To be populated]*
+
+## Blog Posts & Practitioner Resources
+
+*[To be populated]*
+
+## Datasets & Benchmarks
+
+*[To be populated]*
+
+## Key Takeaways
+
+*[To be populated]*
+
+---
+
+← [Taxonomy](taxonomy.qmd) | Next: [Self-Consistency & Contradiction](self-consistency.qmd) →

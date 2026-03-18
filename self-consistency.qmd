@@ -1,0 +1,37 @@
+---
+title: "Self-Consistency & Contradiction"
+subtitle: "When LLMs disagree with themselves"
+---
+
+::: {.callout-note}
+## Section Status
+This section is being populated by literature research. Content will be updated.
+:::
+
+## Overview
+
+*[Research in progress]*
+
+## Key Papers
+
+*[To be populated]*
+
+## Preprints & Emerging Work
+
+*[To be populated]*
+
+## Blog Posts & Practitioner Resources
+
+*[To be populated]*
+
+## Datasets & Benchmarks
+
+*[To be populated]*
+
+## Key Takeaways
+
+*[To be populated]*
+
+---
+
+← [Taxonomy](taxonomy.qmd) | [Resources](resources.qmd) →

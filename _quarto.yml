@@ -1,0 +1,51 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "LLM Consistency: A Literature Survey"
+  description: "A thorough review of consistency, reliability, and robustness issues in large language models"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Overview
+      - href: taxonomy.qmd
+        text: Taxonomy
+      - text: By Category
+        menu:
+          - href: factual-consistency.qmd
+            text: Factual Consistency & Hallucination
+          - href: self-consistency.qmd
+            text: Self-Consistency & Contradiction
+          - href: reasoning-consistency.qmd
+            text: Reasoning Consistency
+          - href: behavioral-consistency.qmd
+            text: Behavioral Consistency & Sycophancy
+          - href: calibration.qmd
+            text: Calibration & Uncertainty
+          - href: cross-context.qmd
+            text: Cross-Context & Format Sensitivity
+          - href: benchmark-reliability.qmd
+            text: Benchmark Reliability
+      - href: resources.qmd
+        text: Resources & Tools
+  page-footer:
+    center: "LLM Consistency Survey · [johnplake](https://github.com/johnplake) · 2026"
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    toc-expand: true
+    number-sections: false
+    link-external-icon: true
+    link-external-newwindow: true
+    smooth-scroll: true
+    code-fold: true
+
+bibliography: references.bib
+csl: https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl

@@ -1,0 +1,63 @@
+---
+title: "LLM Consistency: A Literature Survey"
+subtitle: "A thorough review of consistency, reliability, and robustness issues in large language models"
+author: "John P. Lake"
+date: last-modified
+---
+
+## What Is This Survey About?
+
+Large language models (LLMs) exhibit a troubling pattern: ask the same question twice and you may get different answers. Rephrase the question slightly and the answer changes. Push back on a response and the model capitulates. Provide misleading context and the model abandons what it "knows." These are all manifestations of **LLM inconsistency**.
+
+This survey maps the landscape of LLM consistency issues comprehensively — covering academic papers, preprints, blog posts, and practical resources. The goal is to provide both an **overview** and a **navigable map**: a guide for researchers, practitioners, and curious minds trying to understand this fragmented problem space.
+
+::: {.callout-note}
+## Scope
+
+This survey covers consistency, reliability, robustness, and self-contradiction issues in LLMs. Related but distinct areas (e.g., factual accuracy per se, alignment, or safety) are included where they directly bear on consistency.
+:::
+
+## Why This Matters
+
+Inconsistency is not just an academic curiosity. It affects:
+
+- **Scientific reproducibility**: Research using LLMs may not replicate even with the same prompts
+- **Deployed applications**: Chatbots, coding assistants, and decision-support tools give different answers on different runs
+- **Trust calibration**: Users cannot know when to trust a model's output
+- **Evaluation validity**: Benchmarks may measure prompt sensitivity rather than capability
+- **Safety and alignment**: Inconsistent models are harder to audit and align
+
+## Taxonomy Overview
+
+We organize LLM consistency issues into **seven major categories**:
+
+| Category | Core Question | Key Phenomena |
+|----------|--------------|---------------|
+| [Factual Consistency & Hallucination](factual-consistency.qmd) | Does the model produce accurate facts consistently? | Hallucination, knowledge conflicts, intrinsic/extrinsic inconsistency |
+| [Self-Consistency & Contradiction](self-consistency.qmd) | Does the model agree with itself? | Cross-prompt contradiction, belief revision under pressure, logical self-contradiction |
+| [Reasoning Consistency](reasoning-consistency.qmd) | Is the model's reasoning process reliable? | CoT failures, arithmetic errors, fallacious reasoning |
+| [Behavioral Consistency & Sycophancy](behavioral-consistency.qmd) | Does the model behave predictably across social contexts? | Sycophancy, authority bias, framing effects, ordering bias |
+| [Calibration & Uncertainty](calibration.qmd) | Does the model know what it doesn't know? | Overconfidence, miscalibration, verbalized vs. actual uncertainty |
+| [Cross-Context Sensitivity](cross-context.qmd) | Is behavior consistent across languages, formats, and prompts? | Cross-lingual, template sensitivity, paraphrase sensitivity |
+| [Benchmark Reliability](benchmark-reliability.qmd) | Do our evaluations actually measure what they claim? | Data contamination, prompt sensitivity, evaluation inconsistency |
+
+See the full [Taxonomy](taxonomy.qmd) page for a detailed breakdown and discussion of how these categories relate.
+
+## How to Use This Survey
+
+- **Newcomers**: Start with the [Taxonomy](taxonomy.qmd) for an orienting overview
+- **Researchers**: Browse individual category pages for deep-dives into specific literatures
+- **Practitioners**: Check the [Resources & Tools](resources.qmd) page for benchmarks, datasets, and repos
+- **Follow-the-thread readers**: Each page ends with cross-references to adjacent categories
+
+## Key Search Terms
+
+The literature on LLM consistency is scattered across many keyword spaces. This survey covers work appearing under:
+
+`LLM consistency`, `self-consistency`, `factual consistency`, `hallucination`, `sycophancy`, `prompt sensitivity`, `robustness`, `reliability`, `calibration`, `overconfidence`, `logical contradiction`, `paraphrase invariance`, `cross-lingual consistency`, `benchmark sensitivity`, `evaluation robustness`, `verbosity bias`, `position bias`, `ordering bias`, `epistemic consistency`, `belief revision`, `uncertainty quantification`, `confabulation`, `faithfulness`, `groundedness`
+
+## About This Survey
+
+Compiled in March 2026. The literature is rapidly evolving; this survey focuses on establishing a durable taxonomy while citing representative and influential works.
+
+[View on GitHub](https://github.com/johnplake/llm-consistency-survey){.btn .btn-outline-secondary .btn-sm}

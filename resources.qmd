@@ -1,0 +1,29 @@
+---
+title: "Resources & Tools"
+subtitle: "Benchmarks, datasets, code, and curated links"
+---
+
+::: {.callout-note}
+## Section Status
+This section is being populated by literature research.
+:::
+
+## Benchmarks & Datasets
+
+*[To be populated]*
+
+## Code & GitHub Repos
+
+*[To be populated]*
+
+## Blog Posts & Essays
+
+*[To be populated]*
+
+## Talks & Lectures
+
+*[To be populated]*
+
+## Further Reading
+
+*[To be populated]*

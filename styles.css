@@ -1,0 +1,86 @@
+/* LLM Consistency Survey - Custom Styles */
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+
+.quarto-title {
+  margin-bottom: 1.5rem;
+}
+
+/* Category badges */
+.badge-category {
+  display: inline-block;
+  padding: 0.2em 0.6em;
+  border-radius: 4px;
+  font-size: 0.8em;
+  font-weight: 600;
+  margin-right: 4px;
+  margin-bottom: 4px;
+}
+
+/* Paper cards */
+.paper-card {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s;
+}
+
+.paper-card:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.paper-card .paper-title {
+  font-weight: 600;
+  font-size: 1.05em;
+}
+
+.paper-card .paper-meta {
+  color: #6c757d;
+  font-size: 0.88em;
+  margin-top: 0.2rem;
+}
+
+.paper-card .paper-venue {
+  color: #0d6efd;
+  font-weight: 500;
+}
+
+/* Taxonomy boxes */
+.taxonomy-box {
+  background: #f8f9fa;
+  border-left: 4px solid #0d6efd;
+  padding: 0.8rem 1.2rem;
+  margin-bottom: 0.8rem;
+  border-radius: 0 6px 6px 0;
+}
+
+/* Callouts */
+.callout-summary {
+  border-radius: 6px;
+}
+
+/* TOC */
+#TOC {
+  font-size: 0.9em;
+}
+
+/* Table improvements */
+table {
+  font-size: 0.9em;
+}
+
+/* Resource links */
+.resource-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+}
