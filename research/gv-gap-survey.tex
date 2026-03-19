@@ -4,7 +4,24 @@
 \usepackage{booktabs}
 \usepackage{parskip}
 \usepackage{microtype}
+\usepackage{xcolor}
 \hypersetup{colorlinks=true, urlcolor=blue, linkcolor=black, citecolor=black}
+
+% Block quote with left bar
+\newenvironment{paperquote}{%
+  \vspace{0.5em}%
+  \begin{list}{}{%
+    \setlength{\leftmargin}{1.5em}%
+    \setlength{\rightmargin}{0em}%
+    \setlength{\topsep}{0.2em}%
+    \setlength{\parsep}{0pt}%
+  }%
+  \item\relax\small\itshape\leavevmode%
+  \hspace{-1.3em}\textcolor{gray!80}{\rule{2pt}{1em}}\hspace{0.5em}%
+}{%
+  \end{list}%
+  \vspace{0.3em}%
+}
 
 \title{Generator--Validator Gap in LLMs:\\A Survey and Reading Roadmap}
 \author{John P. Lake}
@@ -19,7 +36,17 @@
 \section{Scope and Method}
 % ─────────────────────────────────────────────────────────────────────────────
 
-This report covers the \textbf{generator--validator (GV) gap} in large language models: the asymmetry between a model's ability to \emph{generate} correct outputs and its (typically superior) ability to \emph{validate or discriminate} among candidate outputs. We organized the literature into ten focused Zotero subcollections under \texttt{LLM-inconsistency}, each targeting a specific research question. Papers were retained only when directly relevant; marginal items were removed after a relevance audit. Detailed per-paper notes are attached as child notes in Zotero and in \texttt{gv-q1-detailed-dossier.md} and the per-question \texttt{gv-q*.md} files.
+This report covers the \textbf{generator--validator (GV) gap} in large language models: the asymmetry between a model's ability to \emph{generate} correct outputs and its (typically superior) ability to \emph{validate or discriminate} among candidate outputs. The gap was named and formalized in two concurrent papers:
+
+\begin{paperquote}
+\small ``One clear manifestation of this is the generator-validator gap, where a model may generate answers that it does not verify as correct, or vice versa. Resolving this inconsistency would lead to LLMs that report their uncertainty accurately and are less susceptible to hallucination.''\\
+\hfill --- Rodriguez et al.\ (RankAlign, 2025)
+\end{paperquote}
+
+\begin{paperquote}
+\small ``Even state-of-the-art language models suffer from inconsistency, which undermines their reliability.''\\
+\hfill --- Li et al.\ (Benchmarking GV Consistency, 2023)
+\end{paperquote} We organized the literature into ten focused Zotero subcollections under \texttt{LLM-inconsistency}, each targeting a specific research question. Papers were retained only when directly relevant; marginal items were removed after a relevance audit. Detailed per-paper notes are attached as child notes in Zotero and in \texttt{gv-q1-detailed-dossier.md} and the per-question \texttt{gv-q*.md} files.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Q1: Improving the Generator Using the Validator}
@@ -28,13 +55,23 @@ This report covers the \textbf{generator--validator (GV) gap} in large language 
 This section covers methods that use verifier, judge, or ranking signal to improve generation quality, either at training time or through inference-time reranking. The central question is whether and how the model's better-calibrated discriminative ability can be fed back to improve its weaker generative behavior.
 
 \paragraph{Training Verifiers to Solve Math Word Problems (Cobbe et al., 2021).}
-This paper introduces GSM8K (8.5K grade-school math problems) and proposes training a separate learned verifier to score candidate solutions sampled from a generator; the highest-scoring candidate is selected. The key empirical claim is that adding a verifier at reranking time can yield gains comparable to roughly a 30$\times$ increase in model size. The paper establishes that candidate diversity combined with a quality filter is a practically viable lever for boosting generation quality without changing the generator's weights. The main caveat is domain specificity: the verifier is trained on math and needs re-training or re-calibration for other domains. The central open question is how verifier quality and candidate sample count trade off at fixed compute budget.
+This paper introduces GSM8K (8.5K grade-school math problems) and proposes training a separate learned verifier to score candidate solutions sampled from a generator; the highest-scoring candidate is selected. The key empirical claim:
+
+\begin{paperquote}
+\small ``We show that, compared to a finetuning baseline, the use of verifiers results in approximately the same performance boost as a 30x model size increase, and that verifiers scale significantly better with increased data.''\\
+\hfill --- Cobbe et al.\ (2021)
+\end{paperquote} The paper establishes that candidate diversity combined with a quality filter is a practically viable lever for boosting generation quality without changing the generator's weights. The main caveat is domain specificity: the verifier is trained on math and needs re-training or re-calibration for other domains. The central open question is how verifier quality and candidate sample count trade off at fixed compute budget.
 
 \paragraph{Solving Math Word Problems With Process- and Outcome-Based Feedback (Uesato et al., 2022).}
 This paper provides a rigorous comparison of \emph{process-based} versus \emph{outcome-based} feedback signals for math reasoning (GSM8K), using large-scale language models (including a Base-70B configuration). They study SFT, outcome reward modeling (ORM), process reward modeling (PRM), and expert-iteration-style RL variants. Key reported numbers: final-answer error falls from 16.8\% to 12.7\%, trace error from 14.0\% to 3.4\% (best models), and with 30\% abstention, final-answer error reaches 2.7\%. Process-aware validators improve both final-answer correctness and reasoning trace quality; outcome-only supervision is consistently inferior (23.5\% vs 22.3\% error, without reward models; 16.6\% vs 14.8\%, with). This paper directly shows that validator \emph{design} matters: a step-level critic improves generator outputs beyond what a final-answer judge can. The main limitation is annotation cost for step-level labels.
 
 \paragraph{Let's Verify Step by Step (Lightman et al., 2023).}
-This paper scales process supervision with PRM800K, a dataset of 800,000 human step-level labels for math reasoning (MATH benchmark). They compare outcome-supervised reward models (ORMs) versus process-supervised reward models (PRMs), and show that step-level supervision outperforms outcome-level. Best reported accuracy: approximately 78.2\% on a MATH test subset with PRM-guided best-of-N selection. Active learning gives a 2.6$\times$ data efficiency gain for collecting process labels. This is the strongest evidence that a high-quality step-level validator materially improves generation selection. The main limitation is the high annotation cost and domain concentration in math; open questions concern whether synthetic step labels can replace part of PRM800K.
+This paper scales process supervision with PRM800K, a dataset of 800,000 human step-level labels for math reasoning (MATH benchmark). They compare outcome-supervised reward models (ORMs) versus process-supervised reward models (PRMs):
+
+\begin{paperquote}
+\small ``[We find] that process supervision significantly outperforms outcome supervision for training models to solve problems from the challenging MATH dataset. Our process-supervised model solves 78\% of problems from a representative subset of the MATH test set.''\\
+\hfill --- Lightman et al.\ (2023)
+\end{paperquote} Active learning gives a 2.6$\times$ data efficiency gain for collecting process labels. This is the strongest evidence that a high-quality step-level validator materially improves generation selection. The main limitation is the high annotation cost and domain concentration in math; open questions concern whether synthetic step labels can replace part of PRM800K.
 
 \paragraph{Constitutional AI (Bai et al., 2022).}
 This paper introduces a two-stage training pipeline: (1) SFT with self-critique and revision under a written constitution of normative principles, and (2) RL from AI-generated pairwise feedback (RLAIF). The goal is to improve harmlessness while maintaining helpfulness, with substantially reduced human preference labeling. Human evaluations report improved harmlessness/helpfulness trade-off versus RLHF baselines. The key idea is that a model can serve as its own validator under structured principle prompting, producing useful training signal at scale. Caveats: constitution quality is a bottleneck; biased principles propagate into training; quantitative deltas on specific evaluations are not independently verified in this note. Open question: which constitutional principles drive the most behavior change?
@@ -92,7 +129,14 @@ Which application domains require strict GV consistency versus calibrated uncert
 % ─────────────────────────────────────────────────────────────────────────────
 
 \paragraph{Language Models (Mostly) Know What They Know (Kadavath et al., 2022).}
-This paper probes whether LLMs have reliable metacognitive signals about their own correctness. Using P(True)-style elicitation (prompting the model to judge whether its answer is correct), it finds that confidence estimates are \emph{substantially more accurate than first-pass generation suggests}: the model's hidden states carry useful truth-tracking information that free generation does not consistently surface. This is a core mechanism paper for the GV gap: the latent belief is present, but the readout (generation) is imperfect.
+This paper probes whether LLMs have reliable metacognitive signals about their own correctness. Using P(True)-style elicitation (prompting the model to judge whether its answer is correct), it finds that confidence estimates are \emph{substantially more accurate than first-pass generation suggests}. Crucially for the GV gap:
+
+\begin{paperquote}
+\small ``[W]e find encouraging performance, calibration, and scaling for P(True) on a diverse array of tasks. \ldots\ [W]e provide evidence that verification improves faster than generation quality in this context.''\\
+\hfill --- Kadavath et al.\ (2022)
+\end{paperquote}
+
+This is a core mechanism paper for the GV gap: the latent belief is present, but the readout (generation) is imperfect.
 
 \paragraph{Discovering Latent Knowledge in Language Models Without Supervision (Burns et al., 2022).}
 Burns et al.\ show that \emph{unsupervised} linear probes on LLM hidden states can recover truth-tracking signals even when the model's generated output is wrong or deceptive. This extends the Kadavath result: not only does the model have some metacognitive capacity, but the truth signal is geometrically accessible from representations without any task-specific supervision. This provides mechanistic support for the idea that GV gap is partly a \emph{readout/decoding problem}, not purely a knowledge deficit.
@@ -166,7 +210,14 @@ Math-Shepherd trains step-level verifiers using automatically generated process 
 Inference-time compute can close a substantial portion of the GV gap on reasoning tasks without any retraining. Key results:
 
 \paragraph{Self-Consistency (Wang et al., 2022).}
-Generate diverse reasoning chains via temperature sampling, then take a majority vote over final answers. Headline gains: approximately +18 percentage points on GSM8K and consistent improvements across SVAMP, AQuA, StrategyQA, and ARC-type benchmarks versus greedy CoT decoding. The mechanism: when generator errors are random and diverse, majority voting exploits the model's better-than-chance validation capacity implicitly.
+Generate diverse reasoning chains via temperature sampling, then take a majority vote over final answers. The paper states results directly:
+
+\begin{paperquote}
+\small ``[S]elf-consistency improves over chain-of-thought prompting by a striking margin across all tasks. In particular, when used with PaLM-540B or GPT-3, self-consistency achieves new state-of-the-art levels of performance across arithmetic reasoning tasks, including GSM8K (+17.9\%), SVAMP (+11.0\%), AQuA (+12.2\%).''\\
+\hfill --- Wang et al.\ (2022)
+\end{paperquote}
+
+The mechanism: when generator errors are random and diverse, majority voting exploits the model's better-than-chance validation capacity implicitly, without any explicit verifier.
 
 \paragraph{Tree of Thoughts (Yao et al., 2023).}
 ToT frames reasoning as a search problem: the model generates, evaluates, and selects intermediate thought states via a tree structure. On Game of 24, performance jumps from near-zero with standard prompting to much higher success rates (near order-of-magnitude relative gain) with branching and value-guided search. The key insight: externalizing validation at intermediate steps via search prevents commitment to early wrong branches.
@@ -221,10 +272,24 @@ Described in Section 3 above. Relevant to origin: the latent truth signal is pre
 Kuhn et al.\ show that semantic entropy---clustering sampled outputs by meaning before computing entropy---is a better \emph{predictor of model correctness} (higher AUROC) than token-level sequence entropy or P(True) baselines. The paper explicitly cautions against using standard calibration metrics for free-form NLG; the improvement is in uncertainty estimation, not calibration per se. The key implication is that how you aggregate uncertainty signals from generation samples---measuring meaning-space variance rather than token-level variance---changes the quality of the readout. Uncertainty is partly a readout design problem, not only a model capability problem.
 
 \paragraph{Benchmarking and Improving Generator--Validator Consistency (Li et al., 2023).}
-This Stanford paper directly measures and frames the GV gap. They evaluate models across tasks on generation accuracy versus discrimination/validation accuracy and show a persistent gap: models validate better than they generate. They propose training interventions that improve consistency. This is the paper that most directly names and quantifies the problem this survey is organized around.
+This Stanford paper directly measures and frames the GV gap, proposing a consistency fine-tuning approach where generator and validator learn from each other by filtering to consistent pairs:
+
+\begin{paperquote}
+\small ``[O]ur method improves the generator quality by 16\% and the validator accuracy by 6.3\%. \ldots\ [T]he skill of generator-validator consistency generalizes to unseen domains.''\\
+\hfill --- Li et al.\ (2023)
+\end{paperquote}
+
+This is the paper that most directly names and operationalizes the problem this survey is organized around, alongside RankAlign.
 
 \paragraph{RankAlign (Rodriguez et al., 2025).}
-RankAlign explicitly addresses the GV gap from a ranking perspective: generator and validator produce different orderings over candidate responses, and the paper trains toward agreement between them. Empirical results show reduced measured gap across multiple benchmarks. As the central anchor paper for this literature survey, it provides both diagnostic tooling and a training-level intervention.
+RankAlign defines the GV gap in terms of the \emph{correlation of generator and validator log-odds} over candidate completions, then introduces a ranking-based loss to align them:
+
+\begin{paperquote}
+\small ``We find this strategy significantly reduces the G-V gap across models by 31.8\% on average, giving substantially higher correlation between generator and validator \ldots\ Moreover, our approach generalizes well to unseen tasks, indicating that closing the G-V gap is a skill that transfers.''\\
+\hfill --- Rodriguez et al.\ (RankAlign, 2025)
+\end{paperquote}
+
+As the central anchor paper for this literature survey, it provides both a precise diagnostic (log-odds correlation) and a practical training-level intervention.
 
 \paragraph{Post-training effects: InstructGPT, DPO.}
 InstructGPT (Ouyang et al.) shows that preference tuning substantially narrows the gap between model output and human expectations---a 1.3B InstructGPT model is preferred over the 175B base GPT-3 on most evaluated prompts. The paper also documents that InstructGPT shows improvements in truthfulness and toxicity reduction, though the precise effects on generation--validation consistency are not directly quantified in that work. DPO (Rafailov et al.) achieves comparable preference-optimization gains with a simpler, PPO-free objective, as documented in Q1. The clearest path to origin-consistent post-training remains process/verifier supervision (Cobbe; Uesato; Lightman) that provides explicit credit assignment at the step level, rather than outcome-only preference optimization.
